@@ -1,67 +1,1691 @@
+
 <!DOCTYPE html>
-<html lang="si">
+<html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="NextGen Learn - Learn, grow and achieve. Free learning resources for Sri Lankan students.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080d1c">
+  <meta name="description" content="NextGen Learn - Your modern learning destination for Grades 1 to 13 in Sri Lanka.">
   <title>NextGen Learn | Learn Beyond Limits</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Noto+Sans+Sinhala:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800;900&family=Noto+Sans+Sinhala:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================
+       1. GLOBAL THEME
+    ========================== */
+
+    :root {
+      --bg: #080d1c;
+      --bg2: #101a32;
+      --surface: rgba(255,255,255,.075);
+      --surface2: rgba(255,255,255,.12);
+      --text: #f4f7ff;
+      --muted: #aab5cf;
+      --border: rgba(255,255,255,.13);
+      --primary: #8265ff;
+      --secondary: #00d9ff;
+      --pink: #ff65c3;
+      --green: #40e7a0;
+      --shadow: 0 20px 60px rgba(0,0,0,.25);
+    }
+
+    body.light {
+      --bg: #eef3ff;
+      --bg2: #dfe8ff;
+      --surface: rgba(255,255,255,.65);
+      --surface2: rgba(255,255,255,.9);
+      --text: #15203b;
+      --muted: #586782;
+      --border: rgba(45,65,110,.14);
+      --shadow: 0 20px 60px rgba(55,75,130,.12);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Nunito Sans", "Noto Sans Sinhala", "Noto Sans Tamil", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      transition: background .4s, color .4s;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .container {
+      width: min(1160px, 91%);
+      margin: auto;
+    }
+
+    .glass {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, var(--secondary), #a18aff, var(--pink));
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    /* =========================
+       2. ANIMATED BACKGROUND
+    ========================== */
+
+    .background-effects {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .orb {
+      position: absolute;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: .25;
+      animation: floatOrb 12s infinite alternate ease-in-out;
+    }
+
+    .orb.one {
+      background: #713cff;
+      top: -130px;
+      left: -100px;
+    }
+
+    .orb.two {
+      background: #00cfff;
+      right: -150px;
+      top: 30%;
+      animation-delay: -4s;
+    }
+
+    .orb.three {
+      background: #ff36a9;
+      bottom: -180px;
+      left: 35%;
+      animation-delay: -7s;
+    }
+
+    @keyframes floatOrb {
+      from { transform: translate(0,0) scale(1); }
+      to { transform: translate(70px,60px) scale(1.2); }
+    }
+
+    .particles {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(2px 2px at 20% 30%, #ffffff66 50%, transparent),
+        radial-gradient(2px 2px at 70% 60%, #ffffff55 50%, transparent),
+        radial-gradient(2px 2px at 40% 80%, #ffffff55 50%, transparent),
+        radial-gradient(2px 2px at 85% 15%, #ffffff66 50%, transparent);
+      background-size: 250px 250px;
+      animation: particleMove 30s linear infinite;
+    }
+
+    @keyframes particleMove {
+      to { background-position: 250px 250px; }
+    }
+
+    /* =========================
+       3. NAVIGATION
+    ========================== */
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 15px 0;
+      background: var(--bg);
+      background: color-mix(in srgb, var(--bg) 78%, transparent);
+      backdrop-filter: blur(22px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 23px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .logo-icon {
+      width: 43px;
+      height: 43px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      box-shadow: 0 5px 25px #8265ff55;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 800;
+      transition: .3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--secondary);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .icon-btn {
+      width: 41px;
+      height: 41px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: var(--surface);
+      color: var(--text);
+      font-size: 18px;
+    }
+
+    .language-select {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 11px;
+      border-radius: 12px;
+      outline: none;
+    }
+
+    .language-select option {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .menu-btn {
+      display: none;
+    }
+
+    /* =========================
+       4. BUTTONS
+    ========================== */
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 9px;
+      border: 0;
+      padding: 13px 21px;
+      border-radius: 13px;
+      font-weight: 900;
+      transition: .3s;
+    }
+
+    .btn-primary {
+      color: white;
+      background: linear-gradient(110deg, #7956ff, #a35cff);
+      box-shadow: 0 8px 25px #7956ff44;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 35px #7956ff77;
+    }
+
+    .btn-outline {
+      color: var(--text);
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    /* =========================
+       5. HERO SECTION
+    ========================== */
+
+    .hero {
+      min-height: 650px;
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: center;
+      gap: 50px;
+      padding: 90px 0 70px;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      gap: 9px;
+      align-items: center;
+      padding: 9px 15px;
+      border: 1px solid #8265ff66;
+      background: #8265ff16;
+      border-radius: 50px;
+      color: var(--secondary);
+      font-size: 13px;
+      font-weight: 900;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 6vw, 72px);
+      line-height: 1.12;
+      font-weight: 900;
+      letter-spacing: -2px;
+      margin-bottom: 23px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.9;
+      max-width: 550px;
+      margin-bottom: 30px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 35px;
+      margin-top: 45px;
+      flex-wrap: wrap;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 26px;
+      font-weight: 900;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* HERO VISUAL */
+
+    .hero-visual {
+      position: relative;
+      min-height: 420px;
+      display: grid;
+      place-items: center;
+    }
+
+    .visual-circle {
+      width: min(340px, 75vw);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8265ff44, #00d9ff33, #ff65c344);
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      animation: breathe 5s infinite ease-in-out;
+      box-shadow: 0 0 90px #8265ff33;
+    }
+
+    @keyframes breathe {
+      50% { transform: scale(1.06) rotate(5deg); }
+    }
+
+    .book {
+      font-size: 135px;
+      filter: drop-shadow(0 20px 20px #0005);
+      animation: bookFloat 4s infinite ease-in-out;
+    }
+
+    @keyframes bookFloat {
+      50% { transform: translateY(-18px) rotate(-5deg); }
+    }
+
+    .floating-card {
+      position: absolute;
+      padding: 15px 18px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: cardFloat 5s infinite ease-in-out;
+    }
+
+    .floating-card strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .floating-card small {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .float-one {
+      top: 45px;
+      left: 0;
+    }
+
+    .float-two {
+      right: -5px;
+      bottom: 65px;
+      animation-delay: -2s;
+    }
+
+    .float-icon {
+      font-size: 25px;
+    }
+
+    @keyframes cardFloat {
+      50% { transform: translateY(-12px); }
+    }
+
+    /* =========================
+       6. SEARCH
+    ========================== */
+
+    .search-section {
+      margin: 15px auto 80px;
+      max-width: 760px;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      padding: 9px;
+      border-radius: 19px;
+      gap: 12px;
+    }
+
+    .search-box span {
+      padding-left: 12px;
+      font-size: 22px;
+    }
+
+    .search-box input {
+      flex: 1;
+      min-width: 0;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: var(--text);
+      padding: 12px 0;
+    }
+
+    .search-box input::placeholder {
+      color: var(--muted);
+    }
+
+    #searchResults {
+      margin-top: 12px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .search-result {
+      display: block;
+      padding: 14px 18px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: var(--surface);
+    }
+
+    .search-result:hover {
+      border-color: var(--secondary);
+    }
+
+    /* =========================
+       7. GENERAL SECTIONS
+    ========================== */
+
+    section.content-section {
+      padding: 75px 0;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .section-heading .mini {
+      color: var(--secondary);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(29px, 4vw, 43px);
+      margin: 12px 0;
+      font-weight: 900;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      max-width: 600px;
+      margin: auto;
+      line-height: 1.8;
+    }
+
+    /* =========================
+       8. GRADES
+    ========================== */
+
+    .grade-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .grade-tab {
+      padding: 11px 20px;
+      border-radius: 50px;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-weight: 800;
+    }
+
+    .grade-tab.active {
+      color: white;
+      background: linear-gradient(110deg, #7956ff, #a35cff);
+    }
+
+    .grade-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 15px;
+    }
+
+    .grade-card {
+      min-height: 130px;
+      padding: 20px 10px;
+      text-align: center;
+      border-radius: 19px;
+      transition: .3s;
+    }
+
+    .grade-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--secondary);
+      background: var(--surface2);
+    }
+
+    .grade-card .number {
+      font-size: 31px;
+      font-weight: 900;
+      color: var(--secondary);
+    }
+
+    .grade-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    /* =========================
+       9. STUDENT DASHBOARD
+    ========================== */
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 20px;
+    }
+
+    .dashboard-card {
+      padding: 28px;
+      border-radius: 23px;
+    }
+
+    .dashboard-card h3 {
+      margin-bottom: 12px;
+      font-size: 21px;
+    }
+
+    .dashboard-card p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .progress-item {
+      margin-top: 22px;
+    }
+
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 9px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .progress-track {
+      height: 9px;
+      border-radius: 50px;
+      background: var(--surface2);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 50px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      animation: progressGrow 2s ease both;
+    }
+
+    @keyframes progressGrow {
+      from { width: 0; }
+    }
+
+    .achievement-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .achievement {
+      width: 67px;
+      height: 67px;
+      display: grid;
+      place-items: center;
+      font-size: 30px;
+      border-radius: 18px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+    }
+
+    /* =========================
+       10. FEATURES
+    ========================== */
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature-card {
+      padding: 27px;
+      border-radius: 22px;
+      transition: .35s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      border-color: #8265ff99;
+    }
+
+    .feature-icon {
+      width: 55px;
+      height: 55px;
+      border-radius: 17px;
+      display: grid;
+      place-items: center;
+      font-size: 26px;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #8265ff33, #00d9ff33);
+    }
+
+    .feature-card h3 {
+      font-size: 19px;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* =========================
+       11. QUIZ CTA
+    ========================== */
+
+    .quiz-banner {
+      padding: 55px 35px;
+      text-align: center;
+      border-radius: 28px;
+      background:
+        linear-gradient(120deg, #7956ffcc, #00bde0aa),
+        var(--surface);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quiz-banner h2 {
+      font-size: clamp(27px, 4vw, 40px);
+      margin-bottom: 12px;
+    }
+
+    .quiz-banner p {
+      margin: 0 auto 25px;
+      max-width: 600px;
+      line-height: 1.8;
+      color: #ffffffdd;
+    }
+
+    .quiz-banner .btn {
+      background: white;
+      color: #4932a0;
+    }
+
+    /* =========================
+       12. FOOTER
+    ========================== */
+
+    footer {
+      margin-top: 70px;
+      padding: 55px 0 25px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 35px;
+    }
+
+    .footer-grid p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 13px;
+      margin-top: 15px;
+      max-width: 360px;
+    }
+
+    .footer-grid h4 {
+      margin-bottom: 15px;
+    }
+
+    .footer-grid a {
+      display: block;
+      color: var(--muted);
+      margin: 10px 0;
+      font-size: 13px;
+    }
+
+    .footer-grid a:hover {
+      color: var(--secondary);
+    }
+
+    .copyright {
+      text-align: center;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 22px;
+      font-size: 12px;
+    }
+
+    /* =========================
+       13. ANIMATIONS ON SCROLL
+    ========================== */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: .8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =========================
+       14. MOBILE DESIGN
+    ========================== */
+
+    @media(max-width: 900px) {
+      .nav-links {
+        gap: 13px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-buttons, .hero-stats {
+        justify-content: center;
+      }
+
+      .hero-visual {
+        min-height: 360px;
+      }
+
+      .grade-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media(max-width: 650px) {
+      .navbar {
+        padding: 11px 0;
+      }
+
+      .logo {
+        font-size: 19px;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 75px;
+        left: 4%;
+        width: 92%;
+        padding: 20px;
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 10px;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .language-select {
+        max-width: 85px;
+        padding: 9px 5px;
+        font-size: 11px;
+      }
+
+      .hero {
+        padding-top: 65px;
+        gap: 20px;
+      }
+
+      .hero h1 {
+        letter-spacing: -1px;
+      }
+
+      .hero p {
+        font-size: 14px;
+      }
+
+      .hero-stats {
+        gap: 23px;
+      }
+
+      .float-one {
+        left: -5px;
+        top: 20px;
+      }
+
+      .float-two {
+        right: -5px;
+        bottom: 30px;
+      }
+
+      .floating-card {
+        padding: 10px;
+      }
+
+      .floating-card strong {
+        font-size: 11px;
+      }
+
+      .book {
+        font-size: 105px;
+      }
+
+      .grade-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .dashboard-grid, .feature-grid, .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section.content-section {
+        padding: 55px 0;
+      }
+
+      .search-box {
+        gap: 5px;
+      }
+
+      .search-box .btn {
+        padding: 12px;
+        font-size: 12px;
+      }
+
+      .quiz-banner {
+        padding: 40px 20px;
+      }
+    }
+
+    @media(prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
-<header class="site-header">
-  <a class="brand" href="index.html"><span class="brand-mark">N<span>+</span></span><span>NextGen <b>Learn</b><small>LEARN BEYOND LIMITS</small></span></a>
-  <button class="menu-toggle" aria-label="Open menu">☰</button>
-  <nav class="main-nav">
-    <a class="active" href="index.html" data-i18n="navHome">Home</a><a href="grades.html" data-i18n="navGrades">Grades</a>
-    <a href="study.html" data-i18n="navStudy">Study Hub</a><a href="quiz.html" data-i18n="navQuiz">Quizzes</a><a href="about.html" data-i18n="navAbout">About</a>
-  </nav>
-  <div class="header-actions"><select id="languageSelect" aria-label="Language"><option value="si">සිංහල</option><option value="en">English</option><option value="ta">தமிழ்</option></select><button class="theme-toggle" aria-label="Toggle theme">☼</button><a class="btn btn-small btn-primary" href="contact.html" data-i18n="getStarted">Get started <span>↗</span></a></div>
-</header>
-<main>
-<section class="hero section-wrap">
-  <div class="hero-copy reveal">
-    <div class="eyebrow"><span class="live-dot"></span><span data-i18n="eyebrow">YOUR FUTURE STARTS HERE</span></div>
-    <h1 data-i18n="heroTitle">Learn today.<br><span class="gradient-text">Lead tomorrow.</span></h1>
-    <p data-i18n="heroText">A brighter way to learn for every Sri Lankan student. Explore lessons, practise your skills and move towards your dreams — for free.</p>
-    <div class="hero-actions"><a class="btn btn-primary" href="grades.html" data-i18n="explore">Explore learning <span>↗</span></a><a class="btn btn-glass" href="about.html"><span class="play-icon">▶</span><span data-i18n="discover">Discover NextGen</span></a></div>
-    <div class="hero-proof"><div class="avatar-stack"><i>📘</i><i>💡</i><i>🎓</i></div><div><strong data-i18n="madeFor">Made for curious minds</strong><small data-i18n="freeLearning">Free learning. Endless possibilities.</small></div></div>
+
+  <!-- BACKGROUND -->
+  <div class="background-effects">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+    <div class="particles"></div>
   </div>
-  <div class="hero-art reveal">
-    <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
-    <div class="hero-glow"></div>
-    <div class="float-card float-top"><span class="float-icon purple">✦</span><span><b>Think bigger</b><small>Every day is a new chance</small></span></div>
-    <div class="learning-window">
-      <div class="window-top"><span></span><span></span><span></span><b>YOUR LEARNING SPACE</b></div>
-      <div class="book-scene"><div class="book book-left"></div><div class="book book-right"></div><div class="spark spark-one">✦</div><div class="spark spark-two">✧</div><div class="scene-cap">KNOWLEDGE<br><strong>OPENS DOORS</strong></div></div>
-      <div class="window-bottom"><span>✧</span><b>Curiosity looks good on you.</b><span>↗</span></div>
+
+  <!-- NAVIGATION -->
+  <header class="navbar">
+    <div class="container nav-content">
+
+      <a href="index.html" class="logo">
+        <span class="logo-icon">N</span>
+        <span>NextGen <span class="gradient-text">Learn</span></span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html" data-i18n="home">Home</a>
+        <a href="grades.html" data-i18n="grades">Grades</a>
+        <a href="resources.html" data-i18n="resources">Resources</a>
+        <a href="dashboard.html" data-i18n="dashboard">Dashboard</a>
+        <a href="about.html" data-i18n="about">About</a>
+      </nav>
+
+      <div class="nav-actions">
+
+        <select class="language-select" id="languageSelect"
+                aria-label="Select language">
+          <option value="en">EN</option>
+          <option value="si">සිං</option>
+          <option value="ta">தமிழ்</option>
+        </select>
+
+        <button class="icon-btn" id="themeToggle"
+                aria-label="Toggle dark or light mode">☀️</button>
+
+        <button class="icon-btn menu-btn" id="menuToggle"
+                aria-label="Open menu">☰</button>
+      </div>
     </div>
-    <div class="float-card float-bottom"><span class="float-icon mint">✓</span><span><b>One step at a time</b><small>Your progress matters</small></span></div>
-    <div class="tiny-bubble bubble-one">∑</div><div class="tiny-bubble bubble-two">Aa</div>
-  </div>
-</section>
-<section class="stats section-wrap reveal"><div><strong>01—13</strong><span>School grades</span></div><div><strong>03</strong><span>Learning languages</span></div><div><strong>100%</strong><span>Free to explore</span></div><div><strong>∞</strong><span>Room to grow</span></div></section>
-<section class="section-wrap section-block">
-  <div class="section-heading reveal"><div><div class="eyebrow">FIND YOUR PATH</div><h2 data-i18n="pathTitle">A learning path for <span class="gradient-text">every stage.</span></h2></div><a class="text-link" href="grades.html" data-i18n="allGrades">View all grades ↗</a></div>
-  <div class="grade-grid">
-    <a class="grade-card grade-lilac reveal" href="grades.html"><div class="card-top"><span class="card-symbol">✿</span><span class="arrow-round">↗</span></div><small>GRADE 01 — 05</small><h3 data-i18n="primary">Primary<br>Learning</h3><p data-i18n="primaryDesc">Build strong foundations through discovery.</p><div class="card-art art-sun">☀</div></a>
-    <a class="grade-card grade-blue reveal" href="grades.html"><div class="card-top"><span class="card-symbol">⌘</span><span class="arrow-round">↗</span></div><small>GRADE 06 — 09</small><h3 data-i18n="junior">Junior<br>Secondary</h3><p data-i18n="juniorDesc">Explore new ideas and find your strengths.</p><div class="card-art art-orbit">◎</div></a>
-    <a class="grade-card grade-peach reveal" href="ol.html"><div class="card-top"><span class="card-symbol">✧</span><span class="arrow-round">↗</span></div><small>GRADE 10 — 11</small><h3>O/L<br>Preparation</h3><p>Practice with purpose. Prepare with confidence.</p><div class="card-art art-star">✳</div></a>
-    <a class="grade-card grade-mint reveal" href="al.html"><div class="card-top"><span class="card-symbol">↗</span><span class="arrow-round">↗</span></div><small>GRADE 12 — 13</small><h3>A/L<br>Journey</h3><p>Go deeper, think further, shape your future.</p><div class="card-art art-ring">◉</div></a>
-  </div>
-</section>
-<section class="feature-band section-wrap reveal"><div class="feature-copy"><div class="eyebrow">MADE TO MOVE YOU FORWARD</div><h2 data-i18n="featureTitle">Small steps.<br><span class="gradient-text">Big possibilities.</span></h2><p data-i18n="featureText">Learning works best when it feels clear, encouraging and fun. Find resources, test what you know and keep discovering.</p><a class="btn btn-dark" href="study.html" data-i18n="visitHub">Visit study hub ↗</a></div><div class="feature-visual"><div class="feature-ring"></div><div class="feature-note note-one">✦ Stay curious</div><div class="feature-note note-two">✎ Keep practising</div><div class="feature-note note-three">⌁ Grow every day</div><div class="big-lightbulb">💡</div></div></section>
-<section class="section-wrap section-block">
-  <div class="section-heading reveal"><div><div class="eyebrow">LEARN YOUR WAY</div><h2 data-i18n="toolsTitle">Tools that make learning <span class="gradient-text">click.</span></h2></div></div>
-  <div class="tool-grid">
-    <a href="study.html" class="tool-card reveal"><div class="tool-icon icon-violet">▤</div><h3 data-i18n="notes">Study Materials</h3><p data-i18n="notesDesc">Organise your learning with helpful notes and resources.</p><span>Explore resources ↗</span></a>
-    <a href="quiz.html" class="tool-card reveal"><div class="tool-icon icon-coral">✎</div><h3 data-i18n="quizzes">Quick Quizzes</h3><p data-i18n="quizDesc">Check your understanding with short practice quizzes.</p><span>Try a quiz ↗</span></a>
-    <a href="grades.html" class="tool-card reveal"><div class="tool-icon icon-teal">⌖</div><h3 data-i18n="allGrades">Grade Guide</h3><p data-i18n="gradeDesc">Find a learning path that matches your school grade.</p><span>Find your grade ↗</span></a>
-  </div>
-</section>
-<section class="quote-section section-wrap reveal"><div class="quote-mark">“</div><p data-i18n="quote">Your journey is unique. Keep learning, keep asking, keep becoming.</p><span>NEXTGEN LEARN — A SPACE TO GROW</span></section>
-</main>
-<footer class="site-footer"><div class="footer-main"><a class="brand" href="index.html"><span class="brand-mark">N<span>+</span></span><span>NextGen <b>Learn</b><small>LEARN BEYOND LIMITS</small></span></a><p data-i18n="footerText">A free learning space created to encourage curious minds across Sri Lanka.</p><div class="footer-links"><a href="grades.html">Grades</a><a href="study.html">Study Hub</a><a href="contact.html">Contact</a></div></div><div class="footer-bottom"><span>© 2026 NextGen Learn</span><span>Learn with curiosity ✦</span></div></footer>
-<script src="js/translations.js"></script><script src="js/main.js"></script>
-</body></html>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="container hero">
+
+      <div class="hero-content reveal">
+
+        <div class="hero-tag">
+          ✨ <span data-i18n="tag">YOUR FUTURE STARTS HERE</span>
+        </div>
+
+        <h1>
+          <span data-i18n="heroLine1">Learn Beyond</span><br>
+          <span class="gradient-text" data-i18n="heroLine2">Limits.</span>
+        </h1>
+
+        <p data-i18n="heroDescription">
+          Discover a smarter way to learn. Explore lessons,
+          educational resources, quizzes and your learning
+          journey — all in one place.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="grades.html" class="btn btn-primary">
+            <span data-i18n="explore">Explore Learning</span> →
+          </a>
+
+          <a href="dashboard.html" class="btn btn-outline">
+            <span data-i18n="dashboardBtn">My Dashboard</span> ↗
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <strong class="gradient-text">1–13</strong>
+            <span data-i18n="statGrades">School Grades</span>
+          </div>
+
+          <div class="stat">
+            <strong class="gradient-text">3</strong>
+            <span data-i18n="statLanguages">Languages</span>
+          </div>
+
+          <div class="stat">
+            <strong class="gradient-text">∞</strong>
+            <span data-i18n="statLearning">Learning Possibilities</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- HERO ANIMATION -->
+      <div class="hero-visual reveal">
+
+        <div class="visual-circle">
+          <div class="book">📚</div>
+        </div>
+
+        <div class="floating-card float-one glass">
+          <span class="float-icon">🎯</span>
+          <div>
+            <strong data-i18n="goalTitle">Your Goals</strong>
+            <small data-i18n="goalSub">Keep moving forward</small>
+          </div>
+        </div>
+
+        <div class="floating-card float-two glass">
+          <span class="float-icon">🏆</span>
+          <div>
+            <strong data-i18n="achievementTitle">Achievements</strong>
+            <small data-i18n="achievementSub">Celebrate progress</small>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- SMART SEARCH -->
+    <section class="container search-section reveal">
+
+      <div class="section-heading">
+        <div class="mini" data-i18n="searchMini">SMART LEARNING SEARCH</div>
+        <h2 data-i18n="searchTitle">What do you want to learn?</h2>
+      </div>
+
+      <div class="search-box glass">
+        <span>🔎</span>
+
+        <input type="search" id="smartSearch"
+               placeholder="Search grades, resources and more..."
+               data-placeholder="searchPlaceholder">
+
+        <button class="btn btn-primary" id="searchButton"
+                data-i18n="searchButton">Search</button>
+      </div>
+
+      <div id="searchResults"></div>
+
+    </section>
+
+    <!-- GRADES -->
+    <section class="container content-section" id="grades">
+
+      <div class="section-heading reveal">
+        <div class="mini" data-i18n="gradeMini">CHOOSE YOUR LEVEL</div>
+        <h2 data-i18n="gradeTitle">Explore Your Grade</h2>
+        <p data-i18n="gradeDescription">
+          Find learning materials and educational content
+          organized for your school grade.
+        </p>
+      </div>
+
+      <div class="grade-tabs reveal">
+        <button class="grade-tab active" data-group="all"
+                data-i18n="allGrades">All Grades</button>
+        <button class="grade-tab" data-group="junior"
+                data-i18n="juniorGrades">Grades 1–9</button>
+        <button class="grade-tab" data-group="senior"
+                data-i18n="seniorGrades">Grades 10–13</button>
+      </div>
+
+      <div class="grade-grid" id="gradeGrid">
+
+        <!-- Grade cards generated by JavaScript -->
+
+      </div>
+
+    </section>
+
+    <!-- STUDENT DASHBOARD -->
+    <section class="container content-section">
+
+      <div class="section-heading reveal">
+        <div class="mini" data-i18n="dashboardMini">YOUR LEARNING SPACE</div>
+        <h2 data-i18n="dashboardTitle">Student Dashboard</h2>
+        <p data-i18n="dashboardDescription">
+          Track your learning journey and celebrate
+          every milestone.
+        </p>
+      </div>
+
+      <div class="dashboard-grid">
+
+        <div class="dashboard-card glass reveal">
+          <h3>📈 <span data-i18n="progressTitle">Learning Progress</span></h3>
+
+          <p data-i18n="progressDescription">
+            A sample preview of your learning progress.
+          </p>
+
+          <div class="progress-item">
+            <div class="progress-top">
+              <span data-i18n="subjectMath">Mathematics</span>
+              <span>75%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" style="width:75%"></div>
+            </div>
+          </div>
+
+          <div class="progress-item">
+            <div class="progress-top">
+              <span data-i18n="subjectScience">Science</span>
+              <span>60%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" style="width:60%"></div>
+            </div>
+          </div>
+
+          <div class="progress-item">
+            <div class="progress-top">
+              <span data-i18n="subjectEnglish">English</span>
+              <span>85%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" style="width:85%"></div>
+            </div>
+          </div>
+
+          <br>
+          <a href="dashboard.html" class="btn btn-outline">
+            <span data-i18n="viewDashboard">View Dashboard</span> →
+          </a>
+        </div>
+
+        <div class="dashboard-card glass reveal">
+
+          <h3>🏅 <span data-i18n="badgesTitle">Achievement Badges</span></h3>
+
+          <p data-i18n="badgesDescription">
+            Every step forward is worth celebrating.
+          </p>
+
+          <div class="achievement-row">
+            <div class="achievement" title="First Step">🌟</div>
+            <div class="achievement" title="Quiz Master">🧠</div>
+            <div class="achievement" title="Consistent Learner">🔥</div>
+            <div class="achievement" title="Champion">🏆</div>
+          </div>
+
+          <br><br>
+
+          <a href="dashboard.html" class="btn btn-primary">
+            <span data-i18n="myAchievements">My Achievements</span> →
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- FEATURES -->
+    <section class="container content-section">
+
+      <div class="section-heading reveal">
+        <div class="mini" data-i18n="featureMini">A BETTER WAY TO LEARN</div>
+        <h2 data-i18n="featureTitle">Explore Our Features</h2>
+        <p data-i18n="featureDescription">
+          Everything you need to make your learning
+          experience more enjoyable.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+
+        <a href="resources.html" class="feature-card glass reveal">
+          <div class="feature-icon">📚</div>
+          <h3 data-i18n="feature1Title">Learning Library</h3>
+          <p data-i18n="feature1Desc">
+            Explore organized educational resources and lessons.
+          </p>
+        </a>
+
+        <a href="quiz.html" class="feature-card glass reveal">
+          <div class="feature-icon">🧠</div>
+          <h3 data-i18n="feature2Title">Interactive Quizzes</h3>
+          <p data-i18n="feature2Desc">
+            Test your knowledge through engaging quizzes.
+          </p>
+        </a>
+
+        <a href="planner.html" class="feature-card glass reveal">
+          <div class="feature-icon">📅</div>
+          <h3 data-i18n="feature3Title">Study Planner</h3>
+          <p data-i18n="feature3Desc">
+            Organize your learning activities and study goals.
+          </p>
+        </a>
+
+        <a href="dashboard.html" class="feature-card glass reveal">
+          <div class="feature-icon">📊</div>
+          <h3 data-i18n="feature4Title">Progress Tracking</h3>
+          <p data-i18n="feature4Desc">
+            Follow your progress and celebrate achievements.
+          </p>
+        </a>
+
+        <a href="grades.html" class="feature-card glass reveal">
+          <div class="feature-icon">🎓</div>
+          <h3 data-i18n="feature5Title">Grade Based Learning</h3>
+          <p data-i18n="feature5Desc">
+            Find content arranged according to your grade.
+          </p>
+        </a>
+
+        <a href="about.html" class="feature-card glass reveal">
+          <div class="feature-icon">🌍</div>
+          <h3 data-i18n="feature6Title">Three Languages</h3>
+          <p data-i18n="feature6Desc">
+            Explore the website in Sinhala, English and Tamil.
+          </p>
+        </a>
+
+      </div>
+
+    </section>
+
+    <!-- QUIZ BANNER -->
+    <section class="container content-section">
+      <div class="quiz-banner reveal">
+        <h2 data-i18n="quizTitle">Ready to Challenge Yourself? 🚀</h2>
+        <p data-i18n="quizDescription">
+          Take a quiz, test your knowledge and discover
+          what you can achieve.
+        </p>
+        <a href="quiz.html" class="btn">
+          <span data-i18n="startQuiz">Start a Quiz</span> →
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div>
+          <a href="index.html" class="logo">
+            <span class="logo-icon">N</span>
+            <span>NextGen <span class="gradient-text">Learn</span></span>
+          </a>
+
+          <p data-i18n="footerDescription">
+            Empowering students through accessible,
+            modern and enjoyable education.
+          </p>
+        </div>
+
+        <div>
+          <h4 data-i18n="quickLinks">Quick Links</h4>
+          <a href="index.html" data-i18n="home">Home</a>
+          <a href="grades.html" data-i18n="grades">Grades</a>
+          <a href="resources.html" data-i18n="resources">Resources</a>
+        </div>
+
+        <div>
+          <h4 data-i18n="moreLinks">More</h4>
+          <a href="dashboard.html" data-i18n="dashboard">Dashboard</a>
+          <a href="quiz.html" data-i18n="quizzes">Quizzes</a>
+          <a href="about.html" data-i18n="about">About</a>
+        </div>
+
+      </div>
+
+      <div class="copyright">
+        © <span id="year"></span> NextGen Learn.
+        <span data-i18n="copyright">All rights reserved.</span>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+
+  <script>
+
+    /* LANGUAGE SYSTEM */
+
+    const translations = {
+
+      en: {
+        home:"Home", grades:"Grades", resources:"Resources",
+        dashboard:"Dashboard", about:"About",
+        tag:"YOUR FUTURE STARTS HERE",
+        heroLine1:"Learn Beyond", heroLine2:"Limits.",
+        heroDescription:"Discover a smarter way to learn. Explore lessons, educational resources, quizzes and your learning journey — all in one place.",
+        explore:"Explore Learning", dashboardBtn:"My Dashboard",
+        statGrades:"School Grades", statLanguages:"Languages",
+        statLearning:"Learning Possibilities",
+        goalTitle:"Your Goals", goalSub:"Keep moving forward",
+        achievementTitle:"Achievements", achievementSub:"Celebrate progress",
+        searchMini:"SMART LEARNING SEARCH",
+        searchTitle:"What do you want to learn?",
+        searchPlaceholder:"Search grades, resources and more...",
+        searchButton:"Search",
+        gradeMini:"CHOOSE YOUR LEVEL",
+        gradeTitle:"Explore Your Grade",
+        gradeDescription:"Find learning materials and educational content organized for your school grade.",
+        allGrades:"All Grades", juniorGrades:"Grades 1–9",
+        seniorGrades:"Grades 10–13",
+        dashboardMini:"YOUR LEARNING SPACE",
+        dashboardTitle:"Student Dashboard",
+        dashboardDescription:"Track your learning journey and celebrate every milestone.",
+        progressTitle:"Learning Progress",
+        progressDescription:"A sample preview of your learning progress.",
+        subjectMath:"Mathematics", subjectScience:"Science",
+        subjectEnglish:"English", viewDashboard:"View Dashboard",
+        badgesTitle:"Achievement Badges",
+        badgesDescription:"Every step forward is worth celebrating.",
+        myAchievements:"My Achievements",
+        featureMini:"A BETTER WAY TO LEARN",
+        featureTitle:"Explore Our Features",
+        featureDescription:"Everything you need to make your learning experience more enjoyable.",
+        feature1Title:"Learning Library",
+        feature1Desc:"Explore organized educational resources and lessons.",
+        feature2Title:"Interactive Quizzes",
+        feature2Desc:"Test your knowledge through engaging quizzes.",
+        feature3Title:"Study Planner",
+        feature3Desc:"Organize your learning activities and study goals.",
+        feature4Title:"Progress Tracking",
+        feature4Desc:"Follow your progress and celebrate achievements.",
+        feature5Title:"Grade Based Learning",
+        feature5Desc:"Find content arranged according to your grade.",
+        feature6Title:"Three Languages",
+        feature6Desc:"Explore the website in Sinhala, English and Tamil.",
+        quizTitle:"Ready to Challenge Yourself? 🚀",
+        quizDescription:"Take a quiz, test your knowledge and discover what you can achieve.",
+        startQuiz:"Start a Quiz",
+        footerDescription:"Empowering students through accessible, modern and enjoyable education.",
+        quickLinks:"Quick Links", moreLinks:"More", quizzes:"Quizzes",
+        copyright:"All rights reserved.",
+        gradeLabel:"Grade", gradeOpen:"Explore Grade",
+        noResults:"No matching results found."
+      },
+
+      si: {
+        home:"මුල් පිටුව", grades:"ශ්‍රේණි", resources:"අධ්‍යාපන සම්පත්",
+        dashboard:"ශිෂ්‍ය Dashboard", about:"අප ගැන",
+        tag:"ඔබේ අනාගතය මෙතැනින් ඇරඹේ",
+        heroLine1:"සීමාවන් ඉක්මවා", heroLine2:"ඉගෙන ගන්න.",
+        heroDescription:"නවීන අධ්‍යාපන අත්දැකීමක් ලබාගන්න. පාඩම්, අධ්‍යාපන සම්පත්, ප්‍රශ්නාවලි සහ ඔබේ ඉගෙනුම් ගමන එකම තැනකින් සොයාගන්න.",
+        explore:"ඉගෙනීම ආරම්භ කරන්න", dashboardBtn:"මගේ Dashboard",
+        statGrades:"පාසල් ශ්‍රේණි", statLanguages:"භාෂා",
+        statLearning:"ඉගෙනුම් අවස්ථා",
+        goalTitle:"ඔබේ ඉලක්ක", goalSub:"ඉදිරියටම යන්න",
+        achievementTitle:"ජයග්‍රහණ", achievementSub:"ඔබේ ප්‍රගතිය සමරන්න",
+        searchMini:"ස්මාර්ට් සෙවුම් පද්ධතිය",
+        searchTitle:"ඔබ ඉගෙනගන්න කැමති මොනවාද?",
+        searchPlaceholder:"ශ්‍රේණි සහ අධ්‍යාපන සම්පත් සොයන්න...",
+        searchButton:"සොයන්න",
+        gradeMini:"ඔබේ ශ්‍රේණිය තෝරන්න",
+        gradeTitle:"ඔබේ ශ්‍රේණිය සොයාගන්න",
+        gradeDescription:"ඔබේ පාසල් ශ්‍රේණියට අදාළ අධ්‍යාපනික සම්පත් සොයාගන්න.",
+        allGrades:"සියලු ශ්‍රේණි", juniorGrades:"1–9 ශ්‍රේණි",
+        seniorGrades:"10–13 ශ්‍රේණි",
+        dashboardMini:"ඔබේ ඉගෙනුම් අවකාශය",
+        dashboardTitle:"ශිෂ්‍ය Dashboard",
+        dashboardDescription:"ඔබේ ඉගෙනුම් ප්‍රගතිය නිරීක්ෂණය කර සෑම ජයග්‍රහණයක්ම සමරන්න.",
+        progressTitle:"ඉගෙනුම් ප්‍රගතිය",
+        progressDescription:"ඔබේ ඉගෙනුම් ප්‍රගතියේ ආදර්ශයක්.",
+        subjectMath:"ගණිතය", subjectScience:"විද්‍යාව",
+        subjectEnglish:"ඉංග්‍රීසි", viewDashboard:"Dashboard බලන්න",
+        badgesTitle:"ජයග්‍රහණ ලාංඡන",
+        badgesDescription:"සෑම ඉදිරි පියවරක්ම වටිනා ජයග්‍රහණයකි.",
+        myAchievements:"මගේ ජයග්‍රහණ",
+        featureMini:"වඩාත් හොඳ ඉගෙනුම් අත්දැකීමක්",
+        featureTitle:"අපේ පහසුකම්",
+        featureDescription:"ඔබේ ඉගෙනුම් අත්දැකීම රසවත් කරන සියලු පහසුකම්.",
+        feature1Title:"අධ්‍යාපන පුස්තකාලය",
+        feature1Desc:"සංවිධානාත්මක පාඩම් සහ අධ්‍යාපන සම්පත්.",
+        feature2Title:"අන්තර්ක්‍රියාකාරී ප්‍රශ්නාවලි",
+        feature2Desc:"විනෝදයෙන් ඔබේ දැනුම පරීක්ෂා කරන්න.",
+        feature3Title:"පාඩම් කාලසටහන",
+        feature3Desc:"ඔබේ පාඩම් කටයුතු සහ ඉලක්ක සංවිධානය කරන්න.",
+        feature4Title:"ප්‍රගති නිරීක්ෂණය",
+        feature4Desc:"ඔබේ ප්‍රගතිය නිරීක්ෂණය කරන්න.",
+        feature5Title:"ශ්‍රේණි අනුව ඉගෙනීම",
+        feature5Desc:"ඔබේ ශ්‍රේණියට අදාළ අන්තර්ගතය සොයාගන්න.",
+        feature6Title:"භාෂා තුනක්",
+        feature6Desc:"සිංහල, ඉංග්‍රීසි සහ දෙමළ භාෂාවෙන් භාවිතා කරන්න.",
+        quizTitle:"ඔබේ දැනුම පරීක්ෂා කිරීමට සූදානම්ද? 🚀",
+        quizDescription:"ප්‍රශ්නාවලියකට සහභාගී වී ඔබේ දැනුම පරීක්ෂා කරන්න.",
+        startQuiz:"ප්‍රශ්නාවලිය අරඹන්න",
+        footerDescription:"නවීන සහ පහසු අධ්‍යාපනයක් තුළින් සිසුන් සවිබල ගැන්වීම.",
+        quickLinks:"ඉක්මන් සබැඳි", moreLinks:"තවත්", quizzes:"ප්‍රශ්නාවලි",
+        copyright:"සියලු හිමිකම් ඇවිරිණි.",
+        gradeLabel:"ශ්‍රේණිය", gradeOpen:"ශ්‍රේණියට පිවිසෙන්න",
+        noResults:"ගැළපෙන ප්‍රතිඵල හමු නොවීය."
+      },
+
+      ta: {
+        home:"முகப்பு", grades:"வகுப்புகள்", resources:"கல்வி வளங்கள்",
+        dashboard:"மாணவர் பலகை", about:"எங்களைப் பற்றி",
+        tag:"உங்கள் எதிர்காலம் இங்கே தொடங்குகிறது",
+        heroLine1:"எல்லைகளைத் தாண்டி", heroLine2:"கற்கலாம்.",
+        heroDescription:"சிறந்த கற்றல் அனுபவத்தைப் பெறுங்கள். பாடங்கள், கல்வி வளங்கள், வினாடி வினாக்கள் மற்றும் உங்கள் கற்றல் பயணம் அனைத்தும் ஒரே இடத்தில்.",
+        explore:"கற்றலை ஆராயுங்கள்", dashboardBtn:"எனது பலகை",
+        statGrades:"பள்ளி வகுப்புகள்", statLanguages:"மொழிகள்",
+        statLearning:"கற்றல் வாய்ப்புகள்",
+        goalTitle:"உங்கள் இலக்குகள்", goalSub:"முன்னேறிச் செல்லுங்கள்",
+        achievementTitle:"சாதனைகள்", achievementSub:"முன்னேற்றத்தைக் கொண்டாடுங்கள்",
+        searchMini:"சிறந்த தேடல் அமைப்பு",
+        searchTitle:"நீங்கள் என்ன கற்க விரும்புகிறீர்கள்?",
+        searchPlaceholder:"வகுப்புகள் மற்றும் வளங்களைத் தேடுங்கள்...",
+        searchButton:"தேடு",
+        gradeMini:"உங்கள் நிலையைத் தேர்ந்தெடுக்கவும்",
+        gradeTitle:"உங்கள் வகுப்பை ஆராயுங்கள்",
+        gradeDescription:"உங்கள் பள்ளி வகுப்பிற்கான கல்வி வளங்களைக் கண்டறியுங்கள்.",
+        allGrades:"அனைத்து வகுப்புகள்", juniorGrades:"1–9 வகுப்புகள்",
+        seniorGrades:"10–13 வகுப்புகள்",
+        dashboardMini:"உங்கள் கற்றல் இடம்",
+        dashboardTitle:"மாணவர் பலகை",
+        dashboardDescription:"உங்கள் கற்றல் முன்னேற்றத்தைக் கண்காணித்து சாதனைகளைக் கொண்டாடுங்கள்.",
+        progressTitle:"கற்றல் முன்னேற்றம்",
+        progressDescription:"உங்கள் கற்றல் முன்னேற்றத்தின் மாதிரி.",
+        subjectMath:"கணிதம்", subjectScience:"அறிவியல்",
+        subjectEnglish:"ஆங்கிலம்", viewDashboard:"பலகையைப் பார்க்கவும்",
+        badgesTitle:"சாதனைப் பதக்கங்கள்",
+        badgesDescription:"ஒவ்வொரு முன்னேற்றமும் கொண்டாடப்பட வேண்டியது.",
+        myAchievements:"எனது சாதனைகள்",
+        featureMini:"சிறந்த கற்றல் முறை",
+        featureTitle:"எங்கள் அம்சங்களை ஆராயுங்கள்",
+        featureDescription:"உங்கள் கற்றல் அனுபவத்தை மேம்படுத்தும் அம்சங்கள்.",
+        feature1Title:"கற்றல் நூலகம்",
+        feature1Desc:"ஒழுங்கமைக்கப்பட்ட கல்வி வளங்களையும் பாடங்களையும் ஆராயுங்கள்.",
+        feature2Title:"வினாடி வினாக்கள்",
+        feature2Desc:"சுவாரஸ்யமான வினாக்கள் மூலம் அறிவைச் சோதியுங்கள்.",
+        feature3Title:"படிப்பு திட்டம்",
+        feature3Desc:"உங்கள் கற்றல் செயல்பாடுகளைத் திட்டமிடுங்கள்.",
+        feature4Title:"முன்னேற்ற கண்காணிப்பு",
+        feature4Desc:"உங்கள் முன்னேற்றத்தைக் கண்காணியுங்கள்.",
+        feature5Title:"வகுப்பு அடிப்படையிலான கற்றல்",
+        feature5Desc:"உங்கள் வகுப்பிற்கான உள்ளடக்கத்தைக் கண்டறியுங்கள்.",
+        feature6Title:"மூன்று மொழிகள்",
+        feature6Desc:"சிங்களம், ஆங்கிலம் மற்றும் தமிழ் மொழிகளில் பயன்படுத்துங்கள்.",
+        quizTitle:"உங்களைச் சவால் செய்யத் தயாரா? 🚀",
+        quizDescription:"வினாடி வினாவில் பங்கேற்று உங்கள் அறிவைச் சோதியுங்கள்.",
+        startQuiz:"வினாடி வினாவைத் தொடங்கு",
+        footerDescription:"நவீன மற்றும் எளிய கல்வி மூலம் மாணவர்களை வலுப்படுத்துதல்.",
+        quickLinks:"விரைவு இணைப்புகள்", moreLinks:"மேலும்", quizzes:"வினாடி வினாக்கள்",
+        copyright:"அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
+        gradeLabel:"வகுப்பு", gradeOpen:"வகுப்பைப் பார்க்கவும்",
+        noResults:"பொருந்தக்கூடிய முடிவுகள் இல்லை."
+      }
+
+    };
+
+    /* LANGUAGE CHANGE */
+
+    const languageSelect = document.getElementById("languageSelect");
+
+    function changeLanguage(lang) {
+      const dictionary = translations[lang] || translations.en;
+
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll("[data-i18n]").forEach(element => {
+        const key = element.dataset.i18n;
+        if (dictionary[key]) {
+          element.textContent = dictionary[key];
+        }
+      });
+
+      document.querySelectorAll("[data-placeholder]").forEach(element => {
+        const key = element.dataset.placeholder;
+        if (dictionary[key]) {
+          element.placeholder = dictionary[key];
+        }
+      });
+
+      renderGrades(currentGroup);
+      renderSearchResults(lastSearch);
+    }
+
+    languageSelect.addEventListener("change", event => {
+      changeLanguage(event.target.value);
+    });
+
+    /* DARK / LIGHT MODE */
+
+    const themeToggle = document.getElementById("themeToggle");
+
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+
+      const isLight = document.body.classList.contains("light");
+      themeToggle.textContent = isLight ? "🌙" : "☀️";
+
+      try {
+        localStorage.setItem("nextgen-theme", isLight ? "light" : "dark");
+      } catch (error) {}
+    });
+
+    try {
+      if (localStorage.getItem("nextgen-theme") === "light") {
+        document.body.classList.add("light");
+        themeToggle.textContent = "🌙";
+      }
+    } catch (error) {}
+
+    /* MOBILE MENU */
+
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("show");
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("show");
+      });
+    });
+
+    /* GRADES SYSTEM */
+
+    let currentGroup = "all";
+
+    const gradeGrid = document.getElementById("gradeGrid");
+
+    function renderGrades(group) {
+      currentGroup = group;
+
+      const lang = languageSelect.value;
+      const t = translations[lang];
+
+      let grades = Array.from({length:13}, (_,i) => i+1);
+
+      if (group === "junior") grades = grades.filter(n => n <= 9);
+      if (group === "senior") grades = grades.filter(n => n >= 10);
+
+      gradeGrid.innerHTML = grades.map(n => `
+        <a href="grades.html?grade=${n}"
+           class="grade-card glass">
+          <div class="number">${n}</div>
+          <strong>${t.gradeLabel} ${n}</strong>
+          <span>${t.gradeOpen} →</span>
+        </a>
+      `).join("");
+    }
+
+    document.querySelectorAll(".grade-tab").forEach(button => {
+      button.addEventListener("click", () => {
+
+        document.querySelectorAll(".grade-tab")
+          .forEach(tab => tab.classList.remove("active"));
+
+        button.classList.add("active");
+
+        renderGrades(button.dataset.group);
+      });
+    });
+
+    renderGrades("all");
+
+    /* SMART SEARCH SYSTEM */
+
+    const searchInput = document.getElementById("smartSearch");
+    const searchButton = document.getElementById("searchButton");
+    const searchResults = document.getElementById("searchResults");
+
+    const searchPages = [
+      {name:"Home", keys:["home","මුල් පිටුව","முகப்பு"], url:"index.html"},
+      {name:"Grades", keys:["grade","grades","ශ්‍රේණි","වகுப்புகள்"], url:"grades.html"},
+      {name:"Resources", keys:["resource","lesson","පාඩම්","සම්පත්","வளங்கள்"], url:"resources.html"},
+      {name:"Dashboard", keys:["dashboard","progress","ප්‍රගතිය","முன்னேற்றம்"], url:"dashboard.html"},
+      {name:"Quiz", keys:["quiz","quizzes","ප්‍රශ්නාවලි","வினாடி"], url:"quiz.html"},
+      {name:"Study Planner", keys:["planner","study","කාලසටහන","திட்டம்"], url:"planner.html"},
+      {name:"About", keys:["about","අප ගැන","எங்களை"], url:"about.html"}
+    ];
+
+    let lastSearch = "";
+
+    function runSearch() {
+      lastSearch = searchInput.value.trim();
+      renderSearchResults(lastSearch);
+    }
+
+    function renderSearchResults(query) {
+      if (!query) {
+        searchResults.innerHTML = "";
+        return;
+      }
+
+      const lang = languageSelect.value;
+      const t = translations[lang];
+
+      const results = searchPages.filter(page => {
+        const text = (page.name + " " + page.keys.join(" ")).toLowerCase();
+        return text.includes(query.toLowerCase());
+      });
+
+      searchResults.innerHTML = results.length
+        ? results.map(page => `
+            <a class="search-result" href="${page.url}">
+              🔎 ${page.name} →
+            </a>
+          `).join("")
+        : `<div class="search-result">${t.noResults}</div>`;
+    }
+
+    searchButton.addEventListener("click", runSearch);
+
+    searchInput.addEventListener("keydown", event => {
+      if (event.key === "Enter") runSearch();
+    });
+
+    /* SCROLL ANIMATIONS */
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.12});
+
+    document.querySelectorAll(".reveal").forEach(element => {
+      observer.observe(element);
+    });
+
+    /* FOOTER YEAR */
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+  </script>
+
+</body>
+</html>
