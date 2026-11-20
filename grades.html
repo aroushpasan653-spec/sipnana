@@ -1,0 +1,844 @@
+
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080d1c">
+<title>Explore Grades | NextGen Learn</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Sinhala:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#080d1c;
+  --surface:rgba(255,255,255,.07);
+  --surface2:rgba(255,255,255,.11);
+  --text:#f4f6ff;
+  --muted:#a6b0c9;
+  --border:rgba(255,255,255,.13);
+  --accent:#8b5cf6;
+  --cyan:#22d3ee;
+  --pink:#f472b6;
+  --shadow:0 20px 60px rgba(0,0,0,.25);
+}
+
+body.light {
+  --bg:#f3f5ff;
+  --surface:rgba(255,255,255,.75);
+  --surface2:rgba(255,255,255,.95);
+  --text:#17203b;
+  --muted:#64708b;
+  --border:rgba(35,45,80,.13);
+  --shadow:0 20px 60px rgba(50,60,100,.10);
+}
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html { scroll-behavior:smooth; }
+
+body {
+  font-family:'Inter','Noto Sans Sinhala','Noto Sans Tamil',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+  transition:background .3s,color .3s;
+}
+
+button,input { font:inherit; }
+
+a { color:inherit; text-decoration:none; }
+
+.background {
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:-1;
+}
+
+.orb {
+  position:absolute;
+  border-radius:50%;
+  filter:blur(90px);
+  opacity:.25;
+  animation:float 12s ease-in-out infinite alternate;
+}
+
+.orb.one {
+  width:350px;height:350px;
+  background:#713cff;
+  top:-100px;left:-100px;
+}
+
+.orb.two {
+  width:400px;height:400px;
+  background:#00c8e8;
+  right:-150px;top:35%;
+  animation-delay:2s;
+}
+
+.orb.three {
+  width:300px;height:300px;
+  background:#ff39a5;
+  bottom:-100px;left:35%;
+  animation-delay:4s;
+}
+
+@keyframes float {
+  from { transform:translate(0,0) scale(1); }
+  to { transform:translate(45px,55px) scale(1.2); }
+}
+
+header {
+  position:sticky;
+  top:0;
+  z-index:100;
+  padding:14px 6%;
+  background:var(--bg);
+  background:color-mix(in srgb,var(--bg) 78%,transparent);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+
+.navbar {
+  max-width:1250px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.logo {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:21px;
+  font-weight:900;
+  letter-spacing:-1px;
+}
+
+.logo-icon {
+  width:42px;height:42px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  color:white;
+  font-size:22px;
+  background:linear-gradient(135deg,#8055ff,#16cbea);
+  box-shadow:0 5px 25px #7954ff55;
+}
+
+.logo span {
+  background:linear-gradient(90deg,#a78bfa,#22d3ee);
+  background-clip:text;
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.nav-actions {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.nav-btn {
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--text);
+  padding:10px 13px;
+  border-radius:12px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.nav-btn:hover {
+  transform:translateY(-2px);
+  background:var(--surface2);
+}
+
+.home-link {
+  padding:10px 17px;
+  border-radius:12px;
+  background:linear-gradient(120deg,#8055ff,#20c8e7);
+  color:white;
+  font-weight:700;
+}
+
+.hero {
+  max-width:1100px;
+  margin:auto;
+  text-align:center;
+  padding:85px 20px 45px;
+}
+
+.eyebrow {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:9px 15px;
+  border:1px solid var(--border);
+  border-radius:30px;
+  background:var(--surface);
+  color:var(--cyan);
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:24px;
+}
+
+.hero h1 {
+  font-size:clamp(36px,7vw,68px);
+  line-height:1.15;
+  font-weight:900;
+  letter-spacing:-2px;
+  margin-bottom:20px;
+}
+
+.gradient-text {
+  background:linear-gradient(100deg,#a78bfa,#22d3ee,#f472b6);
+  background-size:200%;
+  background-clip:text;
+  -webkit-background-clip:text;
+  color:transparent;
+  animation:gradient 5s linear infinite;
+}
+
+@keyframes gradient {
+  to { background-position:200% center; }
+}
+
+.hero p {
+  color:var(--muted);
+  font-size:16px;
+  line-height:1.9;
+  max-width:650px;
+  margin:auto;
+}
+
+.search-box {
+  max-width:620px;
+  margin:35px auto 0;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:8px 10px 8px 20px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(20px);
+}
+
+.search-icon { font-size:21px; }
+
+.search-box input {
+  width:100%;
+  background:transparent;
+  border:0;
+  outline:0;
+  color:var(--text);
+  padding:12px 0;
+  font-size:15px;
+}
+
+.search-box input::placeholder { color:var(--muted); }
+
+.search-box button {
+  border:0;
+  border-radius:12px;
+  padding:12px 18px;
+  background:linear-gradient(120deg,#8055ff,#20c8e7);
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.stats {
+  display:flex;
+  justify-content:center;
+  gap:35px;
+  flex-wrap:wrap;
+  margin-top:35px;
+}
+
+.stat strong {
+  display:block;
+  font-size:25px;
+  font-weight:900;
+}
+
+.stat span {
+  font-size:12px;
+  color:var(--muted);
+}
+
+main {
+  max-width:1200px;
+  margin:auto;
+  padding:35px 22px 90px;
+}
+
+.section-heading {
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:15px;
+  margin:35px 0 22px;
+}
+
+.section-heading h2 {
+  font-size:clamp(23px,4vw,32px);
+  font-weight:900;
+}
+
+.section-heading p {
+  color:var(--muted);
+  font-size:13px;
+  margin-top:8px;
+}
+
+.section-label {
+  color:var(--cyan);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:2px;
+  margin-bottom:9px;
+}
+
+.grade-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px;
+}
+
+.grade-card {
+  position:relative;
+  overflow:hidden;
+  min-height:205px;
+  padding:24px;
+  border:1px solid var(--border);
+  background:var(--surface);
+  border-radius:23px;
+  backdrop-filter:blur(18px);
+  box-shadow:var(--shadow);
+  transition:transform .35s,border-color .35s,background .35s;
+  animation:appear .7s both;
+}
+
+@keyframes appear {
+  from { opacity:0; transform:translateY(25px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+.grade-card:hover {
+  transform:translateY(-9px);
+  border-color:var(--cyan);
+  background:var(--surface2);
+}
+
+.grade-card::after {
+  content:"";
+  position:absolute;
+  width:140px;height:140px;
+  border-radius:50%;
+  right:-50px;bottom:-65px;
+  background:var(--card-color);
+  opacity:.16;
+  filter:blur(8px);
+  transition:.4s;
+}
+
+.grade-card:hover::after {
+  transform:scale(1.6);
+  opacity:.25;
+}
+
+.card-top {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:22px;
+}
+
+.grade-icon {
+  width:48px;height:48px;
+  display:grid;
+  place-items:center;
+  border-radius:15px;
+  background:var(--card-color);
+  color:white;
+  font-size:23px;
+  box-shadow:0 8px 25px color-mix(in srgb,var(--card-color) 40%,transparent);
+}
+
+.grade-number {
+  font-size:13px;
+  color:var(--muted);
+  font-weight:700;
+}
+
+.grade-card h3 {
+  font-size:22px;
+  font-weight:900;
+  margin-bottom:7px;
+}
+
+.grade-card p {
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.card-bottom {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:23px;
+  font-size:13px;
+  font-weight:800;
+  color:var(--card-color);
+}
+
+.arrow {
+  width:30px;height:30px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:var(--surface2);
+  transition:.3s;
+}
+
+.grade-card:hover .arrow { transform:translateX(5px); }
+
+.filter-area {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin:25px 0;
+}
+
+.filter-btn {
+  padding:11px 18px;
+  border:1px solid var(--border);
+  border-radius:30px;
+  background:var(--surface);
+  color:var(--muted);
+  cursor:pointer;
+  transition:.3s;
+  font-size:13px;
+  font-weight:700;
+}
+
+.filter-btn.active,.filter-btn:hover {
+  color:white;
+  background:linear-gradient(120deg,#8055ff,#20c8e7);
+  border-color:transparent;
+}
+
+.empty {
+  display:none;
+  text-align:center;
+  padding:45px 15px;
+  color:var(--muted);
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:20px;
+}
+
+.path-section {
+  margin-top:70px;
+  padding:35px;
+  border:1px solid var(--border);
+  border-radius:26px;
+  background:linear-gradient(120deg,rgba(128,85,255,.13),rgba(32,200,231,.10));
+}
+
+.path-section h2 {
+  font-size:26px;
+  margin-bottom:12px;
+}
+
+.path-section p {
+  color:var(--muted);
+  line-height:1.8;
+  font-size:14px;
+}
+
+.path-pills {
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:23px;
+}
+
+.path-pills span {
+  padding:10px 15px;
+  border:1px solid var(--border);
+  border-radius:30px;
+  background:var(--surface);
+  font-size:13px;
+  font-weight:700;
+}
+
+footer {
+  border-top:1px solid var(--border);
+  text-align:center;
+  padding:35px 20px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+footer strong { color:var(--text); }
+
+@media(max-width:850px) {
+  .grade-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+
+@media(max-width:540px) {
+  header { padding:12px 4%; }
+  .logo { font-size:17px; }
+  .logo-icon { width:37px;height:37px; }
+  .nav-btn { padding:9px 10px; }
+  .home-link { padding:9px 11px;font-size:12px; }
+  .hero { padding-top:60px; }
+  .hero h1 { letter-spacing:-1px; }
+  .search-box { gap:8px;padding-left:13px; }
+  .search-box button { padding:11px 12px;font-size:12px; }
+  main { padding:20px 15px 65px; }
+  .grade-grid { gap:12px; }
+  .grade-card { padding:16px;min-height:190px;border-radius:18px; }
+  .grade-card h3 { font-size:19px; }
+  .grade-card p { font-size:12px; }
+  .grade-icon { width:41px;height:41px; }
+  .stats { gap:20px; }
+  .stat strong { font-size:21px; }
+  .path-section { padding:23px; }
+}
+</style>
+</head>
+
+<body>
+<div class="background">
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+  <div class="orb three"></div>
+</div>
+
+<header>
+  <nav class="navbar">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">✦</div>
+      <span>NextGen Learn</span>
+    </a>
+
+    <div class="nav-actions">
+      <button class="nav-btn" id="languageBtn" aria-label="Change language">සිං</button>
+      <button class="nav-btn" id="themeBtn" aria-label="Change theme">☀️</button>
+      <a href="index.html" class="home-link" data-i18n="home">Home ↗</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">
+    ✨ <span data-i18n="eyebrow">YOUR LEARNING JOURNEY STARTS HERE</span>
+  </div>
+
+  <h1>
+    <span data-i18n="hero1">Explore Your</span><br>
+    <span class="gradient-text" data-i18n="hero2">Learning Grade</span>
+  </h1>
+
+  <p data-i18n="description">
+    ඔබේ ශ්‍රේණිය තෝරන්න. ඔබේ ඉගෙනුම් ගමන ආරම්භ කරන්න.
+    සියලුම ශ්‍රේණි සඳහා අධ්‍යාපනික සම්පත් එකම තැනකින්.
+  </p>
+
+  <div class="search-box">
+    <span class="search-icon">⌕</span>
+    <input id="gradeSearch" type="search"
+      placeholder="Search Grade 1, Grade 10..."
+      aria-label="Search grades">
+    <button id="searchBtn" data-i18n="search">Search</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <strong>13</strong>
+      <span data-i18n="stat1">Grades</span>
+    </div>
+    <div class="stat">
+      <strong>3</strong>
+      <span data-i18n="stat2">Languages</span>
+    </div>
+    <div class="stat">
+      <strong>1–13</strong>
+      <span data-i18n="stat3">Learning Journey</span>
+    </div>
+  </div>
+</section>
+
+<main>
+  <div class="section-heading">
+    <div>
+      <div class="section-label">01 / PRIMARY & JUNIOR</div>
+      <h2 data-i18n="juniorTitle">Grades 1 – 9</h2>
+      <p data-i18n="juniorDesc">මූලික හා කනිෂ්ඨ අධ්‍යාපනය</p>
+    </div>
+  </div>
+
+  <div class="filter-area">
+    <button class="filter-btn active" data-filter="all" data-i18n="all">All Grades</button>
+    <button class="filter-btn" data-filter="junior" data-i18n="junior">Grades 1–9</button>
+    <button class="filter-btn" data-filter="senior" data-i18n="senior">Grades 10–13</button>
+  </div>
+
+  <div class="grade-grid" id="gradeGrid"></div>
+
+  <div class="empty" id="emptyMessage">
+    <div style="font-size:35px;margin-bottom:12px">🔍</div>
+    <h3 data-i18n="notFound">No grades found</h3>
+    <p data-i18n="tryAgain">Try searching another grade.</p>
+  </div>
+
+  <section class="path-section">
+    <h2 data-i18n="pathTitle">🚀 Your Future Starts Today</h2>
+    <p data-i18n="pathDesc">
+      පියවරෙන් පියවර ඉගෙන ගනිමින් ඔබේ අනාගතය ගොඩනගා ගන්න.
+      ඔබේ ශ්‍රේණිය තෝරාගෙන අලුත් දේවල් සොයා යන්න.
+    </p>
+    <div class="path-pills">
+      <span>📚 <span data-i18n="pill1">Learn</span></span>
+      <span>🧠 <span data-i18n="pill2">Practice</span></span>
+      <span>🏆 <span data-i18n="pill3">Achieve</span></span>
+      <span>🌟 <span data-i18n="pill4">Grow</span></span>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <strong>NextGen Learn</strong>
+  <p style="margin-top:9px">© <span id="year"></span> NextGen Learn. <span data-i18n="footer">Learn Today. Lead Tomorrow.</span></p>
+</footer>
+
+<script>
+const translations = {
+  si: {
+    home:"මුල් පිටුව ↗",
+    eyebrow:"ඔබේ ඉගෙනුම් ගමන මෙතැනින් ඇරඹේ",
+    hero1:"ඔබේ ශ්‍රේණිය",
+    hero2:"තෝරාගන්න",
+    description:"ඔබේ ශ්‍රේණිය තෝරන්න. ඔබේ ඉගෙනුම් ගමන ආරම්භ කරන්න. සියලුම ශ්‍රේණි සඳහා අධ්‍යාපනික සම්පත් එකම තැනකින්.",
+    search:"සොයන්න",
+    placeholder:"ශ්‍රේණියක් සොයන්න...",
+    stat1:"ශ්‍රේණි",
+    stat2:"භාෂා",
+    stat3:"ඉගෙනුම් ගමන",
+    juniorTitle:"ශ්‍රේණි 1 – 9",
+    juniorDesc:"මූලික හා කනිෂ්ඨ අධ්‍යාපනය",
+    all:"සියලු ශ්‍රේණි",
+    junior:"ශ්‍රේණි 1–9",
+    senior:"ශ්‍රේණි 10–13",
+    notFound:"ශ්‍රේණි හමු නොවීය",
+    tryAgain:"වෙනත් ශ්‍රේණියක් සොයන්න.",
+    pathTitle:"🚀 ඔබේ අනාගතය අදින් අරඹන්න",
+    pathDesc:"පියවරෙන් පියවර ඉගෙන ගනිමින් ඔබේ අනාගතය ගොඩනගා ගන්න. ඔබේ ශ්‍රේණිය තෝරාගෙන අලුත් දේවල් සොයා යන්න.",
+    pill1:"ඉගෙනගන්න",
+    pill2:"පුහුණු වන්න",
+    pill3:"ජයගන්න",
+    pill4:"වර්ධනය වන්න",
+    footer:"අද ඉගෙනගන්න. හෙට නායකත්වය දෙන්න.",
+    grade:"ශ්‍රේණිය",
+    explore:"විවෘත කරන්න",
+    descriptions:["මූලික ඉගෙනුම","මූලික දැනුම","දැනුම වර්ධනය","නව සංකල්ප","අධ්‍යාපනික දියුණුව","විෂය දැනුම","ඉගෙනුම් කුසලතා","දැනුම පුළුල් කිරීම","ඉදිරි අධ්‍යාපනය","සාමාන්‍ය පෙළ ආරම්භය","සාමාන්‍ය පෙළ සූදානම","උසස් පෙළ සූදානම","උසස් පෙළ අධ්‍යාපනය"]
+  },
+  en: {
+    home:"Home ↗",
+    eyebrow:"YOUR LEARNING JOURNEY STARTS HERE",
+    hero1:"Explore Your",
+    hero2:"Learning Grade",
+    description:"Choose your grade and begin your learning journey. Discover educational resources for every grade in one place.",
+    search:"Search",
+    placeholder:"Search Grade 1, Grade 10...",
+    stat1:"Grades",
+    stat2:"Languages",
+    stat3:"Learning Journey",
+    juniorTitle:"Grades 1 – 9",
+    juniorDesc:"Primary and Junior Education",
+    all:"All Grades",
+    junior:"Grades 1–9",
+    senior:"Grades 10–13",
+    notFound:"No grades found",
+    tryAgain:"Try searching another grade.",
+    pathTitle:"🚀 Your Future Starts Today",
+    pathDesc:"Build your future step by step. Choose your grade and discover something new.",
+    pill1:"Learn",
+    pill2:"Practice",
+    pill3:"Achieve",
+    pill4:"Grow",
+    footer:"Learn Today. Lead Tomorrow.",
+    grade:"Grade",
+    explore:"Explore",
+    descriptions:["Primary Learning","Basic Knowledge","Knowledge Growth","New Concepts","Educational Progress","Subject Knowledge","Learning Skills","Expanding Knowledge","Further Learning","O/L Foundation","O/L Preparation","A/L Preparation","Advanced Level Learning"]
+  },
+  ta: {
+    home:"முகப்பு ↗",
+    eyebrow:"உங்கள் கற்றல் பயணம் இங்கே தொடங்குகிறது",
+    hero1:"உங்கள் வகுப்பை",
+    hero2:"தேர்ந்தெடுங்கள்",
+    description:"உங்கள் வகுப்பைத் தேர்ந்தெடுத்து கற்றல் பயணத்தைத் தொடங்குங்கள். அனைத்து வகுப்புகளுக்குமான கல்வி வளங்கள் ஒரே இடத்தில்.",
+    search:"தேடுக",
+    placeholder:"வகுப்பைத் தேடுங்கள்...",
+    stat1:"வகுப்புகள்",
+    stat2:"மொழிகள்",
+    stat3:"கற்றல் பயணம்",
+    juniorTitle:"வகுப்புகள் 1 – 9",
+    juniorDesc:"ஆரம்ப மற்றும் இளநிலைக் கல்வி",
+    all:"அனைத்து வகுப்புகள்",
+    junior:"வகுப்புகள் 1–9",
+    senior:"வகுப்புகள் 10–13",
+    notFound:"வகுப்புகள் எதுவும் இல்லை",
+    tryAgain:"வேறு வகுப்பைத் தேடுங்கள்.",
+    pathTitle:"🚀 உங்கள் எதிர்காலம் இன்று தொடங்குகிறது",
+    pathDesc:"படிப்படியாகக் கற்று உங்கள் எதிர்காலத்தை உருவாக்குங்கள்.",
+    pill1:"கற்றல்",
+    pill2:"பயிற்சி",
+    pill3:"சாதனை",
+    pill4:"வளர்ச்சி",
+    footer:"இன்று கற்றுக்கொள். நாளை வழிநடத்து.",
+    grade:"வகுப்பு",
+    explore:"திறக்கவும்",
+    descriptions:["அடிப்படைக் கல்வி","அடிப்படை அறிவு","அறிவு வளர்ச்சி","புதிய கருத்துகள்","கல்வி முன்னேற்றம்","பாட அறிவு","கற்றல் திறன்கள்","அறிவை விரிவாக்குதல்","மேலதிகக் கல்வி","சாதாரண தர அடித்தளம்","சாதாரண தரத் தயாரிப்பு","உயர்தரத் தயாரிப்பு","உயர்தரக் கல்வி"]
+  }
+};
+
+const icons = ["✏️","📖","🎨","🔬","🧩","🌍","💡","📐","🚀","🎯","📚","🧪","🏆"];
+const colors = ["#8b5cf6","#06b6d4","#f472b6","#f59e0b","#10b981","#6366f1","#ec4899","#14b8a6","#8b5cf6","#f97316","#06b6d4","#a855f7","#eab308"];
+
+let currentLanguage = localStorage.getItem("ngl-language") || "si";
+let currentFilter = "all";
+
+const grid = document.getElementById("gradeGrid");
+const searchInput = document.getElementById("gradeSearch");
+
+function getGradeName(number) {
+  return `${translations[currentLanguage].grade} ${number}`;
+}
+
+function createCards() {
+  const t = translations[currentLanguage];
+  const query = searchInput.value.toLowerCase().trim();
+  grid.innerHTML = "";
+
+  let visible = 0;
+
+  for (let i = 1; i <= 13; i++) {
+    const group = i <= 9 ? "junior" : "senior";
+    const searchTerms = [
+      `grade ${i}`, `grade${i}`, `ශ්‍රේණිය ${i}`,
+      `ශ්‍රේණි ${i}`, `வகுப்பு ${i}`, `${i}`
+    ];
+
+    const matchesSearch = !query ||
+      searchTerms.some(term => term.toLowerCase().includes(query)) ||
+      getGradeName(i).toLowerCase().includes(query);
+
+    const matchesFilter = currentFilter === "all" || currentFilter === group;
+
+    if (!matchesSearch || !matchesFilter) continue;
+
+    visible++;
+
+    const card = document.createElement("a");
+    card.href = `grade.html?grade=${i}`;
+    card.className = "grade-card";
+    card.style.setProperty("--card-color", colors[i-1]);
+    card.style.animationDelay = `${visible * 0.045}s`;
+
+    card.innerHTML = `
+      <div class="card-top">
+        <div class="grade-icon">${icons[i-1]}</div>
+        <span class="grade-number">#${String(i).padStart(2,"0")}</span>
+      </div>
+      <h3>${getGradeName(i)}</h3>
+      <p>${t.descriptions[i-1]}</p>
+      <div class="card-bottom">
+        <span>${t.explore} →</span>
+        <span class="arrow">↗</span>
+      </div>
+    `;
+
+    grid.appendChild(card);
+  }
+
+  document.getElementById("emptyMessage").style.display =
+    visible === 0 ? "block" : "none";
+}
+
+function changeLanguage(lang) {
+  currentLanguage = lang;
+  localStorage.setItem("ngl-language", lang);
+
+  document.documentElement.lang =
+    lang === "si" ? "si" : lang === "ta" ? "ta" : "en";
+
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.dataset.i18n;
+    if (translations[lang][key]) {
+      el.textContent = translations[lang][key];
+    }
+  });
+
+  searchInput.placeholder = translations[lang].placeholder;
+
+  document.getElementById("languageBtn").textContent =
+    lang === "si" ? "සිං" : lang === "en" ? "ENG" : "தமிழ்";
+
+  createCards();
+}
+
+document.getElementById("languageBtn").addEventListener("click", () => {
+  const languages = ["si","en","ta"];
+  const next = languages[(languages.indexOf(currentLanguage)+1)%3];
+  changeLanguage(next);
+});
+
+document.querySelectorAll(".filter-btn").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    button.classList.add("active");
+    currentFilter = button.dataset.filter;
+    createCards();
+  });
+});
+
+searchInput.addEventListener("input", createCards);
+
+document.getElementById("searchBtn").addEventListener("click", createCards);
+
+document.getElementById("themeBtn").addEventListener("click", () => {
+  document.body.classList.toggle("light");
+  const isLight = document.body.classList.contains("light");
+  localStorage.setItem("ngl-theme", isLight ? "light" : "dark");
+  document.getElementById("themeBtn").textContent = isLight ? "🌙" : "☀️";
+});
+
+if (localStorage.getItem("ngl-theme") === "light") {
+  document.body.classList.add("light");
+  document.getElementById("themeBtn").textContent = "🌙";
+}
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+changeLanguage(currentLanguage);
+</script>
+</body>
+</html>
