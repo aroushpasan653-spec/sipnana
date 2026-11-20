@@ -1,0 +1,1379 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Interactive Quiz | NextGen Learn</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Sinhala:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#080d19;
+  --panel:rgba(20,29,49,.78);
+  --panel2:rgba(255,255,255,.055);
+  --text:#f4f7ff;
+  --muted:#a5b0c8;
+  --border:rgba(255,255,255,.11);
+  --primary:#7967ff;
+  --secondary:#00d9ff;
+  --green:#35e6a1;
+  --red:#ff6585;
+  --shadow:0 20px 60px rgba(0,0,0,.24);
+}
+
+body.light {
+  --bg:#f1f4ff;
+  --panel:rgba(255,255,255,.88);
+  --panel2:rgba(255,255,255,.72);
+  --text:#18213a;
+  --muted:#64708a;
+  --border:rgba(40,55,90,.12);
+  --shadow:0 20px 55px rgba(50,65,110,.12);
+}
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html {scroll-behavior:smooth}
+
+body {
+  min-height:100vh;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter','Noto Sans Sinhala','Noto Sans Tamil',sans-serif;
+  transition:background .35s,color .35s;
+  overflow-x:hidden;
+}
+
+button,select {font:inherit}
+button,a {cursor:pointer}
+a {text-decoration:none;color:inherit}
+
+.background {
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  z-index:-2;
+  pointer-events:none;
+}
+
+.orb {
+  position:absolute;
+  width:390px;
+  height:390px;
+  border-radius:50%;
+  filter:blur(105px);
+  opacity:.22;
+  animation:float 13s ease-in-out infinite alternate;
+}
+
+.orb.one {background:#7967ff;top:-150px;left:-120px}
+.orb.two {background:#00d9ff;right:-150px;top:30%}
+.orb.three {background:#ff48c4;bottom:-180px;left:30%}
+
+@keyframes float {
+  from {transform:translate(0,0) scale(1)}
+  to {transform:translate(60px,50px) scale(1.2)}
+}
+
+header {
+  position:sticky;
+  top:0;
+  z-index:30;
+  backdrop-filter:blur(22px);
+  background:var(--panel);
+  border-bottom:1px solid var(--border);
+}
+
+.nav {
+  max-width:1200px;
+  margin:auto;
+  padding:14px 22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.logo {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:900;
+  font-size:21px;
+  letter-spacing:-.8px;
+}
+
+.logo-icon {
+  width:41px;
+  height:41px;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  background:linear-gradient(135deg,#7967ff,#00d9ff);
+  box-shadow:0 5px 25px #7967ff55;
+}
+
+.logo-name {
+  color:transparent;
+  background:linear-gradient(90deg,#a99cff,#00d9ff);
+  background-clip:text;
+}
+
+.nav-actions {
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.control {
+  border:1px solid var(--border);
+  background:var(--panel2);
+  color:var(--text);
+  padding:10px 12px;
+  border-radius:12px;
+  outline:none;
+}
+
+.control option {color:#111}
+
+main {
+  max-width:1100px;
+  margin:auto;
+  padding:35px 22px 80px;
+}
+
+.breadcrumb {
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:25px;
+}
+
+.breadcrumb a:hover {color:var(--secondary)}
+
+.hero {
+  position:relative;
+  overflow:hidden;
+  padding:38px;
+  border:1px solid var(--border);
+  border-radius:28px;
+  background:
+    radial-gradient(circle at 90% 10%,#00d9ff25,transparent 35%),
+    radial-gradient(circle at 5% 100%,#7967ff30,transparent 40%),
+    var(--panel);
+  box-shadow:var(--shadow);
+  animation:appear .8s ease both;
+}
+
+@keyframes appear {
+  from {opacity:0;transform:translateY(20px)}
+  to {opacity:1;transform:translateY(0)}
+}
+
+.tag {
+  display:inline-flex;
+  padding:8px 14px;
+  border-radius:30px;
+  border:1px solid #8d7aff55;
+  background:#8068ff18;
+  color:#b9adff;
+  font-size:12px;
+  font-weight:800;
+}
+
+.hero h1 {
+  font-size:clamp(32px,5vw,49px);
+  line-height:1.2;
+  letter-spacing:-1.5px;
+  margin:19px 0 12px;
+}
+
+.gradient-text {
+  color:transparent;
+  background:linear-gradient(90deg,#a99aff,#00d9ff);
+  background-clip:text;
+}
+
+.hero p {
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.9;
+  max-width:650px;
+}
+
+.hero-icon {
+  position:absolute;
+  right:55px;
+  top:50%;
+  transform:translateY(-50%);
+  width:155px;
+  height:155px;
+  display:grid;
+  place-items:center;
+  border-radius:35px;
+  border:1px solid var(--border);
+  background:linear-gradient(135deg,#7967ff33,#00d9ff22);
+  font-size:75px;
+  animation:bob 4s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%,100% {transform:translateY(-50%) rotate(-5deg)}
+  50% {transform:translateY(calc(-50% - 12px)) rotate(5deg)}
+}
+
+.setup {
+  margin-top:24px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+.card {
+  padding:23px;
+  border:1px solid var(--border);
+  border-radius:21px;
+  background:var(--panel);
+  box-shadow:var(--shadow);
+  animation:appear .7s ease both;
+}
+
+.card h2 {
+  font-size:18px;
+  margin-bottom:17px;
+}
+
+.field {
+  display:grid;
+  gap:8px;
+  margin-bottom:14px;
+}
+
+.field label {
+  color:var(--muted);
+  font-size:12px;
+  font-weight:700;
+}
+
+.field select {
+  width:100%;
+  padding:13px;
+  border-radius:12px;
+  background:var(--panel2);
+  color:var(--text);
+  border:1px solid var(--border);
+  outline:none;
+}
+
+.field option {color:#111}
+
+.primary-btn {
+  border:0;
+  border-radius:12px;
+  padding:13px 19px;
+  color:white;
+  background:linear-gradient(100deg,#7967ff,#00bfe8);
+  font-size:13px;
+  font-weight:800;
+  transition:.25s;
+}
+
+.primary-btn:hover {
+  transform:translateY(-3px);
+  filter:brightness(1.1);
+}
+
+.secondary-btn {
+  border:1px solid var(--border);
+  background:var(--panel2);
+  color:var(--text);
+  border-radius:12px;
+  padding:12px 17px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.stats {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.stat {
+  text-align:center;
+  padding:17px 10px;
+  border:1px solid var(--border);
+  background:var(--panel2);
+  border-radius:15px;
+}
+
+.stat strong {
+  display:block;
+  font-size:23px;
+  color:var(--secondary);
+  margin-bottom:5px;
+}
+
+.stat span {
+  color:var(--muted);
+  font-size:11px;
+}
+
+.quiz-area {
+  display:none;
+  margin-top:25px;
+}
+
+.quiz-top {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:15px;
+}
+
+.quiz-top h2 {font-size:21px}
+
+.quiz-progress {
+  height:9px;
+  border-radius:20px;
+  overflow:hidden;
+  background:var(--panel2);
+  border:1px solid var(--border);
+  margin-bottom:22px;
+}
+
+.quiz-progress div {
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,#7967ff,#00d9ff);
+  border-radius:20px;
+  transition:width .35s;
+}
+
+.question-card {
+  padding:27px;
+  border:1px solid var(--border);
+  border-radius:22px;
+  background:var(--panel);
+  box-shadow:var(--shadow);
+  animation:appear .5s ease both;
+}
+
+.question-number {
+  display:inline-flex;
+  padding:8px 12px;
+  background:#7967ff20;
+  color:#b9adff;
+  border-radius:10px;
+  font-size:11px;
+  font-weight:800;
+  margin-bottom:18px;
+}
+
+.question-text {
+  font-size:21px;
+  line-height:1.7;
+  margin-bottom:23px;
+}
+
+.options {
+  display:grid;
+  gap:12px;
+}
+
+.option {
+  width:100%;
+  text-align:left;
+  padding:15px;
+  border:1px solid var(--border);
+  background:var(--panel2);
+  border-radius:13px;
+  color:var(--text);
+  display:flex;
+  align-items:center;
+  gap:13px;
+  transition:.25s;
+}
+
+.option:hover:not(:disabled) {
+  border-color:var(--secondary);
+  transform:translateX(4px);
+}
+
+.option .letter {
+  width:33px;
+  height:33px;
+  flex-shrink:0;
+  display:grid;
+  place-items:center;
+  border-radius:10px;
+  background:#7967ff22;
+  color:#b9adff;
+  font-weight:800;
+}
+
+.option.correct {
+  border-color:var(--green);
+  background:#35e6a115;
+}
+
+.option.wrong {
+  border-color:var(--red);
+  background:#ff658515;
+}
+
+.option:disabled {cursor:default;opacity:1}
+
+.feedback {
+  display:none;
+  margin-top:18px;
+  padding:15px;
+  border-radius:13px;
+  font-size:13px;
+  line-height:1.8;
+}
+
+.feedback.correct {
+  display:block;
+  color:var(--green);
+  background:#35e6a115;
+  border:1px solid #35e6a144;
+}
+
+.feedback.wrong {
+  display:block;
+  color:var(--red);
+  background:#ff658515;
+  border:1px solid #ff658544;
+}
+
+.quiz-footer {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:22px;
+}
+
+.quiz-footer p {
+  font-size:12px;
+  color:var(--muted);
+}
+
+.result {
+  display:none;
+  margin-top:25px;
+  text-align:center;
+  padding:35px 25px;
+  border:1px solid var(--border);
+  border-radius:25px;
+  background:var(--panel);
+  box-shadow:var(--shadow);
+  animation:appear .6s ease both;
+}
+
+.result-icon {
+  width:105px;
+  height:105px;
+  margin:0 auto 18px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:linear-gradient(135deg,#7967ff33,#00d9ff33);
+  font-size:55px;
+  animation:bob 3s ease-in-out infinite;
+}
+
+.result h2 {
+  font-size:30px;
+  margin-bottom:10px;
+}
+
+.result p {
+  color:var(--muted);
+  line-height:1.8;
+  font-size:14px;
+}
+
+.score {
+  font-size:49px;
+  font-weight:900;
+  margin:18px 0;
+  color:var(--secondary);
+}
+
+.badge-display {
+  display:inline-block;
+  padding:13px 20px;
+  margin:15px 0;
+  border:1px solid #ffbd5955;
+  background:#ffbd5918;
+  color:#ffbd59;
+  border-radius:15px;
+  font-weight:800;
+  font-size:14px;
+}
+
+.result-actions {
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:22px;
+}
+
+.history {
+  margin-top:25px;
+}
+
+.history-item {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:13px 0;
+  border-bottom:1px solid var(--border);
+  font-size:13px;
+}
+
+.history-item span:last-child {
+  color:var(--secondary);
+  font-weight:800;
+}
+
+footer {
+  border-top:1px solid var(--border);
+  padding:30px 20px;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+}
+
+footer strong {color:var(--text)}
+
+@media(max-width:800px) {
+  .hero-icon {right:25px;width:115px;height:115px;font-size:55px}
+  .hero-content {max-width:72%}
+}
+
+@media(max-width:650px) {
+  .nav {padding:12px}
+  .logo {font-size:17px}
+  .logo-icon {width:35px;height:35px}
+  .control {padding:9px;font-size:11px}
+  main {padding:25px 13px 55px}
+  .hero {padding:25px 20px;border-radius:21px}
+  .hero-content {max-width:100%}
+  .hero-icon {display:none}
+  .setup {grid-template-columns:1fr}
+  .stats {gap:8px}
+  .stat {padding:14px 5px}
+  .stat strong {font-size:20px}
+  .question-card {padding:19px}
+  .question-text {font-size:18px}
+  .quiz-footer .primary-btn {flex:1}
+}
+</style>
+</head>
+
+<body>
+
+<div class="background">
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+  <div class="orb three"></div>
+</div>
+
+<header>
+  <nav class="nav">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">📚</span>
+      <span class="logo-name">NextGen Learn</span>
+    </a>
+
+    <div class="nav-actions">
+      <select class="control" id="languageSelect" aria-label="Language">
+        <option value="en">English</option>
+        <option value="si">සිංහල</option>
+        <option value="ta">தமிழ்</option>
+      </select>
+      <button class="control" id="themeBtn" aria-label="Toggle theme">🌙</button>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <div class="breadcrumb">
+    <a href="index.html" data-i18n="home">Home</a>
+    <span>›</span>
+    <a href="grades.html" data-i18n="grades">Grades</a>
+    <span>›</span>
+    <span data-i18n="quiz">Quiz</span>
+  </div>
+
+  <section class="hero">
+    <div class="hero-content">
+      <span class="tag">✦ NEXTGEN LEARN • SMART QUIZ</span>
+
+      <h1>
+        Test Your<br>
+        <span class="gradient-text" data-i18n="heroTitle">Knowledge!</span>
+      </h1>
+
+      <p data-i18n="heroDescription">
+        Challenge yourself, answer questions, earn points and celebrate your learning achievements.
+      </p>
+    </div>
+
+    <div class="hero-icon">🧠</div>
+  </section>
+
+  <section class="setup" id="setupArea">
+
+    <div class="card">
+      <h2 data-i18n="setupTitle">🎯 Start Your Quiz</h2>
+
+      <div class="field">
+        <label data-i18n="gradeLabel" for="gradeSelect">Select Grade</label>
+        <select id="gradeSelect">
+          <option value="1">Grade 1</option>
+          <option value="2">Grade 2</option>
+          <option value="3">Grade 3</option>
+          <option value="4">Grade 4</option>
+          <option value="5">Grade 5</option>
+          <option value="6">Grade 6</option>
+          <option value="7">Grade 7</option>
+          <option value="8">Grade 8</option>
+          <option value="9">Grade 9</option>
+          <option value="10">Grade 10</option>
+          <option value="11">Grade 11</option>
+          <option value="12">Grade 12</option>
+          <option value="13">Grade 13</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label data-i18n="subjectLabel" for="subjectSelect">Select Subject</label>
+        <select id="subjectSelect">
+          <option value="Mathematics">Mathematics</option>
+          <option value="Science">Science</option>
+          <option value="English">English</option>
+          <option value="Sinhala">Sinhala</option>
+          <option value="Tamil">Tamil</option>
+          <option value="ICT">ICT</option>
+          <option value="History">History</option>
+          <option value="Geography">Geography</option>
+          <option value="Technology">Technology</option>
+        </select>
+      </div>
+
+      <button class="primary-btn" id="startBtn" data-i18n="start">
+        Start Quiz →
+      </button>
+    </div>
+
+    <div class="card">
+      <h2 data-i18n="statsTitle">🏆 Your Quiz Statistics</h2>
+
+      <div class="stats">
+        <div class="stat">
+          <strong id="totalAttempts">0</strong>
+          <span data-i18n="attempts">Attempts</span>
+        </div>
+
+        <div class="stat">
+          <strong id="bestScore">0%</strong>
+          <span data-i18n="best">Best Score</span>
+        </div>
+
+        <div class="stat">
+          <strong id="badgesCount">0</strong>
+          <span data-i18n="badges">Badges</span>
+        </div>
+      </div>
+
+      <div class="history" id="historyArea"></div>
+    </div>
+
+  </section>
+
+  <section class="quiz-area" id="quizArea">
+
+    <div class="quiz-top">
+      <h2 data-i18n="quizTime">🧠 Quiz Time!</h2>
+      <span class="tag" id="questionCounter">Question 1 / 5</span>
+    </div>
+
+    <div class="quiz-progress">
+      <div id="progressBar"></div>
+    </div>
+
+    <div class="question-card">
+      <span class="question-number" id="questionNumber">QUESTION 01</span>
+
+      <h2 class="question-text" id="questionText"></h2>
+
+      <div class="options" id="optionsArea"></div>
+
+      <div class="feedback" id="feedbackArea" aria-live="polite"></div>
+
+      <div class="quiz-footer">
+        <p id="scoreLive">Score: 0</p>
+        <button class="primary-btn" id="nextQuestionBtn" disabled data-i18n="next">
+          Next Question →
+        </button>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="result" id="resultArea" aria-live="polite">
+    <div class="result-icon" id="resultIcon">🏆</div>
+
+    <h2 id="resultTitle">Quiz Completed!</h2>
+
+    <p id="resultDescription"></p>
+
+    <div class="score" id="finalScore">0%</div>
+
+    <p id="scoreDetails"></p>
+
+    <div class="badge-display" id="earnedBadge">🏅 Achievement</div>
+
+    <div class="result-actions">
+      <button class="primary-btn" id="retryBtn" data-i18n="retry">Try Again</button>
+      <button class="secondary-btn" id="homeBtn" data-i18n="back">Back to Quizzes</button>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <strong>NextGen Learn</strong>
+  <p style="margin-top:8px">Learn Today. Lead Tomorrow. ✨</p>
+  <p style="margin-top:8px">© <span id="year"></span> NextGen Learn</p>
+</footer>
+
+<script>
+const params = new URLSearchParams(location.search);
+
+const translations = {
+  en: {
+    home:"Home",grades:"Grades",quiz:"Quiz",
+    heroTitle:"Knowledge!",
+    heroDescription:"Challenge yourself, answer questions, earn points and celebrate your learning achievements.",
+    setupTitle:"🎯 Start Your Quiz",
+    gradeLabel:"Select Grade",
+    subjectLabel:"Select Subject",
+    start:"Start Quiz →",
+    statsTitle:"🏆 Your Quiz Statistics",
+    attempts:"Attempts",best:"Best Score",badges:"Badges",
+    quizTime:"🧠 Quiz Time!",
+    next:"Next Question →",
+    retry:"Try Again",back:"Back to Quizzes",
+    question:"Question",
+    score:"Score",
+    correct:"Correct! Great work! 🎉",
+    wrong:"Not quite! The correct answer is: ",
+    finish:"Quiz Completed!",
+    resultGood:"Excellent work! Keep learning and challenging yourself.",
+    resultTry:"Good effort! Review the lesson and try again.",
+    earned:"Achievement",
+    perfect:"Quiz Master 🏆",
+    excellent:"Star Learner ⭐",
+    good:"Rising Star 🌟",
+    beginner:"Keep Learning 📚",
+    noBadge:"Learning Explorer 📖",
+    noHistory:"Complete your first quiz to see your history here.",
+    questionCount:"questions",
+    of:"out of",
+    noQuestions:"No questions are available for this subject yet.",
+    demoNotice:"These are sample questions for demonstration. They are not official school examination questions.",
+    selectAnswer:"Please select an answer.",
+    correctAnswer:"Correct answer: ",
+    yourScore:"Your score"
+  },
+  si: {
+    home:"මුල් පිටුව",grades:"ශ්‍රේණි",quiz:"ප්‍රශ්නාවලිය",
+    heroTitle:"දැනුම!",
+    heroDescription:"ඔබේ දැනුම පරීක්ෂා කරන්න. ප්‍රශ්නවලට පිළිතුරු දෙන්න. ලකුණු සහ ජයග්‍රහණ ලබාගන්න.",
+    setupTitle:"🎯 Quiz එක ආරම්භ කරන්න",
+    gradeLabel:"ශ්‍රේණිය තෝරන්න",
+    subjectLabel:"විෂය තෝරන්න",
+    start:"Quiz එක පටන් ගන්න →",
+    statsTitle:"🏆 ඔබේ Quiz දත්ත",
+    attempts:"වාර ගණන",best:"හොඳම ලකුණු",badges:"ජයග්‍රහණ",
+    quizTime:"🧠 Quiz වෙලාව!",
+    next:"ඊළඟ ප්‍රශ්නය →",
+    retry:"නැවත කරන්න",back:"Quiz වෙත ආපසු",
+    question:"ප්‍රශ්නය",
+    score:"ලකුණු",
+    correct:"නිවැරදියි! ඉතා හොඳයි! 🎉",
+    wrong:"නිවැරදි පිළිතුර: ",
+    finish:"Quiz එක අවසන්!",
+    resultGood:"විශිෂ්ටයි! දිගටම ඉගෙනගෙන ඔබේ දැනුම වර්ධනය කරගන්න.",
+    resultTry:"හොඳ උත්සාහයක්! පාඩම නැවත අධ්‍යයනය කර නැවත උත්සාහ කරන්න.",
+    earned:"ජයග්‍රහණය",
+    perfect:"Quiz Master 🏆",
+    excellent:"Star Learner ⭐",
+    good:"Rising Star 🌟",
+    beginner:"Keep Learning 📚",
+    noBadge:"Learning Explorer 📖",
+    noHistory:"ඔබේ පළමු Quiz එක අවසන් කළ පසු මෙහි දත්ත පෙන්වනු ඇත.",
+    questionCount:"ප්‍රශ්න",
+    of:"න්",
+    noQuestions:"මෙම විෂයට තවමත් ප්‍රශ්න ඇතුළත් කර නැත.",
+    demoNotice:"මේවා ආදර්ශ ප්‍රශ්න පමණි. නිල පාසල් විභාග ප්‍රශ්න නොවේ.",
+    selectAnswer:"පිළිතුරක් තෝරන්න.",
+    correctAnswer:"නිවැරදි පිළිතුර: ",
+    yourScore:"ඔබේ ලකුණු"
+  },
+  ta: {
+    home:"முகப்பு",grades:"தரங்கள்",quiz:"வினாடி வினா",
+    heroTitle:"அறிவு!",
+    heroDescription:"உங்களை நீங்களே சோதித்துப் பாருங்கள். கேள்விகளுக்குப் பதிலளித்து சாதனைகளைப் பெறுங்கள்.",
+    setupTitle:"🎯 வினாடி வினாவைத் தொடங்குங்கள்",
+    gradeLabel:"தரத்தைத் தேர்ந்தெடுக்கவும்",
+    subjectLabel:"பாடத்தைத் தேர்ந்தெடுக்கவும்",
+    start:"தொடங்குங்கள் →",
+    statsTitle:"🏆 உங்கள் வினாடி வினா புள்ளிவிவரங்கள்",
+    attempts:"முயற்சிகள்",best:"சிறந்த மதிப்பெண்",badges:"பதக்கங்கள்",
+    quizTime:"🧠 வினாடி வினா நேரம்!",
+    next:"அடுத்த கேள்வி →",
+    retry:"மீண்டும் முயற்சி",back:"வினாடி வினாவிற்குத் திரும்பு",
+    question:"கேள்வி",
+    score:"மதிப்பெண்",
+    correct:"சரியான பதில்! சிறப்பாகச் செய்தீர்கள்! 🎉",
+    wrong:"சரியான பதில்: ",
+    finish:"வினாடி வினா முடிந்தது!",
+    resultGood:"மிகச் சிறப்பு! தொடர்ந்து கற்றுக்கொள்ளுங்கள்.",
+    resultTry:"நல்ல முயற்சி! பாடத்தை மீண்டும் படித்து முயற்சிக்கவும்.",
+    earned:"சாதனை",
+    perfect:"வினாடி வினா மாஸ்டர் 🏆",
+    excellent:"சிறந்த மாணவர் ⭐",
+    good:"வளரும் நட்சத்திரம் 🌟",
+    beginner:"தொடர்ந்து கற்கவும் 📚",
+    noBadge:"கற்றல் ஆர்வலர் 📖",
+    noHistory:"முதல் வினாடி வினாவை முடித்த பிறகு வரலாறு இங்கே தோன்றும்.",
+    questionCount:"கேள்விகள்",
+    of:"இல்",
+    noQuestions:"இந்தப் பாடத்திற்கு இன்னும் கேள்விகள் இல்லை.",
+    demoNotice:"இவை மாதிரி கேள்விகள் மட்டுமே. அதிகாரப்பூர்வ தேர்வு வினாக்கள் அல்ல.",
+    selectAnswer:"ஒரு பதிலைத் தேர்ந்தெடுக்கவும்.",
+    correctAnswer:"சரியான பதில்: ",
+    yourScore:"உங்கள் மதிப்பெண்"
+  }
+};
+
+// Sample questions only.
+// Add verified curriculum questions here for each grade and subject.
+
+const questionBank = {
+  Mathematics: [
+    {
+      question:"What is 25 + 17?",
+      options:["32","42","43","52"],
+      answer:1,
+      explanation:"25 + 17 = 42."
+    },
+    {
+      question:"What is 9 × 6?",
+      options:["45","48","54","63"],
+      answer:2,
+      explanation:"9 multiplied by 6 equals 54."
+    },
+    {
+      question:"Which fraction is equal to one half?",
+      options:["1/3","2/4","3/5","2/3"],
+      answer:1,
+      explanation:"2/4 simplifies to 1/2."
+    },
+    {
+      question:"What is the perimeter of a square with sides of 5 cm?",
+      options:["10 cm","15 cm","20 cm","25 cm"],
+      answer:2,
+      explanation:"A square has four equal sides: 4 × 5 = 20 cm."
+    },
+    {
+      question:"What is 100 divided by 4?",
+      options:["20","25","30","40"],
+      answer:1,
+      explanation:"100 ÷ 4 = 25."
+    }
+  ],
+
+  Science: [
+    {
+      question:"Which planet is known as the Red Planet?",
+      options:["Venus","Mars","Jupiter","Mercury"],
+      answer:1,
+      explanation:"Mars is commonly called the Red Planet because of its reddish appearance."
+    },
+    {
+      question:"Which gas do plants absorb during photosynthesis?",
+      options:["Oxygen","Nitrogen","Carbon dioxide","Hydrogen"],
+      answer:2,
+      explanation:"Plants absorb carbon dioxide during photosynthesis."
+    },
+    {
+      question:"What is the main source of energy for Earth?",
+      options:["The Moon","The Sun","The ocean","The wind"],
+      answer:1,
+      explanation:"The Sun provides most of the energy that supports life on Earth."
+    },
+    {
+      question:"At standard atmospheric pressure, water boils at what temperature?",
+      options:["50°C","75°C","100°C","150°C"],
+      answer:2,
+      explanation:"Water boils at 100°C at standard atmospheric pressure."
+    },
+    {
+      question:"Which organ pumps blood around the human body?",
+      options:["Lungs","Heart","Stomach","Kidneys"],
+      answer:1,
+      explanation:"The heart pumps blood through the circulatory system."
+    }
+  ],
+
+  English: [
+    {
+      question:"Choose the correct plural form of 'child'.",
+      options:["Childs","Childes","Children","Childrens"],
+      answer:2,
+      explanation:"The irregular plural of child is children."
+    },
+    {
+      question:"Which word is an adjective?",
+      options:["Quickly","Beautiful","Run","Happiness"],
+      answer:1,
+      explanation:"Beautiful describes a noun, so it is an adjective."
+    },
+    {
+      question:"Choose the correct sentence.",
+      options:["She go to school.","She goes to school.","She going school.","She gone school."],
+      answer:1,
+      explanation:"She goes to school is grammatically correct in the simple present tense."
+    },
+    {
+      question:"What is the opposite of 'ancient'?",
+      options:["Old","Historic","Modern","Past"],
+      answer:2,
+      explanation:"Modern is the opposite of ancient."
+    },
+    {
+      question:"Which word is a pronoun?",
+      options:["Table","They","Green","Walk"],
+      answer:1,
+      explanation:"They is a pronoun used to refer to people or things."
+    }
+  ],
+
+  ICT: [
+    {
+      question:"What does CPU stand for?",
+      options:["Central Processing Unit","Computer Personal Utility","Central Program User","Control Processing Utility"],
+      answer:0,
+      explanation:"CPU stands for Central Processing Unit."
+    },
+    {
+      question:"Which of these is an input device?",
+      options:["Monitor","Printer","Keyboard","Speaker"],
+      answer:2,
+      explanation:"A keyboard sends data into a computer."
+    },
+    {
+      question:"Which number system uses only 0 and 1?",
+      options:["Decimal","Binary","Octal","Hexadecimal"],
+      answer:1,
+      explanation:"The binary number system uses the digits 0 and 1."
+    },
+    {
+      question:"Which of these is an operating system?",
+      options:["Windows","HTML","Google Search","JPEG"],
+      answer:0,
+      explanation:"Windows is an operating system."
+    },
+    {
+      question:"What is the full form of URL?",
+      options:["Universal Reading Link","Uniform Resource Locator","United Resource List","User Reference Location"],
+      answer:1,
+      explanation:"URL stands for Uniform Resource Locator."
+    }
+  ],
+
+  Sinhala: [
+    {
+      question:"සිංහල භාෂාවේ ස්වර අක්ෂරයක් වන්නේ කුමක්ද?",
+      options:["ක","අ","ට","ප"],
+      answer:1,
+      explanation:"'අ' යනු සිංහල ස්වර අක්ෂරයකි."
+    },
+    {
+      question:"'මල' යන වචනයේ අකුරු ගණන කීයද?",
+      options:["එකයි","දෙකයි","තුනයි","හතරයි"],
+      answer:1,
+      explanation:"ම සහ ල යන අක්ෂර දෙකක් ඇත."
+    },
+    {
+      question:"'ලස්සන' යන වචනයට සමාන අර්ථයක් ඇති වචනයක් තෝරන්න.",
+      options:["අලංකාර","අඳුරු","කෙටි","වේගවත්"],
+      answer:0,
+      explanation:"අලංකාර යන්න ලස්සන යන අදහසට සමාන වේ."
+    },
+    {
+      question:"පහත වචන අතර නාම පදයක් වන්නේ කුමක්ද?",
+      options:["දුවයි","ගස","ඉක්මනින්","ලස්සන"],
+      answer:1,
+      explanation:"ගස යනු නාම පදයකි."
+    },
+    {
+      question:"'දවස' යන්නෙහි බහු වචනය කුමක්ද?",
+      options:["දවස්","දවසා","දවසින්","දවසට"],
+      answer:0,
+      explanation:"දවස් යනු දවස යන වචනයේ බහු වචන භාවිතයකි."
+    }
+  ]
+};
+
+let questions = [];
+let current = 0;
+let score = 0;
+let answered = false;
+let selectedGrade = 1;
+let selectedSubject = "Mathematics";
+
+const $ = id => document.getElementById(id);
+
+function currentLanguage() {
+  return localStorage.getItem("ngl-language") || "en";
+}
+
+function getText() {
+  return translations[currentLanguage()] || translations.en;
+}
+
+function applyTheme(theme) {
+  document.body.classList.toggle("light",theme === "light");
+  $("themeBtn").textContent = theme === "light" ? "☀️" : "🌙";
+  localStorage.setItem("ngl-theme",theme);
+}
+
+function applyLanguage(lang) {
+  const t = translations[lang] || translations.en;
+
+  document.documentElement.lang = lang;
+
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.dataset.i18n;
+    if (t[key]) el.textContent = t[key];
+  });
+
+  $("languageSelect").value = lang;
+  localStorage.setItem("ngl-language",lang);
+
+  if ($("quizArea").style.display === "block" && questions.length) {
+    renderQuestion();
+  }
+
+  renderStats();
+}
+
+function historyKey() {
+  return "ngl-quiz-history";
+}
+
+function getHistory() {
+  try {
+    return JSON.parse(localStorage.getItem(historyKey()) || "[]");
+  } catch {
+    return [];
+  }
+}
+
+function saveHistory(record) {
+  const history = getHistory();
+  history.unshift(record);
+  localStorage.setItem(historyKey(),JSON.stringify(history.slice(0,30)));
+}
+
+function renderStats() {
+  const history = getHistory();
+
+  $("totalAttempts").textContent = history.length;
+
+  const best = history.length
+    ? Math.max(...history.map(item => item.percentage))
+    : 0;
+
+  $("bestScore").textContent = best + "%";
+
+  const badges = [...new Set(history.filter(item => item.badge).map(item => item.badge))];
+  $("badgesCount").textContent = badges.length;
+
+  const area = $("historyArea");
+  area.innerHTML = "";
+
+  if (!history.length) {
+    const p = document.createElement("p");
+    p.style.cssText = "font-size:12px;color:var(--muted);line-height:1.8";
+    p.textContent = getText().noHistory;
+    area.appendChild(p);
+    return;
+  }
+
+  const title = document.createElement("h3");
+  title.style.cssText = "font-size:14px;margin-bottom:12px";
+  title.textContent = currentLanguage() === "si"
+    ? "මෑත ප්‍රතිඵල"
+    : currentLanguage() === "ta" ? "சமீபத்திய முடிவுகள்" : "Recent Results";
+
+  area.appendChild(title);
+
+  history.slice(0,4).forEach(item => {
+    const row = document.createElement("div");
+    row.className = "history-item";
+
+    const left = document.createElement("span");
+    left.textContent = `${item.subject} • Grade ${item.grade}`;
+
+    const right = document.createElement("span");
+    right.textContent = item.percentage + "%";
+
+    row.append(left,right);
+    area.appendChild(row);
+  });
+}
+
+function startQuiz() {
+  selectedGrade = Number($("gradeSelect").value);
+  selectedSubject = $("subjectSelect").value;
+
+  const bank = questionBank[selectedSubject] || [];
+
+  if (!bank.length) {
+    alert(getText().noQuestions);
+    return;
+  }
+
+  questions = [...bank];
+  current = 0;
+  score = 0;
+  answered = false;
+
+  $("setupArea").style.display = "none";
+  $("resultArea").style.display = "none";
+  $("quizArea").style.display = "block";
+
+  renderQuestion();
+
+  $("quizArea").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function renderQuestion() {
+  const t = getText();
+  const q = questions[current];
+
+  answered = false;
+
+  $("questionCounter").textContent =
+    `${t.question} ${current + 1} / ${questions.length}`;
+
+  $("questionNumber").textContent =
+    `${t.question.toUpperCase()} ${String(current + 1).padStart(2,"0")}`;
+
+  $("questionText").textContent = q.question;
+
+  $("progressBar").style.width =
+    `${(current / questions.length) * 100}%`;
+
+  $("scoreLive").textContent = `${t.score}: ${score}`;
+
+  $("feedbackArea").className = "feedback";
+  $("feedbackArea").textContent = "";
+
+  $("nextQuestionBtn").disabled = true;
+
+  $("nextQuestionBtn").textContent =
+    current === questions.length - 1
+      ? (currentLanguage() === "si" ? "ප්‍රතිඵල බලන්න →" :
+         currentLanguage() === "ta" ? "முடிவைப் பார்க்க →" : "View Results →")
+      : t.next;
+
+  const optionsArea = $("optionsArea");
+  optionsArea.innerHTML = "";
+
+  q.options.forEach((option,index) => {
+    const button = document.createElement("button");
+    button.className = "option";
+
+    const letter = document.createElement("span");
+    letter.className = "letter";
+    letter.textContent = String.fromCharCode(65 + index);
+
+    const label = document.createElement("span");
+    label.textContent = option;
+
+    button.append(letter,label);
+    button.addEventListener("click",() => selectAnswer(index));
+
+    optionsArea.appendChild(button);
+  });
+}
+
+function selectAnswer(index) {
+  if (answered) return;
+
+  const q = questions[current];
+  const buttons = [...$("optionsArea").querySelectorAll(".option")];
+  const t = getText();
+
+  answered = true;
+
+  buttons.forEach(button => button.disabled = true);
+
+  const isCorrect = index === q.answer;
+
+  if (isCorrect) {
+    score++;
+    buttons[index].classList.add("correct");
+    $("feedbackArea").className = "feedback correct";
+    $("feedbackArea").textContent = t.correct + " " + q.explanation;
+  } else {
+    buttons[index].classList.add("wrong");
+    buttons[q.answer].classList.add("correct");
+    $("feedbackArea").className = "feedback wrong";
+    $("feedbackArea").textContent =
+      t.wrong + q.options[q.answer] + ". " + q.explanation;
+  }
+
+  $("scoreLive").textContent = `${t.score}: ${score}`;
+  $("nextQuestionBtn").disabled = false;
+}
+
+function nextQuestion() {
+  if (!answered) return;
+
+  if (current < questions.length - 1) {
+    current++;
+    renderQuestion();
+  } else {
+    finishQuiz();
+  }
+}
+
+function finishQuiz() {
+  const t = getText();
+  const percentage = Math.round(score / questions.length * 100);
+
+  let badge = t.noBadge;
+  let icon = "📖";
+
+  if (percentage === 100) {
+    badge = t.perfect;
+    icon = "🏆";
+  } else if (percentage >= 80) {
+    badge = t.excellent;
+    icon = "⭐";
+  } else if (percentage >= 60) {
+    badge = t.good;
+    icon = "🌟";
+  } else if (percentage >= 40) {
+    badge = t.beginner;
+    icon = "📚";
+  }
+
+  const record = {
+    grade:selectedGrade,
+    subject:selectedSubject,
+    score,
+    total:questions.length,
+    percentage,
+    badge,
+    date:new Date().toISOString()
+  };
+
+  saveHistory(record);
+
+  $("quizArea").style.display = "none";
+  $("resultArea").style.display = "block";
+
+  $("resultIcon").textContent = icon;
+  $("resultTitle").textContent = t.finish;
+  $("resultDescription").textContent =
+    percentage >= 60 ? t.resultGood : t.resultTry;
+
+  $("finalScore").textContent = percentage + "%";
+
+  $("scoreDetails").textContent =
+    `${t.yourScore}: ${score} ${t.of} ${questions.length} ${t.questionCount}`;
+
+  $("earnedBadge").textContent = `🏅 ${badge}`;
+
+  $("progressBar").style.width = "100%";
+
+  renderStats();
+
+  $("resultArea").scrollIntoView({behavior:"smooth",block:"center"});
+}
+
+$("startBtn").addEventListener("click",startQuiz);
+$("nextQuestionBtn").addEventListener("click",nextQuestion);
+
+$("retryBtn").addEventListener("click",() => {
+  $("resultArea").style.display = "none";
+  startQuiz();
+});
+
+$("homeBtn").addEventListener("click",() => {
+  $("resultArea").style.display = "none";
+  $("quizArea").style.display = "none";
+  $("setupArea").style.display = "grid";
+  renderStats();
+  $("setupArea").scrollIntoView({behavior:"smooth"});
+});
+
+$("languageSelect").addEventListener("change",e => {
+  applyLanguage(e.target.value);
+});
+
+$("themeBtn").addEventListener("click",() => {
+  const next = document.body.classList.contains("light") ? "dark" : "light";
+  applyTheme(next);
+});
+
+$("year").textContent = new Date().getFullYear();
+
+// Read grade and subject from a URL when provided.
+const gradeParam = Number(params.get("grade"));
+const subjectParam = params.get("subject");
+
+if (gradeParam >= 1 && gradeParam <= 13) {
+  $("gradeSelect").value = String(gradeParam);
+}
+
+if ([...$("subjectSelect").options].some(option => option.value === subjectParam)) {
+  $("subjectSelect").value = subjectParam;
+}
+
+applyTheme(localStorage.getItem("ngl-theme") || "dark");
+applyLanguage(currentLanguage());
+renderStats();
+</script>
+
+</body>
+</html>
