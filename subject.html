@@ -1,0 +1,887 @@
+
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080d1c">
+<title>Subject Learning | NextGen Learn</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Sinhala:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#080d1c;
+  --surface:rgba(255,255,255,.065);
+  --surface2:rgba(255,255,255,.11);
+  --text:#f4f6ff;
+  --muted:#a6b0c9;
+  --border:rgba(255,255,255,.13);
+  --purple:#8b5cf6;
+  --cyan:#22d3ee;
+  --pink:#f472b6;
+  --green:#34d399;
+  --shadow:0 20px 55px rgba(0,0,0,.23);
+}
+
+body.light {
+  --bg:#f3f5ff;
+  --surface:rgba(255,255,255,.78);
+  --surface2:rgba(255,255,255,.98);
+  --text:#17203b;
+  --muted:#64708b;
+  --border:rgba(35,45,80,.13);
+  --shadow:0 20px 55px rgba(50,60,100,.10);
+}
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html { scroll-behavior:smooth; }
+
+body {
+  font-family:'Inter','Noto Sans Sinhala','Noto Sans Tamil',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+  transition:background .3s,color .3s;
+}
+
+a { text-decoration:none;color:inherit; }
+button,input { font:inherit; }
+
+.background {
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:-1;
+}
+
+.orb {
+  position:absolute;
+  border-radius:50%;
+  filter:blur(100px);
+  opacity:.23;
+  animation:float 12s ease-in-out infinite alternate;
+}
+
+.orb.one {
+  width:370px;height:370px;
+  background:#7845ff;
+  top:-100px;left:-120px;
+}
+
+.orb.two {
+  width:400px;height:400px;
+  background:#00d5e8;
+  right:-160px;top:35%;
+}
+
+.orb.three {
+  width:300px;height:300px;
+  background:#f12b9b;
+  bottom:-100px;left:35%;
+}
+
+@keyframes float {
+  to { transform:translate(45px,55px) scale(1.2); }
+}
+
+header {
+  position:sticky;
+  top:0;
+  z-index:100;
+  padding:13px 5%;
+  background:color-mix(in srgb,var(--bg) 82%,transparent);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+
+.navbar {
+  max-width:1250px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+}
+
+.logo {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:20px;
+  font-weight:900;
+}
+
+.logo-icon {
+  width:42px;height:42px;
+  display:grid;
+  place-items:center;
+  border-radius:14px;
+  color:white;
+  font-size:22px;
+  background:linear-gradient(135deg,#8055ff,#16cbea);
+}
+
+.logo-name {
+  background:linear-gradient(90deg,#a78bfa,#22d3ee);
+  color:transparent;
+  background-clip:text;
+  -webkit-background-clip:text;
+}
+
+.nav-actions {
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.nav-btn {
+  padding:10px 13px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--text);
+  cursor:pointer;
+}
+
+.back-btn {
+  padding:10px 15px;
+  border-radius:12px;
+  color:white;
+  background:linear-gradient(120deg,#8055ff,#20c8e7);
+  font-size:13px;
+  font-weight:700;
+}
+
+.container {
+  width:min(1180px,92%);
+  margin:auto;
+}
+
+.hero {
+  position:relative;
+  overflow:hidden;
+  margin-top:35px;
+  padding:42px;
+  border-radius:29px;
+  border:1px solid var(--border);
+  background:linear-gradient(120deg,rgba(128,85,255,.19),rgba(32,200,231,.12),rgba(244,114,182,.09));
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(20px);
+}
+
+.hero::after {
+  content:"✦";
+  position:absolute;
+  right:7%;
+  top:5%;
+  font-size:160px;
+  color:rgba(255,255,255,.08);
+  animation:rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  to { transform:rotate(360deg); }
+}
+
+.breadcrumb {
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  align-items:center;
+  color:var(--muted);
+  font-size:12px;
+  margin-bottom:25px;
+}
+
+.breadcrumb a:hover { color:var(--cyan); }
+
+.eyebrow {
+  display:inline-block;
+  color:var(--cyan);
+  background:var(--surface);
+  border:1px solid var(--border);
+  padding:9px 15px;
+  border-radius:30px;
+  font-size:12px;
+  font-weight:800;
+  margin-bottom:20px;
+}
+
+.hero h1 {
+  font-size:clamp(34px,6vw,58px);
+  line-height:1.2;
+  font-weight:900;
+  letter-spacing:-1.5px;
+  margin-bottom:15px;
+}
+
+.gradient {
+  background:linear-gradient(100deg,#a78bfa,#22d3ee,#f472b6);
+  color:transparent;
+  background-clip:text;
+  -webkit-background-clip:text;
+  background-size:200%;
+  animation:gradient 5s linear infinite;
+}
+
+@keyframes gradient {
+  to { background-position:200% center; }
+}
+
+.hero p {
+  max-width:650px;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.9;
+}
+
+.hero-actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:25px;
+}
+
+.primary-btn,.secondary-btn {
+  display:inline-block;
+  padding:13px 20px;
+  border-radius:13px;
+  font-size:13px;
+  font-weight:800;
+  cursor:pointer;
+  border:1px solid var(--border);
+  transition:.3s;
+}
+
+.primary-btn {
+  background:linear-gradient(120deg,#8055ff,#20c8e7);
+  color:white;
+  border:0;
+}
+
+.secondary-btn {
+  background:var(--surface);
+  color:var(--text);
+}
+
+.primary-btn:hover,.secondary-btn:hover {
+  transform:translateY(-3px);
+}
+
+.info-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin:25px 0 45px;
+}
+
+.info-card {
+  padding:21px;
+  border:1px solid var(--border);
+  border-radius:19px;
+  background:var(--surface);
+  box-shadow:var(--shadow);
+  transition:.3s;
+}
+
+.info-card:hover { transform:translateY(-5px); }
+
+.info-card span { font-size:23px; }
+
+.info-card strong {
+  display:block;
+  margin:10px 0 5px;
+  font-size:19px;
+}
+
+.info-card p {
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.7;
+}
+
+.section { margin:50px 0; }
+
+.section-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:15px;
+  margin-bottom:22px;
+}
+
+.section-label {
+  color:var(--cyan);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:2px;
+  margin-bottom:9px;
+}
+
+.section-header h2 {
+  font-size:clamp(23px,4vw,30px);
+  font-weight:900;
+}
+
+.section-header p {
+  color:var(--muted);
+  font-size:13px;
+  margin-top:7px;
+  line-height:1.7;
+}
+
+.search-box {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:8px 12px 8px 18px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:var(--surface);
+  margin-bottom:20px;
+}
+
+.search-box span { font-size:20px; }
+
+.search-box input {
+  flex:1;
+  min-width:0;
+  background:transparent;
+  border:0;
+  outline:0;
+  padding:12px 0;
+  color:var(--text);
+  font-size:14px;
+}
+
+.search-box input::placeholder { color:var(--muted); }
+
+.topic-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:15px;
+}
+
+.topic-card {
+  display:flex;
+  align-items:center;
+  gap:15px;
+  padding:20px;
+  border:1px solid var(--border);
+  border-radius:19px;
+  background:var(--surface);
+  transition:.3s;
+}
+
+.topic-card:hover {
+  transform:translateY(-5px);
+  border-color:var(--cyan);
+  background:var(--surface2);
+}
+
+.topic-icon {
+  width:48px;height:48px;
+  flex-shrink:0;
+  display:grid;
+  place-items:center;
+  border-radius:15px;
+  background:linear-gradient(135deg,#8055ff,#20c8e7);
+  color:white;
+  font-size:21px;
+}
+
+.topic-card h3 {
+  font-size:14px;
+  margin-bottom:6px;
+}
+
+.topic-card p {
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.6;
+}
+
+.topic-arrow {
+  margin-left:auto;
+  color:var(--cyan);
+  font-size:20px;
+}
+
+.resource-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:15px;
+}
+
+.resource-card {
+  padding:24px;
+  border:1px solid var(--border);
+  border-radius:21px;
+  background:var(--surface);
+  transition:.3s;
+}
+
+.resource-card:hover {
+  transform:translateY(-6px);
+  background:var(--surface2);
+}
+
+.resource-icon { font-size:34px; }
+
+.resource-card h3 {
+  margin:14px 0 8px;
+  font-size:16px;
+}
+
+.resource-card p {
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.8;
+}
+
+.resource-card a {
+  display:inline-block;
+  margin-top:18px;
+  color:var(--cyan);
+  font-size:12px;
+  font-weight:800;
+}
+
+.tip-box {
+  padding:27px;
+  border:1px solid var(--border);
+  border-radius:22px;
+  background:linear-gradient(120deg,rgba(139,92,246,.16),rgba(34,211,238,.10));
+}
+
+.tip-box h2 {
+  font-size:21px;
+  margin-bottom:10px;
+}
+
+.tip-box p {
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.9;
+}
+
+.empty {
+  display:none;
+  padding:35px;
+  text-align:center;
+  color:var(--muted);
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:var(--surface);
+}
+
+footer {
+  margin-top:80px;
+  padding:35px 15px;
+  text-align:center;
+  border-top:1px solid var(--border);
+  color:var(--muted);
+  font-size:12px;
+}
+
+footer strong { color:var(--text); }
+
+@media(max-width:850px) {
+  .resource-grid { grid-template-columns:repeat(2,1fr); }
+}
+
+@media(max-width:560px) {
+  header { padding:11px 4%; }
+  .logo { font-size:16px; }
+  .logo-icon { width:36px;height:36px; }
+  .nav-btn { padding:9px; }
+  .back-btn { padding:9px 11px;font-size:11px; }
+  .hero { padding:26px 21px;margin-top:22px;border-radius:22px; }
+  .hero::after { font-size:90px;right:3%; }
+  .hero h1 { letter-spacing:-1px; }
+  .info-grid { gap:10px; }
+  .info-card { padding:14px; }
+  .info-card strong { font-size:15px; }
+  .info-card p { font-size:10px; }
+  .topic-grid { grid-template-columns:1fr; }
+  .resource-grid { grid-template-columns:1fr; }
+  .resource-card { padding:19px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background">
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+  <div class="orb three"></div>
+</div>
+
+<header>
+  <nav class="navbar">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">✦</div>
+      <span class="logo-name">NextGen Learn</span>
+    </a>
+
+    <div class="nav-actions">
+      <button class="nav-btn" id="languageBtn">සිං</button>
+      <button class="nav-btn" id="themeBtn">☀️</button>
+      <a href="#" id="backBtn" class="back-btn">← Back</a>
+    </div>
+  </nav>
+</header>
+
+<div class="container">
+
+<section class="hero">
+  <div class="breadcrumb">
+    <a href="index.html" data-i18n="home">Home</a>
+    <span>›</span>
+    <a href="grades.html" data-i18n="grades">Grades</a>
+    <span>›</span>
+    <a href="#" id="gradeBreadcrumb">Grade 1</a>
+    <span>›</span>
+    <span id="subjectBreadcrumb">Mathematics</span>
+  </div>
+
+  <div class="eyebrow" data-i18n="eyebrow">✨ SUBJECT LEARNING SPACE</div>
+
+  <h1>
+    <span id="subjectIcon">➗</span>
+    <span id="subjectTitle" class="gradient">Mathematics</span>
+  </h1>
+
+  <p id="subjectDescription" data-i18n="heroDesc">
+    ඔබේ විෂය දැනුම වර්ධනය කරගන්න. පාඩම්, අභ්‍යාස සහ අධ්‍යාපනික සම්පත් සමඟ ඉගෙන ගන්න.
+  </p>
+
+  <div class="hero-actions">
+    <a href="#topics" class="primary-btn" data-i18n="exploreLessons">Explore Lessons ↓</a>
+    <a href="#resources" class="secondary-btn" data-i18n="studyResources">Study Resources ↗</a>
+  </div>
+</section>
+
+<section class="info-grid">
+  <div class="info-card">
+    <span>📚</span>
+    <strong data-i18n="learningTopics">Learning Topics</strong>
+    <p data-i18n="topicInfo">විෂයයට අදාළ පාඩම් මාතෘකා</p>
+  </div>
+
+  <div class="info-card">
+    <span>✍️</span>
+    <strong data-i18n="practice">Practice</strong>
+    <p data-i18n="practiceInfo">ඔබේ දැනුම පුහුණු කරන්න</p>
+  </div>
+
+  <div class="info-card">
+    <span>🏆</span>
+    <strong data-i18n="improve">Improve</strong>
+    <p data-i18n="improveInfo">දැනුම හා කුසලතා වර්ධනය</p>
+  </div>
+</section>
+
+<section class="section" id="topics">
+  <div class="section-header">
+    <div>
+      <div class="section-label">01 / LEARNING CONTENT</div>
+      <h2 data-i18n="topicsTitle">Explore Lessons</h2>
+      <p data-i18n="topicsDesc">ඔබේ විෂයට අදාළ පාඩම් මාතෘකා තෝරන්න.</p>
+    </div>
+  </div>
+
+  <div class="search-box">
+    <span>⌕</span>
+    <input id="topicSearch" type="search" placeholder="Search lessons...">
+  </div>
+
+  <div class="topic-grid" id="topicGrid"></div>
+  <div class="empty" id="emptyMessage">No lessons found.</div>
+</section>
+
+<section class="section" id="resources">
+  <div class="section-header">
+    <div>
+      <div class="section-label">02 / STUDY MATERIALS</div>
+      <h2 data-i18n="resourcesTitle">Learning Resources</h2>
+      <p data-i18n="resourcesDesc">ඔබේ අධ්‍යාපනයට අවශ්‍ය සම්පත් තෝරන්න.</p>
+    </div>
+  </div>
+
+  <div class="resource-grid" id="resourceGrid"></div>
+</section>
+
+<section class="section">
+  <div class="tip-box">
+    <h2 data-i18n="tipTitle">💡 Learning Tip</h2>
+    <p data-i18n="tipDesc">
+      සෑම දිනකම ටික වේලාවක් වෙන් කරගෙන පාඩම් කරන්න. ඉගෙනගත් දේ නැවත මතක් කරමින් ප්‍රශ්නවලට පිළිතුරු ලියන්න.
+    </p>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <strong>NextGen Learn</strong>
+  <p style="margin-top:9px">© <span id="year"></span> NextGen Learn. Learn Today. Lead Tomorrow.</p>
+</footer>
+
+<script>
+const translations = {
+si: {
+  home:"මුල් පිටුව",
+  grades:"ශ්‍රේණි",
+  back:"← ආපසු",
+  eyebrow:"✨ විෂය ඉගෙනුම් අවකාශය",
+  heroDesc:"ඔබේ විෂය දැනුම වර්ධනය කරගන්න. පාඩම්, අභ්‍යාස සහ අධ්‍යාපනික සම්පත් සමඟ ඉගෙන ගන්න.",
+  exploreLessons:"පාඩම් බලන්න ↓",
+  studyResources:"අධ්‍යාපනික සම්පත් ↗",
+  learningTopics:"පාඩම් මාතෘකා",
+  topicInfo:"විෂයයට අදාළ පාඩම් මාතෘකා",
+  practice:"පුහුණුව",
+  practiceInfo:"ඔබේ දැනුම පුහුණු කරන්න",
+  improve:"දියුණුව",
+  improveInfo:"දැනුම හා කුසලතා වර්ධනය",
+  topicsTitle:"පාඩම් තෝරන්න",
+  topicsDesc:"ඔබේ විෂයට අදාළ පාඩම් මාතෘකා තෝරන්න.",
+  resourcesTitle:"අධ්‍යාපනික සම්පත්",
+  resourcesDesc:"ඔබේ අධ්‍යාපනයට අවශ්‍ය සම්පත් තෝරන්න.",
+  tipTitle:"💡 ඉගෙනුම් උපදෙසක්",
+  tipDesc:"සෑම දිනකම ටික වේලාවක් වෙන් කරගෙන පාඩම් කරන්න. ඉගෙනගත් දේ නැවත මතක් කරමින් ප්‍රශ්නවලට පිළිතුරු ලියන්න.",
+  search:"පාඩම් සොයන්න...",
+  open:"විවෘත කරන්න ↗",
+  empty:"පාඩම් හමු නොවීය.",
+  topics:["හැඳින්වීම","මූලික සංකල්ප","වැදගත් කරුණු","උදාහරණ සහ පැහැදිලි කිරීම්","පුහුණු අභ්‍යාස","දැනුම පරීක්ෂාව"],
+  topicDesc:"මෙම පාඩම සඳහා අධ්‍යාපනික අන්තර්ගතය පසුව එක් කරනු ලැබේ.",
+  resources:["පාඩම් සටහන්","අධ්‍යාපනික වීඩියෝ","පුහුණු ප්‍රශ්න"],
+  resourceDesc:["විෂයයට අදාළ සටහන් සහ අධ්‍යයන ද්‍රව්‍ය.","දෘශ්‍ය ඉගෙනුම සඳහා අධ්‍යාපනික වීඩියෝ.","ඔබේ දැනුම පරීක්ෂා කිරීමට ප්‍රශ්න."]
+},
+en: {
+  home:"Home",
+  grades:"Grades",
+  back:"← Back",
+  eyebrow:"✨ SUBJECT LEARNING SPACE",
+  heroDesc:"Build your subject knowledge with lessons, practice activities and educational resources.",
+  exploreLessons:"Explore Lessons ↓",
+  studyResources:"Study Resources ↗",
+  learningTopics:"Learning Topics",
+  topicInfo:"Topics related to this subject",
+  practice:"Practice",
+  practiceInfo:"Practice what you learn",
+  improve:"Improve",
+  improveInfo:"Build your knowledge and skills",
+  topicsTitle:"Explore Lessons",
+  topicsDesc:"Choose a lesson topic for your subject.",
+  resourcesTitle:"Learning Resources",
+  resourcesDesc:"Choose resources to support your learning.",
+  tipTitle:"💡 Learning Tip",
+  tipDesc:"Set aside some time every day to study. Review what you have learned and practise answering questions.",
+  search:"Search lessons...",
+  open:"Explore ↗",
+  empty:"No lessons found.",
+  topics:["Introduction","Basic Concepts","Important Facts","Examples and Explanations","Practice Activities","Knowledge Check"],
+  topicDesc:"Educational content for this lesson will be added later.",
+  resources:["Study Notes","Educational Videos","Practice Questions"],
+  resourceDesc:["Notes and study materials for this subject.","Educational videos for visual learning.","Questions to test your knowledge."]
+},
+ta: {
+  home:"முகப்பு",
+  grades:"வகுப்புகள்",
+  back:"← பின்னால்",
+  eyebrow:"✨ பாடக் கற்றல் இடம்",
+  heroDesc:"பாடங்கள், பயிற்சிகள் மற்றும் கல்வி வளங்களுடன் உங்கள் பாட அறிவை வளர்த்துக் கொள்ளுங்கள்.",
+  exploreLessons:"பாடங்களைப் பாருங்கள் ↓",
+  studyResources:"கல்வி வளங்கள் ↗",
+  learningTopics:"கற்றல் தலைப்புகள்",
+  topicInfo:"இந்தப் பாடத்திற்கான தலைப்புகள்",
+  practice:"பயிற்சி",
+  practiceInfo:"நீங்கள் கற்றவற்றைப் பயிற்சி செய்யுங்கள்",
+  improve:"முன்னேற்றம்",
+  improveInfo:"அறிவையும் திறன்களையும் வளர்த்தல்",
+  topicsTitle:"பாடங்களை ஆராயுங்கள்",
+  topicsDesc:"உங்கள் பாடத்திற்கான தலைப்பைத் தேர்ந்தெடுக்கவும்.",
+  resourcesTitle:"கற்றல் வளங்கள்",
+  resourcesDesc:"உங்கள் கற்றலுக்கான வளங்களைத் தேர்ந்தெடுக்கவும்.",
+  tipTitle:"💡 கற்றல் குறிப்பு",
+  tipDesc:"ஒவ்வொரு நாளும் சிறிது நேரம் ஒதுக்கிப் படியுங்கள். கற்றவற்றை மீண்டும் நினைவுபடுத்தி வினாக்களுக்குப் பதிலளியுங்கள்.",
+  search:"பாடங்களைத் தேடுங்கள்...",
+  open:"திறக்கவும் ↗",
+  empty:"பாடங்கள் எதுவும் இல்லை.",
+  topics:["அறிமுகம்","அடிப்படைக் கருத்துகள்","முக்கிய உண்மைகள்","எடுத்துக்காட்டுகள் மற்றும் விளக்கங்கள்","பயிற்சிச் செயல்பாடுகள்","அறிவுச் சோதனை"],
+  topicDesc:"இந்தப் பாடத்திற்கான கல்வி உள்ளடக்கம் பின்னர் சேர்க்கப்படும்.",
+  resources:["பாடக் குறிப்புகள்","கல்வி வீடியோக்கள்","பயிற்சி வினாக்கள்"],
+  resourceDesc:["இந்தப் பாடத்திற்கான குறிப்புகள் மற்றும் கற்றல் பொருட்கள்.","காட்சி வழிக் கற்றலுக்கான கல்வி வீடியோக்கள்.","உங்கள் அறிவைச் சோதிக்கும் வினாக்கள்."]
+}
+};
+
+const subjectDetails = {
+  mathematics:{icon:"➗",color:"#8b5cf6",si:"ගණිතය",ta:"கணிதம்"},
+  maths:{icon:"➗",color:"#8b5cf6",si:"ගණිතය",ta:"கணிதம்"},
+  science:{icon:"🔬",color:"#06b6d4",si:"විද්‍යාව",ta:"அறிவியல்"},
+  english:{icon:"🌐",color:"#f59e0b",si:"ඉංග්‍රීසි",ta:"ஆங்கிலம்"},
+  ict:{icon:"💻",color:"#6366f1",si:"තොරතුරු හා සන්නිවේදන තාක්ෂණය",ta:"தகவல் தொழில்நுட்பம்"},
+  sinhala:{icon:"📖",color:"#f472b6",si:"සිංහල",ta:"சிங்களம்"},
+  tamil:{icon:"📚",color:"#ec4899",si:"දෙමළ",ta:"தமிழ்"},
+  history:{icon:"🏛️",color:"#f97316",si:"ඉතිහාසය",ta:"வரலாறு"},
+  geography:{icon:"🌍",color:"#10b981",si:"භූගෝල විද්‍යාව",ta:"புவியியல்"},
+  technology:{icon:"⚙️",color:"#14b8a6",si:"තාක්ෂණවේදය",ta:"தொழில்நுட்பம்"},
+  default:{icon:"📘",color:"#8b5cf6",si:"විෂයය",ta:"பாடம்"}
+};
+
+const params = new URLSearchParams(location.search);
+const grade = Math.min(13,Math.max(1,Number(params.get("grade")) || 1));
+const subjectParam = params.get("subject") || "Mathematics";
+
+function normalizeSubject(value) {
+  return value.toLowerCase().trim().replace(/\s+/g," ");
+}
+
+const subjectKey = normalizeSubject(subjectParam);
+let subject = subjectDetails[subjectKey] || subjectDetails.default;
+let lang = localStorage.getItem("ngl-language") || "si";
+
+function displaySubject() {
+  if(lang==="si") return subject.si || subjectParam;
+  if(lang==="ta") return subject.ta || subjectParam;
+  return subjectParam;
+}
+
+function applyLanguage() {
+  const t=translations[lang];
+
+  document.documentElement.lang =
+    lang==="si" ? "si" : lang==="ta" ? "ta" : "en";
+
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key=el.dataset.i18n;
+    if(t[key]) el.textContent=t[key];
+  });
+
+  document.getElementById("languageBtn").textContent =
+    lang==="si" ? "සිං" : lang==="en" ? "ENG" : "தமிழ்";
+
+  document.getElementById("topicSearch").placeholder=t.search;
+
+  const gradeName =
+    lang==="si" ? `ශ්‍රේණිය ${grade}` :
+    lang==="ta" ? `வகுப்பு ${grade}` : `Grade ${grade}`;
+
+  document.getElementById("gradeBreadcrumb").textContent=gradeName;
+  document.getElementById("gradeBreadcrumb").href=`grade.html?grade=${grade}`;
+
+  document.getElementById("subjectBreadcrumb").textContent=displaySubject();
+  document.getElementById("subjectTitle").textContent=displaySubject();
+  document.getElementById("subjectIcon").textContent=subject.icon;
+
+  document.getElementById("backBtn").href=`grade.html?grade=${grade}`;
+
+  renderTopics();
+  renderResources();
+}
+
+function renderTopics() {
+  const t=translations[lang];
+  const grid=document.getElementById("topicGrid");
+  grid.innerHTML="";
+
+  t.topics.forEach((name,i)=>{
+    const card=document.createElement("a");
+    card.className="topic-card";
+    card.href=`lesson.html?grade=${grade}&subject=${encodeURIComponent(subjectParam)}&lesson=${i+1}`;
+
+    card.innerHTML=`
+      <div class="topic-icon">${["📘","💡","⭐","🔍","✍️","🧠"][i]}</div>
+      <div>
+        <h3>${name}</h3>
+        <p>${t.topicDesc}</p>
+      </div>
+      <span class="topic-arrow">↗</span>
+    `;
+
+    grid.appendChild(card);
+  });
+
+  filterTopics();
+}
+
+function filterTopics() {
+  const query=document.getElementById("topicSearch").value.toLowerCase();
+  const cards=document.querySelectorAll(".topic-card");
+  let visible=0;
+
+  cards.forEach(card=>{
+    const matches=card.textContent.toLowerCase().includes(query);
+    card.style.display=matches?"flex":"none";
+    if(matches) visible++;
+  });
+
+  document.getElementById("emptyMessage").style.display =
+    visible===0?"block":"none";
+}
+
+function renderResources() {
+  const t=translations[lang];
+  const grid=document.getElementById("resourceGrid");
+  grid.innerHTML="";
+
+  const icons=["📝","🎥","📋"];
+  const types=["notes","videos","questions"];
+
+  t.resources.forEach((name,i)=>{
+    const card=document.createElement("div");
+    card.className="resource-card";
+
+    const url=`resources.html?grade=${grade}&subject=${encodeURIComponent(subjectParam)}&type=${types[i]}`;
+
+    card.innerHTML=`
+      <div class="resource-icon">${icons[i]}</div>
+      <h3>${name}</h3>
+      <p>${t.resourceDesc[i]}</p>
+      <a href="${url}">${t.open}</a>
+    `;
+
+    grid.appendChild(card);
+  });
+}
+
+document.getElementById("topicSearch").addEventListener("input",filterTopics);
+
+document.getElementById("languageBtn").addEventListener("click",()=>{
+  const languages=["si","en","ta"];
+  lang=languages[(languages.indexOf(lang)+1)%3];
+  localStorage.setItem("ngl-language",lang);
+  applyLanguage();
+});
+
+document.getElementById("themeBtn").addEventListener("click",()=>{
+  document.body.classList.toggle("light");
+  const light=document.body.classList.contains("light");
+  localStorage.setItem("ngl-theme",light?"light":"dark");
+  document.getElementById("themeBtn").textContent=light?"🌙":"☀️";
+});
+
+if(localStorage.getItem("ngl-theme")==="light") {
+  document.body.classList.add("light");
+  document.getElementById("themeBtn").textContent="🌙";
+}
+
+document.getElementById("year").textContent=new Date().getFullYear();
+
+applyLanguage();
+</script>
+
+</body>
+</html>
