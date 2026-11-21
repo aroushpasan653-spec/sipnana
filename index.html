@@ -13,79 +13,50 @@
 
 <style>
 *{
- margin:0;
- padding:0;
- box-sizing:border-box;
+ margin:0;padding:0;box-sizing:border-box;
  -webkit-tap-highlight-color:transparent;
 }
-
 :root{
- --bg:#101827;
- --text:#f8fafc;
- --muted:#aab5c5;
- --blue:#3563e9;
- --blue-dark:#2448b8;
- --teal:#14b8a6;
- --glass:rgba(255,255,255,.055);
+ --bg:#101827;--text:#f8fafc;--muted:#aab5c5;
+ --blue:#3563e9;--blue-dark:#2448b8;
+ --teal:#14b8a6;--glass:rgba(255,255,255,.055);
  --border:rgba(255,255,255,.14);
 }
-
 html,body{
- width:100%;
- height:100%;
- overflow:hidden;
+ width:100%;height:100%;overflow:hidden;
  overscroll-behavior:none;
 }
-
 body{
- background:var(--bg);
- color:var(--text);
+ background:var(--bg);color:var(--text);
  font-family:Inter,sans-serif;
  transition:background .45s,color .45s;
 }
-
-button,a{
- font:inherit;
-}
+button,a{font:inherit}
 button{cursor:pointer}
 a{color:inherit;text-decoration:none}
 
 /* BACKGROUND */
-
 .background{
- position:fixed;
- inset:0;
- z-index:-2;
- overflow:hidden;
+ position:fixed;inset:0;z-index:-2;overflow:hidden;
  background:
  radial-gradient(ellipse at 10% 15%,#3563e91b,transparent 40%),
  radial-gradient(ellipse at 90% 85%,#14b8a614,transparent 40%),
  #101827;
  transition:background .5s;
 }
-
 .orb{
- position:absolute;
- width:350px;
- height:350px;
- border-radius:50%;
- filter:blur(130px);
- opacity:.16;
+ position:absolute;width:350px;height:350px;
+ border-radius:50%;filter:blur(130px);opacity:.16;
  animation:floatOrb 12s ease-in-out infinite alternate;
 }
-
 .orb1{background:#3563e9;top:10%;left:-180px}
 .orb2{background:#14b8a6;right:-180px;top:20%;animation-delay:-4s}
 .orb3{background:#64748b;bottom:-230px;left:35%;animation-delay:-7s}
-
 @keyframes floatOrb{
  to{transform:translate(90px,60px) scale(1.2)}
 }
-
 .stars{
- position:absolute;
- inset:0;
- opacity:.25;
+ position:absolute;inset:0;opacity:.25;
  background-image:
  radial-gradient(1px 1px at 20% 20%,white,transparent),
  radial-gradient(2px 2px at 70% 60%,white,transparent),
@@ -94,839 +65,415 @@ a{color:inherit;text-decoration:none}
  background-size:230px 230px;
  animation:starsMove 40s linear infinite;
 }
-
 @keyframes starsMove{
  to{background-position:230px 230px}
 }
 
 /* CORNER CONTROLS */
-
 .corner-controls{
- position:fixed;
- top:17px;
- left:17px;
- right:17px;
- display:flex;
- justify-content:space-between;
- align-items:center;
- z-index:300;
- pointer-events:none;
+ position:fixed;top:17px;left:17px;right:17px;
+ display:flex;justify-content:space-between;
+ align-items:center;z-index:300;pointer-events:none;
 }
-
 .corner-controls>*{pointer-events:auto}
 
 /* LANGUAGE */
-
 .language-area{position:relative}
-
 .language-button{
- display:flex;
- align-items:center;
- gap:9px;
- padding:11px 16px;
- border-radius:15px;
- border:1px solid #ffffff30;
- color:white;
+ display:flex;align-items:center;gap:9px;
+ padding:11px 16px;border-radius:15px;
+ border:1px solid #ffffff30;color:white;
  background:linear-gradient(135deg,#ffffff15,#ffffff06);
  backdrop-filter:blur(20px);
  box-shadow:0 7px 22px #0003,inset 0 1px #ffffff25;
- font-size:12px;
- font-weight:750;
- transition:.3s;
+ font-size:12px;font-weight:750;transition:.3s;
 }
-
 .language-button:hover{
- transform:translateY(-2px);
- border-color:#8ba9ed;
+ transform:translateY(-2px);border-color:#8ba9ed;
 }
-
 .lang-icon{font-size:18px}
 .chevron{font-size:10px;color:#aabfe9}
-
 .language-menu{
- position:absolute;
- top:58px;
- left:0;
- width:190px;
- padding:10px;
- border:1px solid #ffffff25;
- border-radius:18px;
- background:rgba(16,24,39,.97);
- backdrop-filter:blur(25px);
- box-shadow:0 20px 45px #0006;
- opacity:0;
- visibility:hidden;
- transform:translateY(-10px) scale(.96);
- transform-origin:top left;
- transition:.25s;
+ position:absolute;top:58px;left:0;width:190px;
+ padding:10px;border:1px solid #ffffff25;
+ border-radius:18px;background:rgba(16,24,39,.97);
+ backdrop-filter:blur(25px);box-shadow:0 20px 45px #0006;
+ opacity:0;visibility:hidden;transform:translateY(-10px) scale(.96);
+ transform-origin:top left;transition:.25s;
 }
-
 .language-menu.open{
- opacity:1;
- visibility:visible;
- transform:translateY(0) scale(1);
+ opacity:1;visibility:visible;transform:translateY(0) scale(1);
 }
-
 .language-heading{
- padding:9px 10px 12px;
- color:#aab5c5;
- font-size:9px;
- font-weight:800;
- letter-spacing:1.4px;
+ padding:9px 10px 12px;color:#aab5c5;
+ font-size:9px;font-weight:800;letter-spacing:1.4px;
 }
-
 .language-option{
- width:100%;
- display:flex;
- align-items:center;
- gap:12px;
- padding:12px 10px;
- border:0;
- border-radius:11px;
- color:white;
- background:transparent;
- text-align:left;
- font-size:12px;
- font-weight:650;
- transition:.2s;
+ width:100%;display:flex;align-items:center;gap:12px;
+ padding:12px 10px;border:0;border-radius:11px;
+ color:white;background:transparent;text-align:left;
+ font-size:12px;font-weight:650;transition:.2s;
 }
-
-.language-option:hover,
-.language-option.selected{
+.language-option:hover,.language-option.selected{
  background:#3563e927;
 }
-
 .flag{font-size:20px}
 .check{margin-left:auto;color:#77a1ff;opacity:0}
 .language-option.selected .check{opacity:1}
 
-/* PREMIUM THEME SWITCH */
-
+/* THEME SWITCH */
 .theme-switch{
- width:105px;
- height:49px;
- position:relative;
- border-radius:50px;
- border:1px solid #ffffff45;
+ width:105px;height:49px;position:relative;
+ border-radius:50px;border:1px solid #ffffff45;
  background:linear-gradient(145deg,#ffffff25,#ffffff08);
  box-shadow:0 8px 22px #0004,inset 0 2px 5px #ffffff20,inset 0 -3px 6px #0003;
- backdrop-filter:blur(20px);
- overflow:hidden;
- transition:.4s;
+ backdrop-filter:blur(20px);overflow:hidden;transition:.4s;
 }
-
 .theme-track{
- position:absolute;
- inset:4px;
- border-radius:50px;
+ position:absolute;inset:4px;border-radius:50px;
  background:rgba(255,255,255,.13);
 }
-
 .theme-thumb{
- position:absolute;
- top:2px;
- left:2px;
- width:43px;
- height:43px;
- display:grid;
- place-items:center;
- border-radius:50%;
- background:linear-gradient(145deg,#ffe99b,#f5b536);
+ position:absolute;top:2px;left:2px;
+ width:43px;height:43px;display:grid;place-items:center;
+ border-radius:50%;background:linear-gradient(145deg,#ffe99b,#f5b536);
  box-shadow:0 4px 12px #0004,inset 0 2px 4px #ffffffaa,inset 0 -3px 5px #c58d20;
  transition:transform .5s cubic-bezier(.2,.9,.25,1.3),background .4s;
  z-index:2;
 }
-
-.theme-thumb svg{
- width:24px;
- height:24px;
-}
-
-/* DARK MODE = RIGHT SIDE */
-
+.theme-thumb svg{width:24px;height:24px}
 body:not(.light) .theme-thumb{
  transform:translateX(56px);
  background:linear-gradient(145deg,#65718b,#303c55);
  box-shadow:0 4px 12px #0005,inset 0 2px 4px #ffffff55;
 }
-
-/* LIGHT MODE = LEFT SIDE */
-
-body.light .theme-thumb{
- transform:translateX(0);
-}
-
+body.light .theme-thumb{transform:translateX(0)}
 .sun-icon{
- position:absolute;
- left:12px;
- top:12px;
- width:23px;
- height:23px;
- color:#fff;
+ position:absolute;left:12px;top:12px;
+ width:23px;height:23px;color:#fff;
 }
-
 .moon-icon{
- position:absolute;
- right:12px;
- top:12px;
- width:23px;
- height:23px;
- color:#d9deea;
+ position:absolute;right:12px;top:12px;
+ width:23px;height:23px;color:#d9deea;
 }
 
 /* MAIN */
-
 main{
- position:fixed;
- inset:0;
- width:100%;
- height:100vh;
- height:100dvh;
- display:flex;
- align-items:center;
- justify-content:center;
- padding:75px 16px 15px;
- overflow:hidden;
+ position:fixed;inset:0;width:100%;height:100vh;height:100dvh;
+ display:flex;align-items:center;justify-content:center;
+ padding:75px 16px 15px;overflow:hidden;
 }
-
 .welcome{
- position:relative;
- width:100%;
- max-width:520px;
- text-align:center;
- animation:enter .9s ease both;
+ position:relative;width:100%;max-width:520px;
+ text-align:center;animation:enter .9s ease both;
 }
-
 @keyframes enter{
  from{opacity:0;transform:translateY(25px)}
  to{opacity:1;transform:translateY(0)}
 }
 
 /* LOGO */
-
 .logo{
- width:76px;
- height:76px;
- margin:0 auto 17px;
- display:grid;
- place-items:center;
- border-radius:23px;
+ width:76px;height:76px;margin:0 auto 17px;
+ display:grid;place-items:center;border-radius:23px;
  background:linear-gradient(145deg,#3563e9,#2448a8);
  border:1px solid #ffffff45;
  box-shadow:0 12px 30px #0004,inset 0 2px #ffffff65;
- position:relative;
- animation:logoFloat 4s ease-in-out infinite;
+ position:relative;animation:logoFloat 4s ease-in-out infinite;
 }
-
-.logo svg{
- width:48px;
- height:48px;
-}
-
+.logo svg{width:48px;height:48px}
 .logo:before{
- content:"";
- position:absolute;
- inset:-8px;
- border:1px solid #8ba7f533;
- border-radius:31px;
+ content:"";position:absolute;inset:-8px;
+ border:1px solid #8ba7f533;border-radius:31px;
  animation:logoRing 12s linear infinite;
 }
-
 @keyframes logoFloat{
  50%{transform:translateY(-7px) rotate(2deg)}
 }
-
-@keyframes logoRing{
- to{transform:rotate(360deg)}
-}
+@keyframes logoRing{to{transform:rotate(360deg)}}
 
 /* BRAND */
-
 .tag{
- display:inline-flex;
- align-items:center;
- gap:8px;
- margin-bottom:16px;
- padding:8px 14px;
- border:1px solid #6489e944;
- border-radius:30px;
- background:#3563e915;
- color:#b8ccff;
- font-size:9px;
- font-weight:800;
- letter-spacing:1.5px;
+ display:inline-flex;align-items:center;gap:8px;
+ margin-bottom:16px;padding:8px 14px;
+ border:1px solid #6489e944;border-radius:30px;
+ background:#3563e915;color:#b8ccff;
+ font-size:9px;font-weight:800;letter-spacing:1.5px;
 }
-
 .dot{
- width:7px;
- height:7px;
- border-radius:50%;
- background:#14b8a6;
- box-shadow:0 0 8px #14b8a666;
+ width:7px;height:7px;border-radius:50%;
+ background:#14b8a6;box-shadow:0 0 8px #14b8a666;
 }
-
 .brand{
  font-family:"Space Grotesk",sans-serif;
  font-size:clamp(34px,7vw,49px);
- font-weight:800;
- letter-spacing:-2px;
+ font-weight:800;letter-spacing:-2px;
 }
-
 .brand span{
  background:linear-gradient(90deg,#8bb4ff,#54c8c1);
- -webkit-background-clip:text;
- background-clip:text;
+ -webkit-background-clip:text;background-clip:text;
  color:transparent;
 }
-
 .subtitle{
- margin-top:11px;
- color:var(--muted);
- font-size:12px;
- line-height:1.9;
+ margin-top:11px;color:var(--muted);
+ font-size:12px;line-height:1.9;
 }
 
 /* AUTH CARD */
-
 .auth-card{
- position:relative;
- margin-top:27px;
- padding:29px;
+ position:relative;margin-top:27px;padding:29px;
  border:1px solid rgba(255,255,255,.14);
  border-radius:25px;
  background:linear-gradient(140deg,rgba(255,255,255,.075),rgba(255,255,255,.025));
- backdrop-filter:blur(28px);
- -webkit-backdrop-filter:blur(28px);
+ backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
  box-shadow:0 25px 65px #0004,inset 0 1px #ffffff20;
- transform-style:preserve-3d;
- transition:transform .2s;
+ transform-style:preserve-3d;transition:transform .2s;
 }
-
 .auth-card:before{
- content:"";
- position:absolute;
- top:0;
- left:12%;
- width:76%;
- height:1px;
+ content:"";position:absolute;top:0;left:12%;
+ width:76%;height:1px;
  background:linear-gradient(90deg,transparent,#ffffff80,transparent);
 }
-
 .card-title{
  font-family:"Space Grotesk",sans-serif;
- font-size:23px;
- font-weight:700;
+ font-size:23px;font-weight:700;
 }
-
 .card-desc{
- margin:9px 0 22px;
- color:#aab5c5;
- font-size:11px;
- line-height:1.8;
+ margin:9px 0 22px;color:#aab5c5;
+ font-size:11px;line-height:1.8;
 }
 
 /* BUTTONS */
-
 .auth-buttons{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:12px;
+ display:grid;grid-template-columns:1fr 1fr;gap:12px;
 }
-
 .auth-btn{
- min-height:53px;
- border-radius:13px;
- display:flex;
- align-items:center;
- justify-content:center;
- gap:9px;
- font-size:12px;
- font-weight:800;
- transition:.3s;
- position:relative;
- overflow:hidden;
+ min-height:53px;border-radius:13px;
+ display:flex;align-items:center;justify-content:center;
+ gap:9px;font-size:12px;font-weight:800;
+ transition:.3s;position:relative;overflow:hidden;
 }
-
 .auth-btn:hover{transform:translateY(-3px)}
-
 .login-btn{
- color:white;
- border:1px solid #ffffff30;
+ color:white;border:1px solid #ffffff30;
  background:rgba(255,255,255,.055);
  box-shadow:inset 0 1px #ffffff20;
 }
-
 .signup-btn{
- color:white;
- border:1px solid #7595ee66;
+ color:white;border:1px solid #7595ee66;
  background:linear-gradient(135deg,#3563e9,#2448b8);
  box-shadow:0 7px 20px #3563e930,inset 0 1px #ffffff35;
 }
-
 .auth-btn:after{
- content:"";
- position:absolute;
- top:-50%;
- left:-100%;
- width:45%;
- height:200%;
- transform:rotate(25deg);
- background:#ffffff30;
- transition:.6s;
+ content:"";position:absolute;top:-50%;left:-100%;
+ width:45%;height:200%;transform:rotate(25deg);
+ background:#ffffff30;transition:.6s;
 }
-
 .auth-btn:hover:after{left:150%}
-
 .divider{
- display:flex;
- align-items:center;
- gap:13px;
- margin:21px 0;
- color:#929daf;
- font-size:9px;
+ display:flex;align-items:center;gap:13px;
+ margin:21px 0;color:#929daf;font-size:9px;
 }
-
-.divider:before,
-.divider:after{
- content:"";
- flex:1;
- height:1px;
- background:#ffffff20;
+.divider:before,.divider:after{
+ content:"";flex:1;height:1px;background:#ffffff20;
 }
 
 /* GUEST BUTTON */
-
 .guest-btn{
- width:100%;
- min-height:57px;
- display:flex;
- align-items:center;
- justify-content:center;
- position:relative;
- gap:10px;
- padding:0 42px;
- border-radius:14px;
- border:1px solid #6489e966;
- color:#dce7ff;
- background:rgba(53,99,233,.09);
+ width:100%;min-height:57px;
+ display:flex;align-items:center;justify-content:center;
+ position:relative;gap:10px;padding:0 42px;
+ border-radius:14px;border:1px solid #6489e966;
+ color:#dce7ff;background:rgba(53,99,233,.09);
  box-shadow:inset 0 1px #ffffff15;
- font-size:12px;
- font-weight:800;
- transition:.3s;
+ font-size:12px;font-weight:800;transition:.3s;
 }
-
 .guest-btn:hover{
- transform:translateY(-3px);
- border-color:#82a5ff;
+ transform:translateY(-3px);border-color:#82a5ff;
  box-shadow:0 8px 24px #3563e922;
 }
-
 .guest-icon{font-size:19px}
 .guest-arrow{
- position:absolute;
- right:17px;
- color:#a8c2ff;
- font-size:19px;
+ position:absolute;right:17px;color:#a8c2ff;font-size:19px;
 }
-
-.guest-note{
- margin-top:12px;
- color:#8995a7;
- font-size:9px;
-}
-
+.guest-note{margin-top:12px;color:#8995a7;font-size:9px}
 .footer{
- margin-top:20px;
- color:#8995a7;
- font-size:9px;
- line-height:2;
+ margin-top:20px;color:#8995a7;font-size:9px;line-height:2;
 }
-
 .footer a{color:#9ebaff}
 
 /* DECORATIONS */
-
 .decor{
- position:absolute;
- z-index:-1;
- border:1px solid #ffffff20;
- background:rgba(255,255,255,.045);
- backdrop-filter:blur(10px);
- box-shadow:0 10px 25px #0002;
+ position:absolute;z-index:-1;
+ border:1px solid #ffffff20;background:rgba(255,255,255,.045);
+ backdrop-filter:blur(10px);box-shadow:0 10px 25px #0002;
  animation:decorFloat 7s ease-in-out infinite alternate;
 }
-
 .decor1{
- width:58px;height:58px;
- top:20%;left:-65px;
- border-radius:17px;
+ width:58px;height:58px;top:20%;left:-65px;border-radius:17px;
 }
-
 .decor2{
- width:65px;height:65px;
- bottom:17%;right:-65px;
- border-radius:50%;
- animation-delay:-3s;
+ width:65px;height:65px;bottom:17%;right:-65px;
+ border-radius:50%;animation-delay:-3s;
 }
-
 .decor3{
- width:32px;height:32px;
- top:5%;right:5%;
- border-radius:10px;
+ width:32px;height:32px;top:5%;right:5%;border-radius:10px;
 }
-
 @keyframes decorFloat{
  to{translate:0 -23px;rotate:15deg}
 }
 
-/* TOP NAVIGATION - LOGIN ONLY */
-
-.top-wrap,
-.bottom-wrap{display:none}
-
+/* NAVIGATION - LOGIN ONLY */
+.top-wrap,.bottom-wrap{display:none}
 body.logged-in .top-wrap,
 body.logged-in .bottom-wrap{display:flex}
-
 .top-wrap{
- position:fixed;
- top:85px;
- left:0;
- right:0;
- padding:0 14px;
- z-index:100;
- justify-content:center;
+ position:fixed;top:85px;left:0;right:0;
+ padding:0 14px;z-index:100;justify-content:center;
 }
-
 .top-nav{
- width:min(900px,100%);
- min-height:58px;
- display:flex;
- align-items:center;
- justify-content:space-around;
- padding:7px 12px;
- border:1px solid #ffffff25;
- border-radius:50px;
- background:rgba(255,255,255,.065);
+ width:min(900px,100%);min-height:58px;
+ display:flex;align-items:center;justify-content:space-around;
+ padding:7px 12px;border:1px solid #ffffff25;
+ border-radius:50px;background:rgba(255,255,255,.065);
  backdrop-filter:blur(25px);
 }
-
 .top-link{
- flex:1;
- height:43px;
- display:flex;
- align-items:center;
- justify-content:center;
- gap:8px;
- border-radius:40px;
- color:#c0c9d6;
- font-size:11px;
- font-weight:650;
+ flex:1;height:43px;display:flex;align-items:center;
+ justify-content:center;gap:8px;border-radius:40px;
+ color:#c0c9d6;font-size:11px;font-weight:650;
 }
-
 .top-link.active{
- color:white;
- background:linear-gradient(110deg,#3563e9,#2448b8);
+ color:white;background:linear-gradient(110deg,#3563e9,#2448b8);
 }
-
-/* BOTTOM NAVIGATION */
-
 .bottom-wrap{
- position:fixed;
- z-index:100;
- bottom:14px;
- left:0;
- right:0;
- padding:0 14px;
- justify-content:center;
+ position:fixed;z-index:100;bottom:14px;left:0;right:0;
+ padding:0 14px;justify-content:center;
 }
-
 .bottom-nav{
- width:min(680px,100%);
- min-height:76px;
- display:flex;
- align-items:center;
- justify-content:space-around;
- padding:6px 10px;
- border-radius:50px;
+ width:min(680px,100%);min-height:76px;
+ display:flex;align-items:center;justify-content:space-around;
+ padding:6px 10px;border-radius:50px;
  background:rgba(16,24,39,.94);
- border:1px solid #ffffff20;
- backdrop-filter:blur(28px);
+ border:1px solid #ffffff20;backdrop-filter:blur(28px);
  box-shadow:0 15px 40px #0005;
 }
-
 .bottom-link{
- flex:1;
- height:62px;
- display:flex;
- flex-direction:column;
- align-items:center;
- justify-content:center;
- gap:5px;
- border:0;
- border-radius:40px;
- color:#aab5c5;
- background:transparent;
- font-size:10px;
- font-weight:700;
+ flex:1;height:62px;display:flex;flex-direction:column;
+ align-items:center;justify-content:center;gap:5px;
+ border:0;border-radius:40px;color:#aab5c5;
+ background:transparent;font-size:10px;font-weight:700;
 }
-
 .bottom-link.active{color:#79a3ff}
 .bottom-icon{font-size:23px}
-
 .bottom-link.create .bottom-icon{
- width:38px;
- height:38px;
- border-radius:50%;
- display:grid;
- place-items:center;
+ width:38px;height:38px;border-radius:50%;
+ display:grid;place-items:center;
  background:linear-gradient(135deg,#3563e9,#2448b8);
- color:white;
- font-size:27px;
+ color:white;font-size:27px;
 }
 
 /* SEARCH */
-
 .search-popup{
- display:none;
- position:fixed;
- z-index:200;
- bottom:105px;
- left:50%;
- transform:translateX(-50%);
- width:min(430px,calc(100% - 30px));
- padding:12px;
- border-radius:16px;
- border:1px solid #ffffff25;
- background:#172337f5;
- backdrop-filter:blur(25px);
+ display:none;position:fixed;z-index:200;
+ bottom:105px;left:50%;transform:translateX(-50%);
+ width:min(430px,calc(100% - 30px));padding:12px;
+ border-radius:16px;border:1px solid #ffffff25;
+ background:#172337f5;backdrop-filter:blur(25px);
 }
-
 .search-popup.show{display:block}
-
 .search-popup input{
- width:100%;
- height:45px;
- padding:0 14px;
- outline:none;
- border:1px solid #ffffff25;
- border-radius:10px;
- background:#ffffff0c;
- color:white;
+ width:100%;height:45px;padding:0 14px;
+ outline:none;border:1px solid #ffffff25;
+ border-radius:10px;background:#ffffff0c;color:white;
 }
 
 /* LIGHT MODE */
-
 body.light{
- --bg:#f3f5f8;
- --text:#202b3c;
- --muted:#657187;
+ --bg:#f3f5f8;--text:#202b3c;--muted:#657187;
 }
-
 body.light .background{
  background:
  radial-gradient(ellipse at 10% 15%,#3563e910,transparent 40%),
  radial-gradient(ellipse at 90% 85%,#14b8a610,transparent 40%),
  #f3f5f8;
 }
-
 body.light .stars{opacity:.08}
-
 body.light .auth-card{
  background:rgba(255,255,255,.78);
  border:1px solid #ffffff;
  box-shadow:0 20px 55px #26344b15,inset 0 1px white;
 }
-
 body.light .card-title{color:#182438}
 body.light .card-desc{color:#657187}
-
 body.light .login-btn{
- color:#26344b;
- border-color:#d5dce8;
- background:#ffffffa8;
+ color:#26344b;border-color:#d5dce8;background:#ffffffa8;
 }
-
 body.light .guest-btn{
- color:#2448a8;
- background:#3563e90b;
- border-color:#3563e944;
+ color:#2448a8;background:#3563e90b;border-color:#3563e944;
 }
-
-body.light .guest-note,
-body.light .footer{color:#68758a}
-
+body.light .guest-note,body.light .footer{color:#68758a}
 body.light .footer a{color:#3563e9}
-
 body.light .language-button{
- color:#26344b;
- background:#ffffffd9;
- border-color:#dce2ec;
+ color:#26344b;background:#ffffffd9;border-color:#dce2ec;
 }
-
 body.light .language-menu{
- background:rgba(255,255,255,.97);
- border-color:#dce2ec;
+ background:rgba(255,255,255,.97);border-color:#dce2ec;
 }
-
 body.light .language-heading{color:#657187}
 body.light .language-option{color:#26344b}
 body.light .language-option:hover,
 body.light .language-option.selected{background:#3563e915}
-
 body.light .top-nav{
- background:rgba(255,255,255,.88);
- border-color:#dce2ec;
+ background:rgba(255,255,255,.88);border-color:#dce2ec;
 }
-
 body.light .top-link{color:#526078}
 body.light .top-link.active{color:white}
-
 body.light .bottom-nav{
- background:rgba(255,255,255,.95);
- border-color:#e1e5ed;
+ background:rgba(255,255,255,.95);border-color:#e1e5ed;
  box-shadow:0 12px 35px #26344b18;
 }
-
 body.light .bottom-link{color:#657187}
 body.light .bottom-link.active{color:#3563e9}
-
-body.light .decor{
- background:#ffffff80;
- border-color:#ffffff;
-}
-
+body.light .decor{background:#ffffff80;border-color:#ffffff}
 body.light .divider{color:#78849a}
 body.light .divider:before,
 body.light .divider:after{background:#dce2ec}
 
 /* RESPONSIVE */
-
 @media(max-width:600px){
-
- .corner-controls{
-  top:12px;
-  left:12px;
-  right:12px;
- }
-
- .language-button{
-  padding:9px 12px;
-  font-size:11px;
- }
-
- .theme-switch{
-  width:91px;
-  height:44px;
- }
-
- .theme-thumb{
-  width:38px;
-  height:38px;
- }
-
- body:not(.light) .theme-thumb{
-  transform:translateX(47px);
- }
-
- body.light .theme-thumb{
-  transform:translateX(0);
- }
-
+ .corner-controls{top:12px;left:12px;right:12px}
+ .language-button{padding:9px 12px;font-size:11px}
+ .theme-switch{width:91px;height:44px}
+ .theme-thumb{width:38px;height:38px}
+ body:not(.light) .theme-thumb{transform:translateX(47px)}
+ body.light .theme-thumb{transform:translateX(0)}
  .sun-icon{left:10px;top:10px}
  .moon-icon{right:10px;top:10px}
-
  main{padding:75px 16px 15px}
-
- .logo{
-  width:65px;
-  height:65px;
- }
-
- .logo svg{
-  width:41px;
-  height:41px;
- }
-
+ .logo{width:65px;height:65px}
+ .logo svg{width:41px;height:41px}
  .brand{font-size:36px}
  .subtitle{font-size:11px}
-
- .auth-card{
-  padding:23px 18px;
-  border-radius:23px;
-  margin-top:23px;
- }
-
+ .auth-card{padding:23px 18px;border-radius:23px;margin-top:23px}
  .card-title{font-size:20px}
  .auth-btn{min-height:49px;font-size:11px}
  .guest-btn{min-height:54px}
-
- .decor1{
-  left:-22px;
-  width:38px;
-  height:38px;
- }
-
- .decor2{
-  right:-20px;
-  width:43px;
-  height:43px;
- }
-
- .bottom-wrap{
-  bottom:8px;
-  padding:0 9px;
- }
-
- .bottom-nav{
-  min-height:67px;
-  padding:4px;
- }
-
- .bottom-link{
-  height:57px;
-  font-size:9px;
- }
-
+ .decor1{left:-22px;width:38px;height:38px}
+ .decor2{right:-20px;width:43px;height:43px}
+ .bottom-wrap{bottom:8px;padding:0 9px}
+ .bottom-nav{min-height:67px;padding:4px}
+ .bottom-link{height:57px;font-size:9px}
  .bottom-icon{font-size:21px}
-
- .bottom-link.create .bottom-icon{
-  width:35px;
-  height:35px;
- }
+ .bottom-link.create .bottom-icon{width:35px;height:35px}
 }
-
 @media(max-height:700px){
-
- .logo{
-  width:52px;
-  height:52px;
-  margin-bottom:8px;
- }
-
- .logo svg{
-  width:32px;
-  height:32px;
- }
-
- .tag{
-  margin-bottom:8px;
-  padding:6px 10px;
-  font-size:8px;
- }
-
+ .logo{width:52px;height:52px;margin-bottom:8px}
+ .logo svg{width:32px;height:32px}
+ .tag{margin-bottom:8px;padding:6px 10px;font-size:8px}
  .brand{font-size:30px}
-
- .subtitle{
-  margin-top:5px;
-  font-size:10px;
-  line-height:1.5;
- }
-
- .auth-card{
-  margin-top:12px;
-  padding:14px;
- }
-
+ .subtitle{margin-top:5px;font-size:10px;line-height:1.5}
+ .auth-card{margin-top:12px;padding:14px}
  .card-desc{margin:5px 0 12px}
  .auth-btn{min-height:42px}
  .divider{margin:10px 0}
@@ -934,20 +481,13 @@ body.light .divider:after{background:#dce2ec}
  .guest-note{margin-top:6px}
  .footer{margin-top:7px;font-size:8px}
 }
-
 @media(prefers-reduced-motion:reduce){
- *,*::before,*::after{
-  animation:none!important;
-  transition:none!important;
- }
+ *,*::before,*::after{animation:none!important;transition:none!important}
 }
-
 </style>
 </head>
 
 <body>
-
-<!-- BACKGROUND -->
 
 <div class="background">
  <div class="orb orb1"></div>
@@ -960,10 +500,7 @@ body.light .divider:after{background:#dce2ec}
 
 <div class="corner-controls">
 
- <!-- LANGUAGE -->
-
  <div class="language-area">
-
   <button class="language-button" id="languageButton">
    <span class="lang-icon">🌐</span>
    <span id="currentLanguage">English</span>
@@ -971,7 +508,6 @@ body.light .divider:after{background:#dce2ec}
   </button>
 
   <div class="language-menu" id="languageMenu">
-
    <div class="language-heading" data-i18n="chooseLanguage">
     SELECT LANGUAGE
    </div>
@@ -993,97 +529,65 @@ body.light .divider:after{background:#dce2ec}
     <span>தமிழ்</span>
     <span class="check">✓</span>
    </button>
-
   </div>
  </div>
 
- <!-- THEME -->
-
- <button class="theme-switch" id="themeSwitch"
- aria-label="Toggle theme">
-
+ <button class="theme-switch" id="themeSwitch" aria-label="Toggle theme">
   <span class="theme-track"></span>
 
   <svg class="sun-icon" viewBox="0 0 24 24"
-       fill="none" stroke="currentColor" stroke-width="2">
+   fill="none" stroke="currentColor" stroke-width="2">
    <circle cx="12" cy="12" r="4"/>
    <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/>
   </svg>
 
   <svg class="moon-icon" viewBox="0 0 24 24"
-       fill="none" stroke="currentColor" stroke-width="2">
+   fill="none" stroke="currentColor" stroke-width="2">
    <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5 8.5 8.5 0 1 0 20.5 14.5Z"/>
   </svg>
 
   <span class="theme-thumb" id="themeThumb">
    <svg id="thumbIcon" viewBox="0 0 24 24"
-        fill="none" stroke="white" stroke-width="2">
+    fill="none" stroke="white" stroke-width="2">
     <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5 8.5 8.5 0 1 0 20.5 14.5Z"/>
    </svg>
   </span>
-
  </button>
-
 </div>
 
 <!-- TOP NAVIGATION -->
 
 <div class="top-wrap">
-
  <nav class="top-nav">
-
-  <a href="index.html" class="top-link active" data-i18n="home">
-   ⌂ Home
-  </a>
-
-  <a href="videos.html" class="top-link" data-i18n="videos">
-   ▶ Videos
-  </a>
-
-  <a href="notes.html" class="top-link" data-i18n="notes">
-   ▤ Notes
-  </a>
-
-  <a href="about.html" class="top-link" data-i18n="about">
-   ♙ About
-  </a>
-
+  <a href="index.html" class="top-link active" data-i18n="home">⌂ Home</a>
+  <a href="videos.html" class="top-link" data-i18n="videos">▶ Videos</a>
+  <a href="notes.html" class="top-link" data-i18n="notes">▤ Notes</a>
+  <a href="about.html" class="top-link" data-i18n="about">♙ About</a>
  </nav>
-
 </div>
 
 <!-- WELCOME SCREEN -->
 
 <main>
-
 <section class="welcome">
 
  <div class="decor decor1"></div>
  <div class="decor decor2"></div>
  <div class="decor decor3"></div>
 
- <!-- LOGO -->
-
  <div class="logo">
-
   <svg viewBox="0 0 100 100" fill="none">
    <path d="M18 20L48 50L18 80"
     stroke="white" stroke-width="13"
     stroke-linecap="round" stroke-linejoin="round"/>
-
    <path d="M43 20L73 50L43 80"
     stroke="#DCE7FF" stroke-width="13"
     stroke-linecap="round" stroke-linejoin="round"/>
-
    <path d="M61 20L86 50L61 80"
     stroke="white" stroke-width="9"
-    stroke-linecap="round" stroke-linejoin="round"
-    opacity=".8"/>
+    stroke-linecap="round" stroke-linejoin="round" opacity=".8"/>
   </svg>
-
  </div>
-
- <!-- BRAND -->
 
  <div class="tag">
   <span class="dot"></span>
@@ -1096,8 +600,6 @@ body.light .divider:after{background:#dce2ec}
   Watch. Learn. Explore. Create.<br>
   Discover amazing videos and explore a world of ideas.
  </p>
-
- <!-- AUTH CARD -->
 
  <div class="auth-card" id="authCard">
 
@@ -1124,14 +626,12 @@ body.light .divider:after{background:#dce2ec}
 
   <div class="divider" data-i18n="or">OR</div>
 
-  <a href="videos.html" class="guest-btn">
+  <!-- GUEST BUTTON: OPENS guest.html -->
 
+  <a href="guest.html" class="guest-btn">
    <span class="guest-icon">♙</span>
-
    <span data-i18n="guest">Continue as Guest</span>
-
    <span class="guest-arrow">→</span>
-
   </a>
 
   <p class="guest-note" data-i18n="guestNote">
@@ -1140,43 +640,32 @@ body.light .divider:after{background:#dce2ec}
 
  </div>
 
- <!-- FOOTER -->
-
  <div class="footer">
-
   <span data-i18n="copyright">
    © 2026 NextGen Play · Watch Beyond Limits
   </span>
-
   <br>
-
   <a href="privacy.html" data-i18n="privacy">Privacy</a>
   ·
   <a href="terms.html" data-i18n="terms">Terms</a>
   ·
   <a href="contact.html" data-i18n="contact">Contact</a>
-
  </div>
 
 </section>
-
 </main>
 
 <!-- SEARCH -->
 
 <div class="search-popup" id="searchPopup">
-
- <input type="search"
-        id="searchInput"
-        data-placeholder="searchPlaceholder"
-        placeholder="Search videos, creators, topics...">
-
+ <input type="search" id="searchInput"
+ data-placeholder="searchPlaceholder"
+ placeholder="Search videos, creators, topics...">
 </div>
 
 <!-- BOTTOM NAVIGATION -->
 
 <div class="bottom-wrap">
-
  <nav class="bottom-nav">
 
   <a href="index.html" class="bottom-link active">
@@ -1205,94 +694,61 @@ body.light .divider:after{background:#dce2ec}
   </a>
 
  </nav>
-
 </div>
 
 <script>
 
-/* =========================
-   LANGUAGE TRANSLATIONS
-========================= */
+/* LANGUAGE TRANSLATIONS */
 
 const translations={
 
- en:{
-  chooseLanguage:"SELECT LANGUAGE",
-  home:"⌂ Home",
-  videos:"▶ Videos",
-  notes:"▤ Notes",
-  about:"♙ About",
-  tagline:"THE FUTURE OF VIDEO LEARNING",
-  subtitle:"Watch. Learn. Explore. Create.<br>Discover amazing videos and explore a world of ideas.",
-  welcome:"Welcome to NextGen Play",
-  description:"Join our community or explore videos as a guest. Your next discovery starts here.",
-  login:"↪ Log In",
-  signup:"✦ Sign Up",
-  or:"OR",
-  guest:"Continue as Guest",
-  guestNote:"Explore available videos without an account.",
-  copyright:"© 2026 NextGen Play · Watch Beyond Limits",
-  privacy:"Privacy",
-  terms:"Terms",
-  contact:"Contact",
-  search:"Search",
-  create:"Create",
-  inbox:"Inbox",
-  profile:"Profile",
-  searchPlaceholder:"Search videos, creators, topics..."
- },
+en:{
+chooseLanguage:"SELECT LANGUAGE",
+home:"⌂ Home",videos:"▶ Videos",notes:"▤ Notes",about:"♙ About",
+tagline:"THE FUTURE OF VIDEO LEARNING",
+subtitle:"Watch. Learn. Explore. Create.<br>Discover amazing videos and explore a world of ideas.",
+welcome:"Welcome to NextGen Play",
+description:"Join our community or explore videos as a guest. Your next discovery starts here.",
+login:"↪ Log In",signup:"✦ Sign Up",or:"OR",
+guest:"Continue as Guest",
+guestNote:"Explore available videos without an account.",
+copyright:"© 2026 NextGen Play · Watch Beyond Limits",
+privacy:"Privacy",terms:"Terms",contact:"Contact",
+search:"Search",create:"Create",inbox:"Inbox",profile:"Profile",
+searchPlaceholder:"Search videos, creators, topics..."
+},
 
- si:{
-  chooseLanguage:"භාෂාව තෝරන්න",
-  home:"⌂ මුල් පිටුව",
-  videos:"▶ වීඩියෝ",
-  notes:"▤ සටහන්",
-  about:"♙ අපි ගැන",
-  tagline:"වීඩියෝ අධ්‍යාපනයේ අනාගතය",
-  subtitle:"නරඹන්න. ඉගෙනගන්න. ගවේෂණය කරන්න.<br>අලුත් අදහස් සහ විශිෂ්ට වීඩියෝ සොයාගන්න.",
-  welcome:"NextGen Play වෙත සාදරයෙන් පිළිගනිමු",
-  description:"අපගේ ප්‍රජාවට එක්වන්න. නැත්නම් Guest කෙනෙකු ලෙස වීඩියෝ නරඹන්න.",
-  login:"↪ පිවිසෙන්න",
-  signup:"✦ ලියාපදිංචි වන්න",
-  or:"හෝ",
-  guest:"Guest ලෙස ඉදිරියට යන්න",
-  guestNote:"ගිණුමක් නොමැතිව වීඩියෝ නරඹන්න.",
-  copyright:"© 2026 NextGen Play · දැනුමට නව මානයක්",
-  privacy:"පෞද්ගලිකත්වය",
-  terms:"නීති රීති",
-  contact:"අප අමතන්න",
-  search:"සොයන්න",
-  create:"නිර්මාණය",
-  inbox:"පණිවිඩ",
-  profile:"පැතිකඩ",
-  searchPlaceholder:"වීඩියෝ සහ මාතෘකා සොයන්න..."
- },
+si:{
+chooseLanguage:"භාෂාව තෝරන්න",
+home:"⌂ මුල් පිටුව",videos:"▶ වීඩියෝ",notes:"▤ සටහන්",about:"♙ අපි ගැන",
+tagline:"වීඩියෝ අධ්‍යාපනයේ අනාගතය",
+subtitle:"නරඹන්න. ඉගෙනගන්න. ගවේෂණය කරන්න.<br>අලුත් අදහස් සහ විශිෂ්ට වීඩියෝ සොයාගන්න.",
+welcome:"NextGen Play වෙත සාදරයෙන් පිළිගනිමු",
+description:"අපගේ ප්‍රජාවට එක්වන්න. නැත්නම් Guest කෙනෙකු ලෙස වීඩියෝ නරඹන්න.",
+login:"↪ පිවිසෙන්න",signup:"✦ ලියාපදිංචි වන්න",or:"හෝ",
+guest:"Guest ලෙස ඉදිරියට යන්න",
+guestNote:"ගිණුමක් නොමැතිව වීඩියෝ නරඹන්න.",
+copyright:"© 2026 NextGen Play · දැනුමට නව මානයක්",
+privacy:"පෞද්ගලිකත්වය",terms:"නීති රීති",contact:"අප අමතන්න",
+search:"සොයන්න",create:"නිර්මාණය",inbox:"පණිවිඩ",profile:"පැතිකඩ",
+searchPlaceholder:"වීඩියෝ සහ මාතෘකා සොයන්න..."
+},
 
- ta:{
-  chooseLanguage:"மொழியைத் தேர்ந்தெடுக்கவும்",
-  home:"⌂ முகப்பு",
-  videos:"▶ காணொளிகள்",
-  notes:"▤ குறிப்புகள்",
-  about:"♙ எங்களைப் பற்றி",
-  tagline:"காணொளிக் கல்வியின் எதிர்காலம்",
-  subtitle:"பாருங்கள். கற்றுக்கொள்ளுங்கள். ஆராயுங்கள்.<br>புதிய யோசனைகளையும் சிறந்த காணொளிகளையும் கண்டறியுங்கள்.",
-  welcome:"NextGen Play-க்கு வரவேற்கிறோம்",
-  description:"எங்கள் சமூகத்தில் இணையுங்கள் அல்லது விருந்தினராக காணொளிகளைப் பாருங்கள்.",
-  login:"↪ உள்நுழைய",
-  signup:"✦ பதிவு செய்ய",
-  or:"அல்லது",
-  guest:"விருந்தினராகத் தொடரவும்",
-  guestNote:"கணக்கு இல்லாமலேயே காணொளிகளைப் பாருங்கள்.",
-  copyright:"© 2026 NextGen Play · எல்லைகளுக்கு அப்பால் பாருங்கள்",
-  privacy:"தனியுரிமை",
-  terms:"விதிமுறைகள்",
-  contact:"தொடர்பு",
-  search:"தேடல்",
-  create:"உருவாக்கு",
-  inbox:"செய்திகள்",
-  profile:"சுயவிவரம்",
-  searchPlaceholder:"காணொளிகள் மற்றும் தலைப்புகளைத் தேடுங்கள்..."
- }
+ta:{
+chooseLanguage:"மொழியைத் தேர்ந்தெடுக்கவும்",
+home:"⌂ முகப்பு",videos:"▶ காணொளிகள்",notes:"▤ குறிப்புகள்",about:"♙ எங்களைப் பற்றி",
+tagline:"காணொளிக் கல்வியின் எதிர்காலம்",
+subtitle:"பாருங்கள். கற்றுக்கொள்ளுங்கள். ஆராயுங்கள்.<br>புதிய யோசனைகளையும் சிறந்த காணொளிகளையும் கண்டறியுங்கள்.",
+welcome:"NextGen Play-க்கு வரவேற்கிறோம்",
+description:"எங்கள் சமூகத்தில் இணையுங்கள் அல்லது விருந்தினராக காணொளிகளைப் பாருங்கள்.",
+login:"↪ உள்நுழைய",signup:"✦ பதிவு செய்ய",or:"அல்லது",
+guest:"விருந்தினராகத் தொடரவும்",
+guestNote:"கணக்கு இல்லாமலேயே காணொளிகளைப் பாருங்கள்.",
+copyright:"© 2026 NextGen Play · எல்லைகளுக்கு அப்பால் பாருங்கள்",
+privacy:"தனியுரிமை",terms:"விதிமுறைகள்",contact:"தொடர்பு",
+search:"தேடல்",create:"உருவாக்கு",inbox:"செய்திகள்",profile:"சுயவிவரம்",
+searchPlaceholder:"காணொளிகள் மற்றும் தலைப்புகளைத் தேடுங்கள்..."
+}
 
 };
 
@@ -1303,86 +759,57 @@ const languageMenu=document.getElementById("languageMenu");
 const currentLanguage=document.getElementById("currentLanguage");
 
 const languageNames={
- en:"English",
- si:"සිංහල",
- ta:"தமிழ்"
+en:"English",si:"සිංහල",ta:"தமிழ்"
 };
 
 function setLanguage(lang){
 
- if(!translations[lang]) return;
+ if(!translations[lang])return;
 
  const dictionary=translations[lang];
 
  document.documentElement.lang=lang;
 
  document.querySelectorAll("[data-i18n]").forEach(element=>{
-
   const key=element.dataset.i18n;
-
-  if(dictionary[key]){
-   element.innerHTML=dictionary[key];
-  }
-
+  if(dictionary[key])element.innerHTML=dictionary[key];
  });
 
  document.querySelectorAll("[data-placeholder]").forEach(element=>{
-
   const key=element.dataset.placeholder;
-
-  if(dictionary[key]){
-   element.placeholder=dictionary[key];
-  }
-
+  if(dictionary[key])element.placeholder=dictionary[key];
  });
 
  currentLanguage.textContent=languageNames[lang];
 
  document.querySelectorAll(".language-option").forEach(option=>{
-
-  option.classList.toggle(
-   "selected",
-   option.dataset.lang===lang
-  );
-
+  option.classList.toggle("selected",option.dataset.lang===lang);
  });
 
  localStorage.setItem("nextgen_language",lang);
-
 }
 
 languageButton.addEventListener("click",()=>{
-
  languageMenu.classList.toggle("open");
-
 });
 
 document.querySelectorAll(".language-option").forEach(option=>{
-
  option.addEventListener("click",()=>{
-
   setLanguage(option.dataset.lang);
-
   languageMenu.classList.remove("open");
-
  });
-
 });
 
 document.addEventListener("click",event=>{
-
  if(!event.target.closest(".language-area")){
   languageMenu.classList.remove("open");
  }
-
 });
 
 setLanguage(localStorage.getItem("nextgen_language")||"en");
 
 
-/* =========================
-   THEME SYSTEM
-========================= */
+/* THEME SYSTEM */
 
 const themeSwitch=document.getElementById("themeSwitch");
 const thumbIcon=document.getElementById("thumbIcon");
@@ -1402,41 +829,22 @@ function setTheme(theme){
 
  document.body.classList.toggle("light",isLight);
 
- /* Light = Sun, Dark = Moon */
-
  thumbIcon.innerHTML=isLight?sunSVG:moonSVG;
 
- themeSwitch.setAttribute(
-  "aria-pressed",
-  String(isLight)
- );
+ themeSwitch.setAttribute("aria-pressed",String(isLight));
 
  localStorage.setItem("nextgen_theme",theme);
-
 }
 
 themeSwitch.addEventListener("click",()=>{
-
  const currentlyLight=document.body.classList.contains("light");
-
  setTheme(currentlyLight?"dark":"light");
-
 });
 
 setTheme(localStorage.getItem("nextgen_theme")||"dark");
 
 
-/* =========================
-   LOGIN INTERFACE
-========================= */
-
-/*
- After successful login, your login system
- should set this value to true.
-
- This is only the UI visibility check.
- It does not authenticate users.
-*/
+/* LOGIN INTERFACE */
 
 function updateLoginInterface(){
 
@@ -1444,47 +852,36 @@ function updateLoginInterface(){
  localStorage.getItem("nextgen_user_logged_in")==="true";
 
  document.body.classList.toggle("logged-in",isLoggedIn);
-
 }
 
 updateLoginInterface();
 
 
-/* =========================
-   SEARCH
-========================= */
+/* SEARCH */
 
 const searchBtn=document.getElementById("searchBtn");
 const searchPopup=document.getElementById("searchPopup");
 const searchInput=document.getElementById("searchInput");
 
 searchBtn.addEventListener("click",()=>{
-
  searchPopup.classList.toggle("show");
 
  if(searchPopup.classList.contains("show")){
   searchInput.focus();
  }
-
 });
 
 document.addEventListener("click",event=>{
-
  if(
-  !searchPopup.contains(event.target) &&
+  !searchPopup.contains(event.target)&&
   !searchBtn.contains(event.target)
  ){
-
   searchPopup.classList.remove("show");
-
  }
-
 });
 
 
-/* =========================
-   3D CARD EFFECT
-========================= */
+/* 3D CARD EFFECT */
 
 const card=document.getElementById("authCard");
 
@@ -1503,10 +900,8 @@ if(window.matchMedia("(hover:hover) and (pointer:fine)").matches){
  });
 
  card.addEventListener("mouseleave",()=>{
-
   card.style.transform=
   "perspective(1000px) rotateX(0) rotateY(0)";
-
  });
 
 }
