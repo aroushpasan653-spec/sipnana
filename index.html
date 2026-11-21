@@ -1,1605 +1,350 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#dceeff">
-<title>NextGen Learn | Future of Learning</title>
-
-<style>
-/* =====================================
-   NEXTGEN LEARN - GLASS 3D UI
-===================================== */
-
-:root {
-  --bg: #eaf5ff;
-  --bg2: #d8eaff;
-  --text: #152b49;
-  --muted: #60748e;
-  --glass: rgba(255,255,255,.48);
-  --glass-strong: rgba(255,255,255,.72);
-  --border: rgba(255,255,255,.85);
-  --accent: #438cff;
-  --accent2: #8b6cff;
-  --shadow: 0 18px 50px rgba(57,105,160,.16);
-  --deep-shadow: 0 25px 55px rgba(48,91,145,.22);
-}
-
-body.dark {
-  --bg: #070d1b;
-  --bg2: #111b35;
-  --text: #f0f5ff;
-  --muted: #a5b4d0;
-  --glass: rgba(25,39,72,.43);
-  --glass-strong: rgba(25,39,72,.75);
-  --border: rgba(151,179,255,.17);
-  --accent: #70a5ff;
-  --accent2: #b18aff;
-  --shadow: 0 18px 50px rgba(0,0,0,.25);
-  --deep-shadow: 0 25px 60px rgba(0,0,0,.45);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  color: var(--text);
-  background:
-    radial-gradient(circle at 15% 10%, rgba(91,174,255,.28), transparent 30%),
-    radial-gradient(circle at 85% 30%, rgba(174,133,255,.22), transparent 30%),
-    linear-gradient(135deg,var(--bg),var(--bg2));
-  min-height: 100vh;
-  overflow-x: hidden;
-  transition: background .5s, color .5s;
-}
-
-/* BACKGROUND LIGHT EFFECTS */
-
-.ambient {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: -2;
-}
-
-.orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(3px);
-  animation: floatOrb 12s ease-in-out infinite alternate;
-}
-
-.orb.one {
-  width: 320px;
-  height: 320px;
-  background: rgba(78,165,255,.18);
-  top: 5%;
-  left: -100px;
-}
-
-.orb.two {
-  width: 380px;
-  height: 380px;
-  background: rgba(166,111,255,.15);
-  right: -120px;
-  top: 35%;
-  animation-delay: -4s;
-}
-
-.orb.three {
-  width: 260px;
-  height: 260px;
-  background: rgba(67,222,220,.13);
-  bottom: 0;
-  left: 35%;
-  animation-delay: -7s;
-}
-
-body.dark .orb {
-  opacity: .65;
-}
-
-@keyframes floatOrb {
-  from { transform: translate(0,0) scale(1); }
-  to { transform: translate(45px,-35px) scale(1.15); }
-}
-
-/* NIGHT STARS */
-
-.stars {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity .5s;
-  background-image:
-    radial-gradient(2px 2px at 20% 30%, #fff 50%, transparent 100%),
-    radial-gradient(2px 2px at 70% 20%, #fff 50%, transparent 100%),
-    radial-gradient(1px 1px at 40% 75%, #fff 50%, transparent 100%),
-    radial-gradient(2px 2px at 85% 65%, #fff 50%, transparent 100%),
-    radial-gradient(1px 1px at 10% 80%, #fff 50%, transparent 100%),
-    radial-gradient(2px 2px at 55% 45%, #fff 50%, transparent 100%);
-  background-size: 350px 350px;
-  animation: starsMove 35s linear infinite;
-}
-
-body.dark .stars { opacity: .65; }
-
-@keyframes starsMove {
-  from { background-position: 0 0; }
-  to { background-position: 350px 350px; }
-}
-
-/* GLASS COMMON */
-
-.glass {
-  background: var(--glass);
-  border: 1px solid var(--border);
-  backdrop-filter: blur(22px) saturate(160%);
-  -webkit-backdrop-filter: blur(22px) saturate(160%);
-  box-shadow: var(--shadow);
-}
-
-/* NAVIGATION */
-
-header {
-  position: sticky;
-  top: 12px;
-  z-index: 100;
-  width: min(1200px,94%);
-  margin: 12px auto 0;
-}
-
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 13px 20px;
-  border-radius: 22px;
-  background: var(--glass-strong);
-  border: 1px solid var(--border);
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
-  box-shadow: var(--shadow);
-}
-
-.logo {
-  font-size: 24px;
-  font-weight: 900;
-  letter-spacing: -1px;
-  text-decoration: none;
-  color: var(--text);
-}
-
-.logo span {
-  background: linear-gradient(120deg,#398bff,#a66aff);
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: var(--text);
-  font-size: 14px;
-  font-weight: 650;
-  transition: .25s;
-}
-
-.nav-links a:hover {
-  color: var(--accent);
-  transform: translateY(-2px);
-}
-
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.icon-btn {
-  width: 42px;
-  height: 42px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background: var(--glass);
-  color: var(--text);
-  cursor: pointer;
-  font-size: 19px;
-  transition: .3s;
-}
-
-.icon-btn:hover {
-  transform: translateY(-3px) rotate(5deg);
-  box-shadow: var(--shadow);
-}
-
-.menu-btn { display: none; }
-
-/* BUTTONS */
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  padding: 13px 22px;
-  border: 0;
-  border-radius: 14px;
-  text-decoration: none;
-  font-weight: 750;
-  color: white;
-  background: linear-gradient(135deg,#438cff,#936bff);
-  box-shadow: 0 9px 22px rgba(79,125,255,.3);
-  cursor: pointer;
-  transition: .3s;
-}
-
-.btn:hover {
-  transform: translateY(-5px) scale(1.035);
-  box-shadow: 0 16px 30px rgba(79,125,255,.4);
-}
-
-.btn-outline {
-  color: var(--text);
-  background: var(--glass);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-}
-
-/* HERO */
-
-.container {
-  width: min(1150px,92%);
-  margin: auto;
-}
-
-.hero {
-  min-height: 660px;
-  display: grid;
-  grid-template-columns: 1.1fr .9fr;
-  align-items: center;
-  gap: 45px;
-  padding: 85px 0 70px;
-}
-
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 9px 15px;
-  border-radius: 30px;
-  color: var(--accent);
-  font-size: 13px;
-  font-weight: 800;
-  margin-bottom: 24px;
-}
-
-.hero h1 {
-  font-size: clamp(42px,6vw,75px);
-  line-height: 1.08;
-  letter-spacing: -3px;
-  margin-bottom: 24px;
-}
-
-.gradient-text {
-  background: linear-gradient(110deg,#348cff,#9b65ff,#e06ed6);
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-.hero p {
-  max-width: 550px;
-  color: var(--muted);
-  font-size: 17px;
-  line-height: 1.85;
-  margin-bottom: 30px;
-}
-
-.hero-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 13px;
-}
-
-.hero-stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 32px;
-  margin-top: 42px;
-}
-
-.stat strong {
-  display: block;
-  font-size: 25px;
-  font-weight: 900;
-}
-
-.stat small {
-  color: var(--muted);
-}
-
-/* 3D HERO OBJECT */
-
-.hero-visual {
-  min-height: 440px;
-  position: relative;
-  display: grid;
-  place-items: center;
-  perspective: 1000px;
-}
-
-.glass-orbit {
-  position: absolute;
-  width: 330px;
-  height: 330px;
-  border: 1px solid rgba(115,151,255,.35);
-  border-radius: 50%;
-  transform: rotateX(65deg) rotateZ(-25deg);
-  animation: orbit 16s linear infinite;
-}
-
-.glass-orbit.two {
-  width: 400px;
-  height: 400px;
-  transform: rotateX(65deg) rotateZ(35deg);
-  animation-duration: 23s;
-  border-color: rgba(171,119,255,.3);
-}
-
-@keyframes orbit {
-  to { transform: rotateX(65deg) rotateZ(335deg); }
-}
-
-.main-glass-card {
-  width: min(350px,90%);
-  padding: 30px;
-  border-radius: 30px;
-  text-align: center;
-  transform: rotateY(-12deg) rotateX(8deg);
-  animation: cardFloat 5s ease-in-out infinite;
-  position: relative;
-  z-index: 2;
-  background: linear-gradient(145deg,rgba(255,255,255,.58),rgba(255,255,255,.18));
-  border: 1px solid rgba(255,255,255,.8);
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
-  box-shadow:
-    20px 25px 60px rgba(54,100,160,.2),
-    inset 1px 1px 2px rgba(255,255,255,.9),
-    inset -1px -1px 2px rgba(100,130,180,.15);
-}
-
-body.dark .main-glass-card {
-  background: linear-gradient(145deg,rgba(65,88,145,.38),rgba(21,31,63,.5));
-  border-color: rgba(164,184,255,.28);
-  box-shadow: 20px 25px 60px rgba(0,0,0,.35), inset 1px 1px 2px rgba(255,255,255,.12);
-}
-
-@keyframes cardFloat {
-  0%,100% { transform: translateY(0) rotateY(-12deg) rotateX(8deg); }
-  50% { transform: translateY(-17px) rotateY(-7deg) rotateX(5deg); }
-}
-
-.book-icon {
-  font-size: 85px;
-  margin-bottom: 12px;
-  filter: drop-shadow(0 15px 15px rgba(56,108,190,.25));
-}
-
-.main-glass-card h3 {
-  font-size: 24px;
-  margin-bottom: 8px;
-}
-
-.main-glass-card p {
-  color: var(--muted);
-  font-size: 14px;
-  margin: 0;
-}
-
-.floating-chip {
-  position: absolute;
-  z-index: 5;
-  padding: 13px 17px;
-  border-radius: 17px;
-  font-size: 13px;
-  font-weight: 800;
-  animation: chipFloat 4s ease-in-out infinite;
-}
-
-.chip-one { top: 50px; right: 0; }
-.chip-two { bottom: 55px; left: 0; animation-delay: -2s; }
-
-@keyframes chipFloat {
-  0%,100% { transform: translateY(0) rotate(-3deg); }
-  50% { transform: translateY(-13px) rotate(3deg); }
-}
-
-/* SECTION */
-
-section {
-  padding: 65px 0;
-}
-
-.section-heading {
-  text-align: center;
-  margin-bottom: 38px;
-}
-
-.section-heading .tag {
-  color: var(--accent);
-  font-weight: 850;
-  font-size: 12px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.section-heading h2 {
-  font-size: clamp(29px,4vw,43px);
-  margin: 10px 0;
-  letter-spacing: -1.5px;
-}
-
-.section-heading p {
-  color: var(--muted);
-  line-height: 1.7;
-}
-
-/* GRADE CARDS */
-
-.grade-grid {
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 20px;
-}
-
-.grade-card {
-  position: relative;
-  padding: 25px;
-  min-height: 190px;
-  border-radius: 24px;
-  overflow: hidden;
-  transform-style: preserve-3d;
-  transition: transform .35s, box-shadow .35s;
-}
-
-.grade-card::before {
-  content: "";
-  position: absolute;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  background: radial-gradient(circle,rgba(111,160,255,.22),transparent 70%);
-  right: -40px;
-  bottom: -50px;
-  transition: .4s;
-}
-
-.grade-card:hover {
-  transform: perspective(900px) rotateX(5deg) rotateY(-5deg) translateY(-10px);
-  box-shadow: var(--deep-shadow);
-}
-
-.grade-card:hover::before {
-  transform: scale(1.7);
-}
-
-.grade-number {
-  width: 48px;
-  height: 48px;
-  display: grid;
-  place-items: center;
-  border-radius: 15px;
-  color: white;
-  font-size: 20px;
-  font-weight: 900;
-  background: linear-gradient(135deg,#438cff,#9b6aff);
-  box-shadow: 0 8px 18px rgba(75,124,255,.28);
-  margin-bottom: 18px;
-}
-
-.grade-card h3 {
-  font-size: 20px;
-  margin-bottom: 7px;
-}
-
-.grade-card p {
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.grade-card a {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  text-indent: -9999px;
-}
-
-/* GRADE FILTER */
-
-.grade-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 30px;
-}
-
-.tab-btn {
-  border: 1px solid var(--border);
-  padding: 10px 19px;
-  border-radius: 30px;
-  color: var(--text);
-  background: var(--glass);
-  cursor: pointer;
-  font-weight: 750;
-  transition: .3s;
-}
-
-.tab-btn.active,
-.tab-btn:hover {
-  background: linear-gradient(135deg,#438cff,#986cff);
-  color: white;
-  border-color: transparent;
-  box-shadow: 0 8px 18px rgba(78,120,255,.25);
-}
-
-/* SEARCH */
-
-.search-box {
-  max-width: 570px;
-  margin: 0 auto 35px;
-  display: flex;
-  gap: 10px;
-  padding: 9px;
-  border-radius: 18px;
-}
-
-.search-box input {
-  width: 100%;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: var(--text);
-  padding: 10px;
-  font-size: 15px;
-}
-
-.search-box input::placeholder {
-  color: var(--muted);
-}
-
-.no-results {
-  text-align: center;
-  color: var(--muted);
-  padding: 30px;
-  display: none;
-}
-
-/* FEATURES */
-
-.feature-grid {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 22px;
-}
-
-.feature-card {
-  padding: 30px;
-  border-radius: 25px;
-  transition: .35s;
-  transform-style: preserve-3d;
-}
-
-.feature-card:hover {
-  transform: perspective(800px) rotateX(4deg) rotateY(-4deg) translateY(-9px);
-  box-shadow: var(--deep-shadow);
-}
-
-.feature-icon {
-  width: 60px;
-  height: 60px;
-  display: grid;
-  place-items: center;
-  font-size: 28px;
-  border-radius: 19px;
-  margin-bottom: 20px;
-  background: linear-gradient(135deg,rgba(72,143,255,.2),rgba(164,109,255,.22));
-  box-shadow: inset 1px 1px 3px rgba(255,255,255,.7);
-}
-
-.feature-card h3 {
-  font-size: 19px;
-  margin-bottom: 10px;
-}
-
-.feature-card p {
-  color: var(--muted);
-  line-height: 1.75;
-  font-size: 14px;
-}
-
-/* DASHBOARD PREVIEW */
-
-.dashboard {
-  padding: 30px;
-  border-radius: 30px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-  align-items: center;
-}
-
-.dashboard h2 {
-  font-size: 32px;
-  margin-bottom: 15px;
-}
-
-.dashboard p {
-  color: var(--muted);
-  line-height: 1.8;
-  margin-bottom: 22px;
-}
-
-.progress-card {
-  padding: 24px;
-  border-radius: 22px;
-  background: var(--glass-strong);
-  border: 1px solid var(--border);
-}
-
-.progress-row {
-  display: flex;
-  justify-content: space-between;
-  margin: 17px 0 8px;
-  font-size: 13px;
-  font-weight: 750;
-}
-
-.progress-track {
-  height: 9px;
-  border-radius: 20px;
-  background: rgba(120,145,190,.18);
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  border-radius: 20px;
-  background: linear-gradient(90deg,#438cff,#a36bff);
-  animation: progressLoad 1.5s ease both;
-}
-
-@keyframes progressLoad {
-  from { width: 0; }
-}
-
-/* CTA */
-
-.cta {
-  text-align: center;
-  padding: 55px 25px;
-  border-radius: 30px;
-  position: relative;
-  overflow: hidden;
-}
-
-.cta::before {
-  content: "";
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  background: rgba(112,147,255,.15);
-  filter: blur(30px);
-  border-radius: 50%;
-  top: -160px;
-  left: 30%;
-}
-
-.cta h2 {
-  position: relative;
-  font-size: clamp(28px,4vw,40px);
-  margin-bottom: 15px;
-}
-
-.cta p {
-  position: relative;
-  color: var(--muted);
-  margin-bottom: 25px;
-}
-
-/* FOOTER */
-
-footer {
-  margin-top: 70px;
-  padding: 45px 0 25px;
-  border-top: 1px solid var(--border);
-  background: var(--glass);
-  backdrop-filter: blur(18px);
-}
-
-.footer-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 25px;
-  flex-wrap: wrap;
-}
-
-.footer-content p {
-  color: var(--muted);
-  font-size: 13px;
-  margin-top: 8px;
-}
-
-.footer-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-}
-
-.footer-links a {
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 13px;
-}
-
-.footer-links a:hover { color: var(--accent); }
-
-.copyright {
-  text-align: center;
-  color: var(--muted);
-  font-size: 12px;
-  padding-top: 30px;
-}
-
-/* REVEAL ANIMATION */
-
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity .8s ease, transform .8s ease;
-}
-
-.reveal.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* RESPONSIVE */
-
-@media(max-width:900px) {
-  .hero {
-    grid-template-columns: 1fr;
-    text-align: center;
-    padding-top: 65px;
-  }
-
-  .hero p { margin-left: auto; margin-right: auto; }
-  .hero-buttons,.hero-stats { justify-content: center; }
-  .hero-visual { min-height: 400px; }
-  .grade-grid { grid-template-columns: repeat(3,1fr); }
-  .feature-grid { grid-template-columns: repeat(2,1fr); }
-}
-
-@media(max-width:650px) {
-  header { width: 94%; }
-  .navbar { padding: 11px 13px; }
-  .logo { font-size: 20px; }
-  .menu-btn { display: block; }
-
-  .nav-links {
-    display: none;
-    position: absolute;
-    top: 65px;
-    left: 0;
-    right: 0;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-    padding: 12px;
-    border-radius: 20px;
-    background: var(--glass-strong);
-    border: 1px solid var(--border);
-    backdrop-filter: blur(25px);
-    box-shadow: var(--shadow);
-  }
-
-  .nav-links.open { display: flex; }
-
-  .nav-links a {
-    padding: 13px;
-    border-radius: 12px;
-  }
-
-  .nav-links a:hover { background: var(--glass); }
-  .hero { min-height: auto; padding: 65px 0 30px; }
-  .hero h1 { letter-spacing: -2px; }
-  .hero-visual { min-height: 350px; }
-  .glass-orbit { width: 260px; height: 260px; }
-  .glass-orbit.two { width: 310px; height: 310px; }
-  .floating-chip { font-size: 11px; padding: 10px; }
-  .grade-grid { grid-template-columns: repeat(2,1fr); gap: 12px; }
-  .grade-card { padding: 18px; min-height: 165px; }
-  .grade-card h3 { font-size: 16px; }
-  .feature-grid { grid-template-columns: 1fr; }
-  .dashboard { grid-template-columns: 1fr; padding: 20px; }
-  .section-heading h2 { font-size: 29px; }
-}
-
-@media(max-width:380px) {
-  .grade-grid { grid-template-columns: 1fr; }
-  .nav-actions { gap: 5px; }
-}
-
-/* ACCESSIBILITY */
-
-@media(prefers-reduced-motion:reduce) {
-  *,*::before,*::after {
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-    transition-duration: .01ms !important;
-  }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Travel & Explore</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            overflow: hidden;
+            background-color: #050814;
+            color: #ffffff;
+        }
+
+        /* Background Video */
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 0.45;
+        }
+
+        /* Dark Gradient Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at center, rgba(10, 15, 35, 0.3) 0%, rgba(5, 8, 20, 0.85) 100%);
+            z-index: -1;
+        }
+
+        /* 3D Globe Canvas */
+        #globe-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            cursor: grab;
+        }
+
+        #globe-container:active {
+            cursor: grabbing;
+        }
+
+        /* Glassmorphism Navigation Bar */
+        nav {
+            position: fixed;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            padding: 15px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 50px;
+            z-index: 10;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #00f2fe, #4facfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #e0e6ed;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #00f2fe;
+        }
+
+        /* Floating Glass Content Card */
+        .hero-card {
+            position: fixed;
+            bottom: 40px;
+            left: 50px;
+            max-width: 420px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            z-index: 10;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-card h1 {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .hero-card p {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 22px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            color: #050814;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 242, 254, 0.4);
+        }
+
+        /* Destination Info Panel (Right Side) */
+        .info-panel {
+            position: fixed;
+            bottom: 40px;
+            right: 50px;
+            width: 280px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .info-panel span {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #00f2fe;
+        }
+
+        .info-panel h3 {
+            margin-top: 8px;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero-card { left: 20px; right: 20px; bottom: 20px; max-width: none; }
+            .info-panel { display: none; }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="ambient">
-  <div class="orb one"></div>
-  <div class="orb two"></div>
-  <div class="orb three"></div>
-</div>
-<div class="stars"></div>
+    <!-- Background Video (Free stock earth/nature video) -->
+    <video id="bg-video" autoplay loop muted playsinline>
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-stars-in-space-1610-large.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
 
-<header>
-  <nav class="navbar">
-    <a class="logo" href="index.html">NextGen<span>Learn.</span></a>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">AERO•3D</div>
+        <ul class="nav-links">
+            <li><a href="#">Destinations</a></li>
+            <li><a href="#">3D Map</a></li>
+            <li><a href="#">Experiences</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
 
-    <div class="nav-links" id="navLinks">
-      <a href="#home" data-i18n="navHome">Home</a>
-      <a href="#grades" data-i18n="navGrades">Grades</a>
-      <a href="#features" data-i18n="navFeatures">Features</a>
-      <a href="dashboard.html" data-i18n="navDashboard">Dashboard</a>
-      <a href="about.html" data-i18n="navAbout">About</a>
+    <!-- 3D Globe Container -->
+    <div id="globe-container"></div>
+
+    <!-- Left Glass Card -->
+    <div class="hero-card">
+        <h1>Explore The World in 3D</h1>
+        <p>Drag the interactive globe to discover breathtaking destinations around the planet with real-time spatial navigation.</p>
+        <a href="#" class="btn">Start Journey</a>
     </div>
 
-    <div class="nav-actions">
-      <select id="languageSelect" class="icon-btn" aria-label="Select language"
-        style="width:65px;font-size:12px;">
-        <option value="en">EN</option>
-        <option value="si">සිං</option>
-        <option value="ta">தமிழ்</option>
-      </select>
-
-      <button class="icon-btn" id="themeToggle" aria-label="Switch theme">☀️</button>
-      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
-    </div>
-  </nav>
-</header>
-
-<main>
-
-<!-- HERO -->
-
-<div class="container">
-<section class="hero" id="home">
-
-  <div class="hero-content reveal">
-    <div class="eyebrow glass">
-      ✨ <span data-i18n="eyebrow">THE FUTURE OF EDUCATION</span>
+    <!-- Right Glass Hint -->
+    <div class="info-panel">
+        <span>Interactive Mode</span>
+        <h3>Drag to Rotate Globe</h3>
     </div>
 
-    <h1>
-      <span data-i18n="heroLine1">Learn Smarter.</span><br>
-      <span class="gradient-text" data-i18n="heroLine2">Dream Bigger.</span>
-    </h1>
-
-    <p data-i18n="heroDescription">
-      Discover a new way of learning with NextGen Learn. Explore lessons,
-      practice your knowledge, access resources and build your future.
-    </p>
-
-    <div class="hero-buttons">
-      <a href="#grades" class="btn">
-        <span data-i18n="exploreGrades">Explore Grades</span> →
-      </a>
-      <a href="about.html" class="btn btn-outline" data-i18n="learnMore">
-        Learn More
-      </a>
-    </div>
-
-    <div class="hero-stats">
-      <div class="stat">
-        <strong>1–13</strong>
-        <small data-i18n="statGrades">School Grades</small>
-      </div>
-      <div class="stat">
-        <strong>3</strong>
-        <small data-i18n="statLanguages">Languages</small>
-      </div>
-      <div class="stat">
-        <strong>∞</strong>
-        <small data-i18n="statPossibilities">Possibilities</small>
-      </div>
-    </div>
-  </div>
-
-  <div class="hero-visual reveal">
-    <div class="glass-orbit"></div>
-    <div class="glass-orbit two"></div>
-
-    <div class="floating-chip glass chip-one">🚀 Learn & Grow</div>
-    <div class="floating-chip glass chip-two">💡 Your Future</div>
-
-    <div class="main-glass-card">
-      <div class="book-icon">📚</div>
-      <h3>NextGen Learn</h3>
-      <p data-i18n="heroCardText">Your journey to knowledge starts here.</p>
-      <div style="margin-top:24px;height:7px;border-radius:20px;background:rgba(120,150,200,.2);overflow:hidden;">
-        <div style="height:100%;width:85%;border-radius:20px;background:linear-gradient(90deg,#438cff,#a36bff);"></div>
-      </div>
-      <p style="margin-top:12px;font-size:12px;">✨ Explore Your Potential</p>
-    </div>
-  </div>
-
-</section>
-</div>
-
-<!-- GRADES -->
-
-<section id="grades">
-<div class="container">
-
-  <div class="section-heading reveal">
-    <div class="tag" data-i18n="gradeTag">YOUR LEARNING JOURNEY</div>
-    <h2 data-i18n="gradeTitle">Explore Your Grade</h2>
-    <p data-i18n="gradeDescription">Choose your grade and start learning today.</p>
-  </div>
-
-  <div class="search-box glass reveal">
-    <input id="gradeSearch" type="search"
-      placeholder="Search your grade..." data-i18n-placeholder="searchPlaceholder">
-    <button class="btn" id="searchBtn" aria-label="Search">⌕</button>
-  </div>
-
-  <div class="grade-tabs reveal">
-    <button class="tab-btn active" data-filter="all" data-i18n="allGrades">All Grades</button>
-    <button class="tab-btn" data-filter="primary" data-i18n="primary">Primary</button>
-    <button class="tab-btn" data-filter="junior" data-i18n="junior">Junior</button>
-    <button class="tab-btn" data-filter="senior" data-i18n="senior">Senior</button>
-  </div>
-
-  <div class="grade-grid" id="gradeGrid">
-
-    <article class="grade-card glass" data-grade="1" data-group="primary">
-      <div class="grade-number">01</div>
-      <h3 data-i18n="grade1">Grade 1</h3>
-      <p data-i18n="startLearning">Start learning →</p>
-      <a href="grade.html?grade=1" aria-label="Grade 1">Open Grade 1</a>
-    </article>
-
-    <article class="grade-card glass" data-grade="2" data-group="primary">
-      <div class="grade-number">02</div>
-      <h3 data-i18n="grade2">Grade 2</h3>
-      <p data-i18n="startLearning">Start learning →</p>
-      <a href="grade.html?grade=2" aria-label="Grade 2">Open Grade 2</a>
-    </article>
-
-    <article class="grade-card glass" data-grade="3" data-group="primary">
-      <div class="grade-number">03</div>
-      <h3 data-i18n="grade3">Grade 3</h3>
-      <p data-i18n="startLearning">Start learning →</p>
-      <a href="grade.html?grade=3" aria-label="Grade 3">Open Grade 3</a>
-    </article>
-
-    <article class="grade-card glass" data-grade="4" data-group="primary">
-      <div class="grade-number">04</div>
-      <h3 data-i18n="grade4">Grade 4</h3>
-      <p data-i18n="startLearning">Start learning →</p>
-      <a href="grade.html?grade=4" aria-label="Grade 4">Open Grade 4</a>
-    </article>
-
-    <article class="grade-card glass" data-grade="5" data-group="primary">
-      <div class="grade-number">05</div>
-      <h3 data-i18n="grade5">Grade 5</h3>
-      <p data-i18n="startLearning">Start learning →</p>
-      <a href="grade.html?grade=5" aria-label="Grade 5">Open Grade 5</a>
-    </article>
-
-    <article class="grade-card glass" data-grade="6" data-group="junior">
-      <div class="grade-number">06</div>
-      <h3 data-i18n="grade6">Grade 6</h3>
-      <p data-i18n="startLearning">Start learning →</p>
-      <a href="grade.html?grade=6" aria-label="Grade 6">Open Grade 6</a>
-    </article>
-
-    <article class="grade-card glass" data-grade="7" data-group="junior">
-      <div class="grade-number">07</div>
-      <h3 data-i18n="grade7">Grade 7</h3>
-      <p data-i18n="startLearning">Start learning →</p>
-      <a href="grade.html?grade=7" aria-label="Grade 7">Open Grade 7</a>
-    </article>
-
-    <article class="grade-card glass" data-grade="8" data-group="junior">
-      <div class="grade-number">08</div>
-      <h3 data-i18n="grade8">Grade 8</h3>
-      <p data-i18n="startLearning">Start learning →</p>
-      <a href="grade.html?grade=8" aria-label="Grade 8">Open Grade 8</a>
-    </article>
-
-    <article class="grade-card glass" data-grade="9" data-group="junior">
-      <div class="grade-number">09</div>
-      <h3 data-i18n="grade9">Grade 9</h3>
-      <p data-i18n="startLearning">Start learning →</p>
-      <a href="grade.html?grade=9" aria-label="Grade 9">Open Grade 9</a>
-    </article>
-
-    <article class="grade-card glass" data-grade="10" data-group="senior">
-      <div class="grade-number">10</div>
-      <h3 data-i18n="grade10">Grade 10</h3>
-      <p data-i18n="startLearning">Start learning →</p>
-      <a href="grade.html?grade=10" aria-label="Grade 10">Open Grade 10</a>
-    </article>
-
-    <article class="grade-card glass" data-grade="11" data-group="senior">
-      <div class="grade-number">11</div>
-      <h3 data-i18n="grade11">Grade 11</h3>
-      <p data-i18n="startLearning">Start learning →</p>
-      <a href="grade.html?grade=11" aria-label="Grade 11">Open Grade 11</a>
-    </article>
-
-    <article class="grade-card glass" data-grade="12" data-group="senior">
-      <div class="grade-number">12</div>
-      <h3 data-i18n="grade12">Grade 12</h3>
-      <p data-i18n="startLearning">Start learning →</p>
-      <a href="grade.html?grade=12" aria-label="Grade 12">Open Grade 12</a>
-    </article>
-
-    <article class="grade-card glass" data-grade="13" data-group="senior">
-      <div class="grade-number">13</div>
-      <h3 data-i18n="grade13">Grade 13</h3>
-      <p data-i18n="startLearning">Start learning →</p>
-      <a href="grade.html?grade=13" aria-label="Grade 13">Open Grade 13</a>
-    </article>
-
-  </div>
-
-  <div class="no-results" id="noResults" data-i18n="noResults">
-    No grades found. Try another search.
-  </div>
-
-</div>
-</section>
-
-<!-- FEATURES -->
-
-<section id="features">
-<div class="container">
-
-  <div class="section-heading reveal">
-    <div class="tag" data-i18n="featureTag">WHY NEXTGEN LEARN</div>
-    <h2 data-i18n="featureTitle">Everything You Need to Learn</h2>
-    <p data-i18n="featureDescription">A smarter learning experience in one place.</p>
-  </div>
-
-  <div class="feature-grid">
-
-    <article class="feature-card glass reveal">
-      <div class="feature-icon">📖</div>
-      <h3 data-i18n="feature1Title">Smart Lessons</h3>
-      <p data-i18n="feature1Text">Explore organized lessons and understand topics step by step.</p>
-    </article>
-
-    <article class="feature-card glass reveal">
-      <div class="feature-icon">🧠</div>
-      <h3 data-i18n="feature2Title">Online Quizzes</h3>
-      <p data-i18n="feature2Text">Test your knowledge and practice what you have learned.</p>
-    </article>
-
-    <article class="feature-card glass reveal">
-      <div class="feature-icon">📂</div>
-      <h3 data-i18n="feature3Title">Study Resources</h3>
-      <p data-i18n="feature3Text">Find useful learning materials and resources in one place.</p>
-    </article>
-
-    <article class="feature-card glass reveal">
-      <div class="feature-icon">📅</div>
-      <h3 data-i18n="feature4Title">Study Planner</h3>
-      <p data-i18n="feature4Text">Organize your study time and build better learning habits.</p>
-    </article>
-
-    <article class="feature-card glass reveal">
-      <div class="feature-icon">🌐</div>
-      <h3 data-i18n="feature5Title">Multiple Languages</h3>
-      <p data-i18n="feature5Text">Learn with Sinhala, English and Tamil language support.</p>
-    </article>
-
-    <article class="feature-card glass reveal">
-      <div class="feature-icon">📈</div>
-      <h3 data-i18n="feature6Title">Track Progress</h3>
-      <p data-i18n="feature6Text">Keep track of your learning journey and progress.</p>
-    </article>
-
-  </div>
-</div>
-</section>
-
-<!-- DASHBOARD -->
-
-<section>
-<div class="container">
-  <div class="dashboard glass reveal">
-
-    <div>
-      <div class="tag" style="color:var(--accent);font-weight:850;" data-i18n="dashboardTag">
-        YOUR PERSONAL SPACE
-      </div>
-
-      <h2 data-i18n="dashboardTitle">Your Learning Dashboard</h2>
-
-      <p data-i18n="dashboardText">
-        Keep your learning journey organized. Access your lessons,
-        resources and study tools from one place.
-      </p>
-
-      <a href="dashboard.html" class="btn" data-i18n="openDashboard">
-        Open Dashboard →
-      </a>
-    </div>
-
-    <div class="progress-card">
-      <h3 data-i18n="progressTitle">Learning Overview</h3>
-
-      <div class="progress-row">
-        <span data-i18n="lessons">Lessons</span>
-        <span>85%</span>
-      </div>
-      <div class="progress-track">
-        <div class="progress-fill" style="width:85%"></div>
-      </div>
-
-      <div class="progress-row">
-        <span data-i18n="quizzes">Quizzes</span>
-        <span>70%</span>
-      </div>
-      <div class="progress-track">
-        <div class="progress-fill" style="width:70%"></div>
-      </div>
-
-      <div class="progress-row">
-        <span data-i18n="resources">Resources</span>
-        <span>90%</span>
-      </div>
-      <div class="progress-track">
-        <div class="progress-fill" style="width:90%"></div>
-      </div>
-
-      <p style="font-size:11px;color:var(--muted);margin-top:18px;" data-i18n="demoNote">
-        Demo preview – connect your dashboard data to show real progress.
-      </p>
-    </div>
-
-  </div>
-</div>
-</section>
-
-<!-- CTA -->
-
-<section>
-<div class="container">
-  <div class="cta glass reveal">
-    <h2 data-i18n="ctaTitle">Ready to Start Your Journey?</h2>
-    <p data-i18n="ctaText">Your future begins with what you learn today.</p>
-    <a href="#grades" class="btn" data-i18n="startNow">Start Learning Now →</a>
-  </div>
-</div>
-</section>
-
-</main>
-
-<!-- FOOTER -->
-
-<footer>
-<div class="container">
-
-  <div class="footer-content">
-    <div>
-      <a class="logo" href="index.html">NextGen<span>Learn.</span></a>
-      <p data-i18n="footerText">Learn today. Lead tomorrow.</p>
-    </div>
-
-    <div class="footer-links">
-      <a href="#home" data-i18n="navHome">Home</a>
-      <a href="#grades" data-i18n="navGrades">Grades</a>
-      <a href="about.html" data-i18n="navAbout">About</a>
-      <a href="planner.html" data-i18n="planner">Planner</a>
-    </div>
-  </div>
-
-  <div class="copyright">
-    © <span id="year"></span> NextGen Learn. All rights reserved.
-  </div>
-
-</div>
-</footer>
-
-<script>
-/* =====================================
-   THEME: DAY / NIGHT
-===================================== */
-
-const themeToggle = document.getElementById("themeToggle");
-
-function setTheme(theme) {
-  document.body.classList.toggle("dark", theme === "dark");
-  themeToggle.textContent = theme === "dark" ? "🌙" : "☀️";
-  themeToggle.setAttribute(
-    "aria-label",
-    theme === "dark" ? "Switch to daytime theme" : "Switch to nighttime theme"
-  );
-
-  try {
-    localStorage.setItem("nextgen-theme", theme);
-  } catch (error) {}
-}
-
-let savedTheme = "light";
-
-try {
-  savedTheme = localStorage.getItem("nextgen-theme") || "light";
-} catch (error) {}
-
-setTheme(savedTheme);
-
-themeToggle.addEventListener("click", () => {
-  const nextTheme = document.body.classList.contains("dark")
-    ? "light"
-    : "dark";
-
-  setTheme(nextTheme);
-});
-
-/* =====================================
-   MOBILE NAVIGATION
-===================================== */
-
-const menuBtn = document.getElementById("menuBtn");
-const navLinks = document.getElementById("navLinks");
-
-menuBtn.addEventListener("click", () => {
-  const isOpen = navLinks.classList.toggle("open");
-  menuBtn.textContent = isOpen ? "✕" : "☰";
-  menuBtn.setAttribute("aria-expanded", String(isOpen));
-});
-
-navLinks.querySelectorAll("a").forEach(link => {
-  link.addEventListener("click", () => {
-    navLinks.classList.remove("open");
-    menuBtn.textContent = "☰";
-    menuBtn.setAttribute("aria-expanded", "false");
-  });
-});
-
-/* =====================================
-   GRADE FILTER
-===================================== */
-
-const gradeCards = [...document.querySelectorAll(".grade-card")];
-const tabButtons = [...document.querySelectorAll(".tab-btn")];
-const gradeSearch = document.getElementById("gradeSearch");
-const noResults = document.getElementById("noResults");
-
-let activeFilter = "all";
-
-function filterGrades() {
-  const query = gradeSearch.value.trim().toLowerCase();
-  let visible = 0;
-
-  gradeCards.forEach(card => {
-    const grade = card.dataset.grade;
-    const group = card.dataset.group;
-    const title = card.querySelector("h3").textContent.toLowerCase();
-
-    const matchesFilter =
-      activeFilter === "all" || group === activeFilter;
-
-    const matchesSearch =
-      !query ||
-      grade.includes(query) ||
-      title.includes(query) ||
-      ("grade " + grade).includes(query);
-
-    const show = matchesFilter && matchesSearch;
-
-    card.style.display = show ? "" : "none";
-    if (show) visible++;
-  });
-
-  noResults.style.display = visible === 0 ? "block" : "none";
-}
-
-gradeSearch.addEventListener("input", filterGrades);
-
-document.getElementById("searchBtn").addEventListener("click", filterGrades);
-
-tabButtons.forEach(button => {
-  button.addEventListener("click", () => {
-    tabButtons.forEach(tab => tab.classList.remove("active"));
-    button.classList.add("active");
-    activeFilter = button.dataset.filter;
-    filterGrades();
-  });
-});
-
-/* =====================================
-   LANGUAGE SYSTEM
-===================================== */
-
-const translations = {
-  en: {
-    navHome:"Home",navGrades:"Grades",navFeatures:"Features",
-    navDashboard:"Dashboard",navAbout:"About",
-    eyebrow:"THE FUTURE OF EDUCATION",
-    heroLine1:"Learn Smarter.",heroLine2:"Dream Bigger.",
-    heroDescription:"Discover a new way of learning with NextGen Learn. Explore lessons, practice your knowledge, access resources and build your future.",
-    exploreGrades:"Explore Grades",learnMore:"Learn More",
-    statGrades:"School Grades",statLanguages:"Languages",
-    statPossibilities:"Possibilities",
-    heroCardText:"Your journey to knowledge starts here.",
-    gradeTag:"YOUR LEARNING JOURNEY",
-    gradeTitle:"Explore Your Grade",
-    gradeDescription:"Choose your grade and start learning today.",
-    searchPlaceholder:"Search your grade...",
-    allGrades:"All Grades",primary:"Primary",junior:"Junior",senior:"Senior",
-    startLearning:"Start learning →",
-    noResults:"No grades found. Try another search.",
-    featureTag:"WHY NEXTGEN LEARN",
-    featureTitle:"Everything You Need to Learn",
-    featureDescription:"A smarter learning experience in one place.",
-    feature1Title:"Smart Lessons",
-    feature1Text:"Explore organized lessons and understand topics step by step.",
-    feature2Title:"Online Quizzes",
-    feature2Text:"Test your knowledge and practice what you have learned.",
-    feature3Title:"Study Resources",
-    feature3Text:"Find useful learning materials and resources in one place.",
-    feature4Title:"Study Planner",
-    feature4Text:"Organize your study time and build better learning habits.",
-    feature5Title:"Multiple Languages",
-    feature5Text:"Learn with Sinhala, English and Tamil language support.",
-    feature6Title:"Track Progress",
-    feature6Text:"Keep track of your learning journey and progress.",
-    dashboardTag:"YOUR PERSONAL SPACE",
-    dashboardTitle:"Your Learning Dashboard",
-    dashboardText:"Keep your learning journey organized. Access your lessons, resources and study tools from one place.",
-    openDashboard:"Open Dashboard →",progressTitle:"Learning Overview",
-    lessons:"Lessons",quizzes:"Quizzes",resources:"Resources",
-    demoNote:"Demo preview – connect your dashboard data to show real progress.",
-    ctaTitle:"Ready to Start Your Journey?",
-    ctaText:"Your future begins with what you learn today.",
-    startNow:"Start Learning Now →",
-    footerText:"Learn today. Lead tomorrow.",planner:"Planner",
-    grade1:"Grade 1",grade2:"Grade 2",grade3:"Grade 3",
-    grade4:"Grade 4",grade5:"Grade 5",grade6:"Grade 6",
-    grade7:"Grade 7",grade8:"Grade 8",grade9:"Grade 9",
-    grade10:"Grade 10",grade11:"Grade 11",
-    grade12:"Grade 12",grade13:"Grade 13"
-  },
-
-  si: {
-    navHome:"මුල් පිටුව",navGrades:"ශ්‍රේණි",navFeatures:"විශේෂාංග",
-    navDashboard:"ඩෑෂ්බෝඩ්",navAbout:"අපි ගැන",
-    eyebrow:"අධ්‍යාපනයේ අනාගතය",
-    heroLine1:"දක්ෂව ඉගෙන ගන්න.",heroLine2:"විශාල සිහින දකින්න.",
-    heroDescription:"NextGen Learn සමඟ අලුත් ඉගෙනුම් අත්දැකීමක් ලබාගන්න. පාඩම්, ප්‍රශ්නාවලි සහ අධ්‍යාපනික සම්පත් සමඟ ඔබේ අනාගතය ගොඩනගන්න.",
-    exploreGrades:"ශ්‍රේණි බලන්න",learnMore:"තවත් දැනගන්න",
-    statGrades:"පාසල් ශ්‍රේණි",statLanguages:"භාෂා",
-    statPossibilities:"අවස්ථා",
-    heroCardText:"දැනුම සොයා යන ඔබේ ගමන මෙතැනින් ඇරඹේ.",
-    gradeTag:"ඔබේ ඉගෙනුම් ගමන",
-    gradeTitle:"ඔබේ ශ්‍රේණිය තෝරන්න",
-    gradeDescription:"ඔබේ ශ්‍රේණිය තෝරා අදම ඉගෙනීම අරඹන්න.",
-    searchPlaceholder:"ශ්‍රේණිය සොයන්න...",
-    allGrades:"සියලු ශ්‍රේණි",primary:"ප්‍රාථමික",
-    junior:"කනිෂ්ඨ",senior:"ජ්‍යෙෂ්ඨ",
-    startLearning:"ඉගෙනීම අරඹන්න →",
-    noResults:"ශ්‍රේණි හමු නොවීය. නැවත සොයන්න.",
-    featureTag:"NEXTGEN LEARN විශේෂත්වය",
-    featureTitle:"ඉගෙනීමට අවශ්‍ය සියල්ල එකම තැනක",
-    featureDescription:"වඩාත් දක්ෂ ඉගෙනුම් අත්දැකීමක්.",
-    feature1Title:"ස්මාර්ට් පාඩම්",
-    feature1Text:"පිළිවෙළට සකස් කළ පාඩම් හරහා පියවරෙන් පියවර ඉගෙන ගන්න.",
-    feature2Title:"Online ප්‍රශ්නාවලි",
-    feature2Text:"ඔබේ දැනුම පරීක්ෂා කර ඉගෙනගත් දේ පුහුණු වන්න.",
-    feature3Title:"අධ්‍යාපනික සම්පත්",
-    feature3Text:"ප්‍රයෝජනවත් ඉගෙනුම් ද්‍රව්‍ය එකම තැනකින් සොයාගන්න.",
-    feature4Title:"අධ්‍යයන සැලසුම්කරු",
-    feature4Text:"ඔබේ පාඩම් කාලය සැලසුම් කරගන්න.",
-    feature5Title:"භාෂා කිහිපයක්",
-    feature5Text:"සිංහල, English සහ தமிழ் භාෂාවලින් ඉගෙන ගන්න.",
-    feature6Title:"ප්‍රගතිය නිරීක්ෂණය",
-    feature6Text:"ඔබේ ඉගෙනුම් ගමනේ ප්‍රගතිය නිරීක්ෂණය කරන්න.",
-    dashboardTag:"ඔබේ පුද්ගලික අවකාශය",
-    dashboardTitle:"ඔබේ ඉගෙනුම් ඩෑෂ්බෝඩ්",
-    dashboardText:"පාඩම්, සම්පත් සහ අධ්‍යයන මෙවලම් එකම තැනකින් ලබාගන්න.",
-    openDashboard:"ඩෑෂ්බෝඩ් විවෘත කරන්න →",
-    progressTitle:"ඉගෙනුම් සාරාංශය",
-    lessons:"පාඩම්",quizzes:"ප්‍රශ්නාවලි",resources:"සම්පත්",
-    demoNote:"Demo දර්ශනයකි – සැබෑ ප්‍රගතිය සඳහා dashboard දත්ත සම්බන්ධ කරන්න.",
-    ctaTitle:"ඔබේ ගමන අරඹන්න සූදානම්ද?",
-    ctaText:"ඔබේ අනාගතය අද ඉගෙනගන්නා දේ සමඟ ඇරඹේ.",
-    startNow:"දැන් ඉගෙනීම අරඹන්න →",
-    footerText:"අද ඉගෙන ගන්න. හෙට නායකත්වය දෙන්න.",
-    planner:"සැලසුම්කරු",
-    grade1:"1 ශ්‍රේණිය",grade2:"2 ශ්‍රේණිය",
-    grade3:"3 ශ්‍රේණිය",grade4:"4 ශ්‍රේණිය",
-    grade5:"5 ශ්‍රේණිය",grade6:"6 ශ්‍රේණිය",
-    grade7:"7 ශ්‍රේණිය",grade8:"8 ශ්‍රේණිය",
-    grade9:"9 ශ්‍රේණිය",grade10:"10 ශ්‍රේණිය",
-    grade11:"11 ශ්‍රේණිය",grade12:"12 ශ්‍රේණිය",
-    grade13:"13 ශ්‍රේණිය"
-  },
-
-  ta: {
-    navHome:"முகப்பு",navGrades:"தரங்கள்",navFeatures:"அம்சங்கள்",
-    navDashboard:"டாஷ்போர்டு",navAbout:"எங்களைப் பற்றி",
-    eyebrow:"கல்வியின் எதிர்காலம்",
-    heroLine1:"சிறப்பாகக் கற்கவும்.",heroLine2:"பெரிய கனவு காணவும்.",
-    heroDescription:"NextGen Learn மூலம் புதிய கற்றல் அனுபவத்தைப் பெறுங்கள். பாடங்கள், வினாடி வினாக்கள் மற்றும் கல்வி வளங்களுடன் உங்கள் எதிர்காலத்தை உருவாக்குங்கள்.",
-    exploreGrades:"தரங்களைப் பார்க்க",learnMore:"மேலும் அறிய",
-    statGrades:"பள்ளி தரங்கள்",statLanguages:"மொழிகள்",
-    statPossibilities:"வாய்ப்புகள்",
-    heroCardText:"அறிவை நோக்கிய உங்கள் பயணம் இங்கே தொடங்குகிறது.",
-    gradeTag:"உங்கள் கற்றல் பயணம்",
-    gradeTitle:"உங்கள் தரத்தைத் தேர்ந்தெடுக்கவும்",
-    gradeDescription:"உங்கள் தரத்தைத் தேர்ந்தெடுத்து இன்றே கற்கத் தொடங்குங்கள்.",
-    searchPlaceholder:"தரத்தைத் தேடுங்கள்...",
-    allGrades:"அனைத்து தரங்களும்",primary:"தொடக்கநிலை",
-    junior:"இளநிலை",senior:"உயர்நிலை",
-    startLearning:"கற்கத் தொடங்குங்கள் →",
-    noResults:"தரங்கள் எதுவும் கிடைக்கவில்லை. மீண்டும் தேடவும்.",
-    featureTag:"ஏன் NEXTGEN LEARN",
-    featureTitle:"கற்கத் தேவையான அனைத்தும்",
-    featureDescription:"ஒரே இடத்தில் சிறந்த கற்றல் அனுபவம்.",
-    feature1Title:"சிறந்த பாடங்கள்",
-    feature1Text:"ஒழுங்கமைக்கப்பட்ட பாடங்கள் மூலம் படிப்படியாகக் கற்றுக்கொள்ளுங்கள்.",
-    feature2Title:"இணைய வினாடி வினாக்கள்",
-    feature2Text:"உங்கள் அறிவைச் சோதித்து பயிற்சி செய்யுங்கள்.",
-    feature3Title:"கற்றல் வளங்கள்",
-    feature3Text:"பயனுள்ள கல்வி வளங்களை ஒரே இடத்தில் கண்டறியுங்கள்.",
-    feature4Title:"படிப்பு திட்டமிடல்",
-    feature4Text:"உங்கள் படிப்பு நேரத்தைத் திட்டமிடுங்கள்.",
-    feature5Title:"பல மொழிகள்",
-    feature5Text:"சிங்களம், ஆங்கிலம் மற்றும் தமிழ் மொழிகளில் கற்கவும்.",
-    feature6Title:"முன்னேற்றம்",
-    feature6Text:"உங்கள் கற்றல் முன்னேற்றத்தைக் கண்காணியுங்கள்.",
-    dashboardTag:"உங்கள் தனிப்பட்ட இடம்",
-    dashboardTitle:"உங்கள் கற்றல் டாஷ்போர்டு",
-    dashboardText:"பாடங்கள், வளங்கள் மற்றும் கற்றல் கருவிகளை ஒரே இடத்தில் பெறுங்கள்.",
-    openDashboard:"டாஷ்போர்டைத் திறக்க →",
-    progressTitle:"கற்றல் சுருக்கம்",
-    lessons:"பாடங்கள்",quizzes:"வினாடி வினாக்கள்",resources:"வளங்கள்",
-    demoNote:"இது ஒரு மாதிரி காட்சி. உண்மையான முன்னேற்றத்திற்கு தரவை இணைக்கவும்.",
-    ctaTitle:"உங்கள் பயணத்தைத் தொடங்கத் தயாரா?",
-    ctaText:"இன்று நீங்கள் கற்பது உங்கள் எதிர்காலத்தை உருவாக்கும்.",
-    startNow:"இப்போதே கற்கத் தொடங்குங்கள் →",
-    footerText:"இன்று கற்கவும். நாளை வழிநடத்தவும்.",
-    planner:"திட்டமிடல்",
-    grade1:"தரம் 1",grade2:"தரம் 2",grade3:"தரம் 3",
-    grade4:"தரம் 4",grade5:"தரம் 5",grade6:"தரம் 6",
-    grade7:"தரம் 7",grade8:"தரம் 8",grade9:"தரம் 9",
-    grade10:"தரம் 10",grade11:"தரம் 11",
-    grade12:"தரம் 12",grade13:"தரம் 13"
-  }
-};
-
-const languageSelect = document.getElementById("languageSelect");
-
-function setLanguage(language) {
-  const dictionary = translations[language] || translations.en;
-
-  document.documentElement.lang = language;
-  document.querySelectorAll("[data-i18n]").forEach(element => {
-    const key = element.dataset.i18n;
-    if (dictionary[key]) element.textContent = dictionary[key];
-  });
-
-  document.querySelectorAll("[data-i18n-placeholder]").forEach(element => {
-    const key = element.dataset.i18nPlaceholder;
-    if (dictionary[key]) element.placeholder = dictionary[key];
-  });
-
-  try {
-    localStorage.setItem("nextgen-language", language);
-  } catch (error) {}
-
-  filterGrades();
-}
-
-let savedLanguage = "en";
-
-try {
-  savedLanguage = localStorage.getItem("nextgen-language") || "en";
-} catch (error) {}
-
-languageSelect.value = savedLanguage;
-setLanguage(savedLanguage);
-
-languageSelect.addEventListener("change", event => {
-  setLanguage(event.target.value);
-});
-
-/* =====================================
-   SCROLL REVEAL
-===================================== */
-
-const revealElements = document.querySelectorAll(".reveal");
-
-if ("IntersectionObserver" in window) {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("show");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: .12 });
-
-  revealElements.forEach(element => observer.observe(element));
-} else {
-  revealElements.forEach(element => element.classList.add("show"));
-}
-
-/* =====================================
-   FOOTER YEAR
-===================================== */
-
-document.getElementById("year").textContent = new Date().getFullYear();
-
-/* =====================================
-   3D CARD POINTER EFFECT
-===================================== */
-
-if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-  document.querySelectorAll(".grade-card, .feature-card").forEach(card => {
-    card.addEventListener("mousemove", event => {
-      const rect = card.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width;
-      const y = (event.clientY - rect.top) / rect.height;
-
-      const rotateY = (x - .5) * 8;
-      const rotateX = (.5 - y) * 8;
-
-      card.style.transform =
-        `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-7px)`;
-    });
-
-    card.addEventListener("mouseleave", () => {
-      card.style.transform = "";
-    });
-  });
-}
-</script>
-
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Setup Scene, Camera, Renderer
+        const container = document.getElementById('globe-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 6;
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+
+        // Create 3D Globe Group
+        const globeGroup = new THREE.Group();
+        scene.add(globeGroup);
+
+        // Inner Solid Core
+        const coreGeometry = new THREE.SphereGeometry(1.8, 64, 64);
+        const coreMaterial = new THREE.MeshPhongMaterial({
+            color: 0x0a192f,
+            emissive: 0x051024,
+            specular: 0x4facfe,
+            shininess: 30,
+            transparent: true,
+            opacity: 0.9
+        });
+        const coreMesh = new THREE.Mesh(coreGeometry, coreMaterial);
+        globeGroup.add(coreMesh);
+
+        // Outer Wireframe Grid (3D Tech Look)
+        const wireGeometry = new THREE.SphereGeometry(1.84, 32, 32);
+        const wireMaterial = new THREE.MeshBasicMaterial({
+            color: 0x00f2fe,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.25
+        });
+        const wireMesh = new THREE.Mesh(wireGeometry, wireMaterial);
+        globeGroup.add(wireMesh);
+
+        // Glowing Atmosphere Ring
+        const ringGeometry = new THREE.RingGeometry(2.1, 2.13, 64);
+        const ringMaterial = new THREE.MeshBasicMaterial({
+            color: 0x4facfe,
+            side: THREE.DoubleSide,
+            transparent: true,
+            opacity: 0.4
+        });
+        const ringMesh = new THREE.Mesh(ringGeometry, ringMaterial);
+        ringMesh.rotation.x = Math.PI / 2.5;
+        ringMesh.rotation.y = Math.PI / 6;
+        globeGroup.add(ringMesh);
+
+        // Floating Particles around Globe
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 300;
+        const posArray = new Float32Array(particlesCount * 3);
+
+        for (let i = 0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 8;
+        }
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.02,
+            color: 0x00f2fe,
+            transparent: true,
+            opacity: 0.8
+        });
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+
+        const pointLight = new THREE.PointLight(0x00f2fe, 1.5);
+        pointLight.position.set(5, 3, 5);
+        scene.add(pointLight);
+
+        // Mouse Drag Interaction
+        let isDragging = false;
+        let previousMousePosition = { x: 0, y: 0 };
+
+        container.addEventListener('mousedown', (e) => {
+            isDragging = true;
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                const deltaMove = {
+                    x: e.offsetX - previousMousePosition.x,
+                    y: e.offsetY - previousMousePosition.y
+                };
+
+                globeGroup.rotation.y += deltaMove.x * 0.005;
+                globeGroup.rotation.x += deltaMove.y * 0.005;
+            }
+            previousMousePosition = { x: e.offsetX, y: e.offsetY };
+        });
+
+        // Handle Window Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Animation Loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            if (!isDragging) {
+                globeGroup.rotation.y += 0.003;
+            }
+            particlesMesh.rotation.y -= 0.0008;
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
 </body>
 </html>
