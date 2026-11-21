@@ -1,458 +1,1684 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ceylon 3D Travel Guide | Explore Sri Lanka Independently</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070916">
+<meta name="description" content="NextGen Learn - Discover, watch and share amazing educational videos.">
+<title>NextGen Learn | Discover Beyond Limits</title>
 
-        body {
-            overflow: hidden;
-            background-color: #050d14;
-            color: #ffffff;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-        /* Background Video */
-        #bg-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-            z-index: -2;
-            opacity: 0.4;
-        }
+<style>
+:root {
+  --bg: #070916;
+  --panel: rgba(18, 23, 48, .67);
+  --glass: rgba(255,255,255,.055);
+  --glass-hover: rgba(255,255,255,.105);
+  --border: rgba(255,255,255,.10);
+  --text: #f4f5ff;
+  --muted: #9299b7;
+  --blue: #48a9ff;
+  --purple: #a879ff;
+  --cyan: #42e9ff;
+  --pink: #ed75ff;
+  --sidebar: 245px;
+  --radius: 20px;
+}
 
-        /* Dark Gradient Overlay */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: radial-gradient(circle at center, rgba(10, 28, 35, 0.35) 0%, rgba(5, 10, 20, 0.9) 100%);
-            z-index: -1;
-        }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-        /* 3D Globe Canvas */
-        #globe-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 1;
-            cursor: grab;
-        }
+html { scroll-behavior: smooth; }
 
-        #globe-container:active {
-            cursor: grabbing;
-        }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
 
-        /* Glassmorphism Navigation Bar */
-        nav {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 92%;
-            max-width: 1200px;
-            padding: 14px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            border-radius: 50px;
-            z-index: 10;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
-        }
+button, input { font: inherit; }
+button { cursor: pointer; }
+a { color: inherit; text-decoration: none; }
 
-        .logo {
-            font-size: 1.4rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            background: linear-gradient(90deg, #00f5a0, #00d9f5);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  background:
+    radial-gradient(ellipse at 15% 10%, rgba(74,90,255,.17), transparent 36%),
+    radial-gradient(ellipse at 85% 25%, rgba(165,73,255,.14), transparent 36%),
+    radial-gradient(ellipse at 55% 90%, rgba(0,208,255,.09), transparent 40%),
+    #070916;
+}
 
-        .nav-links {
-            display: flex;
-            gap: 25px;
-            list-style: none;
-        }
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  opacity: .17;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, black, transparent 90%);
+}
 
-        .nav-links a {
-            color: #e2e8f0;
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
+/* BACKGROUND ORBS */
 
-        .nav-links a:hover {
-            color: #00f5a0;
-        }
+.orb {
+  position: fixed;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  opacity: .19;
+  animation: floatOrb 12s ease-in-out infinite alternate;
+}
 
-        /* Left Floating Glass Card */
-        .hero-card {
-            position: fixed;
-            bottom: 35px;
-            left: 40px;
-            max-width: 410px;
-            padding: 28px;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            border-radius: 24px;
-            z-index: 10;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
-        }
+.orb.one {
+  width: 270px;
+  height: 270px;
+  background: #4a55ff;
+  top: 15%;
+  left: 15%;
+}
 
-        .hero-card span {
-            font-size: 0.78rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #00f5a0;
-            font-weight: 600;
-        }
+.orb.two {
+  width: 330px;
+  height: 330px;
+  background: #a344ff;
+  right: -120px;
+  top: 45%;
+  animation-delay: -4s;
+}
 
-        .hero-card h1 {
-            font-size: 1.85rem;
-            margin: 8px 0 12px;
-            line-height: 1.2;
-        }
+.orb.three {
+  width: 230px;
+  height: 230px;
+  background: #00cfff;
+  bottom: -90px;
+  left: 40%;
+  animation-delay: -7s;
+}
 
-        .hero-card p {
-            font-size: 0.92rem;
-            color: #cbd5e1;
-            line-height: 1.6;
-            margin-bottom: 18px;
-        }
+@keyframes floatOrb {
+  from { transform: translate3d(-20px,-15px,0) scale(1); }
+  to { transform: translate3d(30px,30px,0) scale(1.15); }
+}
 
-        /* Quick Destination Buttons */
-        .destination-pills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 18px;
-        }
+/* HEADER */
 
-        .pill-btn {
-            padding: 7px 14px;
-            border-radius: 20px;
-            border: 1px solid rgba(0, 245, 160, 0.35);
-            background: rgba(0, 245, 160, 0.1);
-            color: #ffffff;
-            font-size: 0.82rem;
-            cursor: pointer;
-            transition: all 0.25s ease;
-        }
+.header {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 0 28px;
+  background: rgba(7,9,22,.76);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-bottom: 1px solid var(--border);
+}
 
-        .pill-btn:hover, .pill-btn.active {
-            background: linear-gradient(135deg, #00f5a0, #00d9f5);
-            color: #051018;
-            font-weight: 600;
-        }
+.brand-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 218px;
+  flex-shrink: 0;
+}
 
-        /* Right Destination Detail Glass Card */
-        .detail-panel {
-            position: fixed;
-            bottom: 35px;
-            right: 40px;
-            width: 350px;
-            padding: 24px;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            border-radius: 24px;
-            z-index: 10;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
-        }
+.logo {
+  width: 43px;
+  height: 43px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: linear-gradient(135deg,#527bff,#a64bff);
+  box-shadow: 0 0 25px rgba(115,100,255,.42);
+  font-family: 'Space Grotesk';
+  font-weight: 900;
+  font-size: 20px;
+  transform: perspective(100px) rotateY(-8deg);
+}
 
-        .detail-panel .tag {
-            display: inline-block;
-            font-size: 0.75rem;
-            color: #00d9f5;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            margin-bottom: 6px;
-        }
+.brand-name {
+  font-family: 'Space Grotesk';
+  font-weight: 800;
+  font-size: 19px;
+  letter-spacing: -.7px;
+}
 
-        .detail-panel h2 {
-            font-size: 1.45rem;
-            margin-bottom: 10px;
-        }
+.brand-name span {
+  color: #a98aff;
+}
 
-        .detail-panel p {
-            font-size: 0.9rem;
-            color: #cbd5e1;
-            line-height: 1.55;
-            margin-bottom: 14px;
-        }
+.menu-btn, .icon-btn {
+  border: 1px solid var(--border);
+  background: var(--glass);
+  color: white;
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  transition: .25s;
+  font-size: 19px;
+}
 
-        .info-list {
-            list-style: none;
-            font-size: 0.85rem;
-            color: #e2e8f0;
-            border-top: 1px solid rgba(255, 255, 255, 0.12);
-            padding-top: 12px;
-        }
+.menu-btn:hover, .icon-btn:hover {
+  background: var(--glass-hover);
+  border-color: rgba(126,150,255,.4);
+  transform: translateY(-2px);
+}
 
-        .info-list li {
-            margin-bottom: 6px;
-        }
+.search-area {
+  flex: 1;
+  max-width: 620px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  height: 44px;
+  background: rgba(255,255,255,.045);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: .3s;
+}
 
-        .info-list strong {
-            color: #00f5a0;
-        }
+.search-area:focus-within {
+  border-color: rgba(111,144,255,.7);
+  box-shadow: 0 0 22px rgba(90,100,255,.13);
+}
 
-        @media (max-width: 900px) {
-            body { overflow-y: auto; }
-            .nav-links { display: none; }
-            .hero-card, .detail-panel {
-                position: relative;
-                left: auto;
-                right: auto;
-                bottom: auto;
-                width: 92%;
-                max-width: none;
-                margin: 90px auto 20px;
-            }
-            .detail-panel {
-                margin-top: 15px;
-                margin-bottom: 40px;
-            }
-        }
-    </style>
+.search-area input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  background: transparent;
+  border: 0;
+  outline: none;
+  color: white;
+  padding: 0 17px;
+  font-size: 13px;
+}
+
+.search-area input::placeholder { color: #7f86a5; }
+
+.search-btn {
+  width: 55px;
+  height: 100%;
+  border: 0;
+  color: white;
+  background: linear-gradient(135deg,#536fff,#965aff);
+  font-size: 17px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.upload-btn, .login-btn {
+  height: 41px;
+  padding: 0 16px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: .25s;
+}
+
+.upload-btn {
+  background: rgba(255,255,255,.06);
+  border: 1px solid var(--border);
+}
+
+.upload-btn:hover { background: rgba(255,255,255,.12); }
+
+.login-btn {
+  background: linear-gradient(110deg,#536fff,#a14cff);
+  border: 0;
+  box-shadow: 0 5px 22px rgba(117,75,255,.25);
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(117,75,255,.4);
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  position: fixed;
+  z-index: 900;
+  top: 76px;
+  left: 0;
+  bottom: 0;
+  width: var(--sidebar);
+  padding: 22px 14px;
+  overflow-y: auto;
+  background: rgba(9,12,28,.78);
+  backdrop-filter: blur(24px);
+  border-right: 1px solid var(--border);
+  transition: .3s;
+}
+
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,.15);
+  border-radius: 10px;
+}
+
+.side-label {
+  padding: 12px 12px 9px;
+  color: #777f9e;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 12px 13px;
+  margin: 3px 0;
+  border-radius: 12px;
+  color: #a6acc7;
+  font-size: 12px;
+  font-weight: 600;
+  transition: .25s;
+  cursor: pointer;
+}
+
+.nav-icon {
+  width: 22px;
+  text-align: center;
+  font-size: 17px;
+}
+
+.nav-item:hover {
+  color: white;
+  background: rgba(255,255,255,.06);
+  transform: translateX(3px);
+}
+
+.nav-item.active {
+  color: white;
+  background: linear-gradient(100deg,rgba(89,104,255,.25),rgba(155,87,255,.12));
+  border: 1px solid rgba(127,120,255,.20);
+  box-shadow: inset 3px 0 #9279ff;
+}
+
+.sidebar-line {
+  height: 1px;
+  background: var(--border);
+  margin: 15px 5px;
+}
+
+.sidebar-bottom {
+  margin-top: 22px;
+  padding: 15px;
+  border: 1px solid rgba(126,116,255,.2);
+  border-radius: 16px;
+  background: linear-gradient(145deg,rgba(91,100,255,.13),rgba(174,79,255,.08));
+}
+
+.sidebar-bottom strong {
+  font-size: 12px;
+  display: block;
+  margin-bottom: 7px;
+}
+
+.sidebar-bottom p {
+  font-size: 10px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.sidebar-bottom a {
+  display: block;
+  text-align: center;
+  background: linear-gradient(100deg,#546fff,#a44bff);
+  padding: 9px;
+  border-radius: 9px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+/* MAIN CONTENT */
+
+.main {
+  margin-left: var(--sidebar);
+  padding: 101px 29px 50px;
+  transition: .3s;
+}
+
+body.sidebar-collapsed .sidebar { transform: translateX(-100%); }
+body.sidebar-collapsed .main { margin-left: 0; }
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin: 0 0 19px;
+}
+
+.section-heading h2 {
+  font-family: 'Space Grotesk';
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -.6px;
+}
+
+.section-heading p {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 5px;
+}
+
+.view-all {
+  font-size: 11px;
+  color: #a99aff;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* HERO */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 285px;
+  border: 1px solid rgba(155,144,255,.23);
+  border-radius: 25px;
+  padding: 36px;
+  margin-bottom: 33px;
+  background:
+    linear-gradient(105deg,rgba(17,21,53,.96),rgba(29,24,73,.75),rgba(26,26,63,.55)),
+    radial-gradient(circle at 85% 40%,#674cff,transparent 45%);
+  box-shadow: 0 20px 65px rgba(0,0,0,.25), inset 0 1px rgba(255,255,255,.09);
+  display: flex;
+  align-items: center;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  right: 8%;
+  top: -100px;
+  border-radius: 50%;
+  border: 1px solid rgba(180,170,255,.19);
+  box-shadow:
+    0 0 0 35px rgba(255,255,255,.025),
+    0 0 0 75px rgba(255,255,255,.018),
+    inset 0 0 55px rgba(107,90,255,.2);
+  animation: rotate 28s linear infinite;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  right: 13%;
+  top: 18px;
+  border: 1px solid rgba(107,218,255,.27);
+  border-radius: 35px;
+  transform: rotate(35deg);
+  background: linear-gradient(145deg,rgba(117,112,255,.2),rgba(0,208,255,.025));
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 55px rgba(111,91,255,.2);
+  animation: cubeFloat 7s ease-in-out infinite alternate;
+}
+
+@keyframes rotate { to { transform: rotate(360deg); } }
+
+@keyframes cubeFloat {
+  from { transform: rotate(35deg) translateY(0); }
+  to { transform: rotate(47deg) translateY(-17px); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 510px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #c2b8ff;
+  background: rgba(153,130,255,.12);
+  border: 1px solid rgba(169,151,255,.25);
+  padding: 7px 12px;
+  border-radius: 30px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 17px;
+}
+
+.live-dot {
+  width: 7px;
+  height: 7px;
+  background: #8cffcb;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #8cffcb;
+}
+
+.hero h1 {
+  font-family: 'Space Grotesk';
+  font-size: clamp(29px,4vw,45px);
+  line-height: 1.13;
+  font-weight: 800;
+  letter-spacing: -1.8px;
+  margin-bottom: 13px;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg,#73d9ff,#aa8aff,#f18aff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-content > p {
+  max-width: 420px;
+  color: #aeb4d2;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 11px;
+  margin-top: 23px;
+}
+
+.primary-btn, .secondary-btn {
+  padding: 12px 18px;
+  border-radius: 11px;
+  font-size: 11px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: .25s;
+}
+
+.primary-btn {
+  background: linear-gradient(110deg,#527aff,#a14eff);
+  box-shadow: 0 7px 25px rgba(106,83,255,.3);
+}
+
+.secondary-btn {
+  background: rgba(255,255,255,.07);
+  border: 1px solid var(--border);
+}
+
+.primary-btn:hover, .secondary-btn:hover {
+  transform: translateY(-3px);
+}
+
+/* STATS */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 13px;
+  margin-bottom: 33px;
+}
+
+.stat-card {
+  padding: 17px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  backdrop-filter: blur(15px);
+  transition: .3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  background: var(--glass-hover);
+  border-color: rgba(141,128,255,.3);
+}
+
+.stat-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: linear-gradient(140deg,rgba(82,127,255,.24),rgba(167,78,255,.22));
+  font-size: 19px;
+}
+
+.stat-card strong {
+  display: block;
+  font-family: 'Space Grotesk';
+  font-size: 19px;
+}
+
+.stat-card span {
+  color: var(--muted);
+  font-size: 10px;
+  display: block;
+  margin-top: 3px;
+}
+
+/* CATEGORY CHIPS */
+
+.categories {
+  display: flex;
+  gap: 9px;
+  overflow-x: auto;
+  padding: 2px 0 18px;
+  margin-bottom: 8px;
+  scrollbar-width: none;
+}
+
+.categories::-webkit-scrollbar { display: none; }
+
+.category {
+  white-space: nowrap;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.045);
+  color: #aeb4d1;
+  padding: 9px 15px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  transition: .25s;
+}
+
+.category:hover, .category.active {
+  background: linear-gradient(110deg,rgba(84,111,255,.28),rgba(159,77,255,.24));
+  color: white;
+  border-color: rgba(137,124,255,.4);
+}
+
+/* VIDEO GRID */
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 23px 17px;
+  margin-bottom: 42px;
+}
+
+.video-card {
+  min-width: 0;
+  cursor: pointer;
+  animation: cardEnter .55s ease both;
+  transition: .3s;
+}
+
+@keyframes cardEnter {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.video-card:hover { transform: translateY(-5px); }
+
+.thumbnail {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: 15px;
+  background: #171a31;
+  border: 1px solid rgba(255,255,255,.09);
+  box-shadow: 0 8px 25px rgba(0,0,0,.2);
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: .5s;
+}
+
+.video-card:hover .thumbnail img {
+  transform: scale(1.07);
+}
+
+.thumbnail::after {
+  content: "";
+  position: absolute;
+  inset: 45% 0 0;
+  background: linear-gradient(transparent,rgba(0,0,0,.65));
+  pointer-events: none;
+}
+
+.duration {
+  position: absolute;
+  z-index: 2;
+  bottom: 9px;
+  right: 9px;
+  padding: 4px 7px;
+  border-radius: 5px;
+  font-size: 9px;
+  font-weight: 700;
+  background: rgba(0,0,0,.8);
+}
+
+.play-overlay {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transition: .25s;
+}
+
+.play-overlay span {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  background: rgba(116,92,255,.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.4);
+  border-radius: 50%;
+  font-size: 19px;
+  box-shadow: 0 0 30px rgba(125,100,255,.5);
+}
+
+.video-card:hover .play-overlay { opacity: 1; }
+
+.quality {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  z-index: 3;
+  background: linear-gradient(110deg,#566eff,#a54cff);
+  padding: 4px 7px;
+  border-radius: 5px;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .5px;
+}
+
+.video-info {
+  display: flex;
+  gap: 10px;
+  padding-top: 12px;
+}
+
+.avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 800;
+  background: linear-gradient(140deg,#547fff,#a34cff);
+  border: 1px solid rgba(255,255,255,.2);
+}
+
+.video-details {
+  min-width: 0;
+  flex: 1;
+}
+
+.video-details h3 {
+  font-size: 12px;
+  line-height: 1.55;
+  font-weight: 700;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.video-details p {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+.verified { color: #69baff; }
+
+.more-btn {
+  border: 0;
+  background: none;
+  color: #9299b5;
+  font-size: 19px;
+  align-self: flex-start;
+}
+
+/* SHORTS */
+
+.shorts-section {
+  margin-bottom: 42px;
+}
+
+.shorts-grid {
+  display: grid;
+  grid-template-columns: repeat(5,minmax(0,1fr));
+  gap: 13px;
+}
+
+.short-card {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 9/14;
+  border-radius: 15px;
+  border: 1px solid var(--border);
+  background: #17182c;
+  transition: .3s;
+}
+
+.short-card:hover {
+  transform: translateY(-6px) scale(1.015);
+  box-shadow: 0 12px 30px rgba(102,91,255,.2);
+}
+
+.short-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.short-card::after {
+  content: "";
+  position: absolute;
+  inset: 35% 0 0;
+  background: linear-gradient(transparent,rgba(0,0,0,.85));
+}
+
+.short-info {
+  position: absolute;
+  z-index: 2;
+  bottom: 12px;
+  left: 11px;
+  right: 9px;
+}
+
+.short-info strong {
+  display: block;
+  font-size: 11px;
+  line-height: 1.4;
+  margin-bottom: 5px;
+}
+
+.short-info span {
+  font-size: 9px;
+  color: #d2d3e3;
+}
+
+/* EMPTY SEARCH */
+
+.empty-state {
+  display: none;
+  text-align: center;
+  padding: 55px 15px;
+  color: var(--muted);
+  border: 1px dashed var(--border);
+  border-radius: 17px;
+  margin-bottom: 35px;
+}
+
+.empty-state .empty-icon { font-size: 32px; margin-bottom: 12px; }
+.empty-state h3 { color: white; font-size: 15px; margin-bottom: 7px; }
+.empty-state p { font-size: 11px; }
+
+/* FOOTER */
+
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 27px 0 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 15px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 17px;
+}
+
+.footer a:hover { color: white; }
+
+/* MOBILE NAV */
+
+.mobile-nav {
+  display: none;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1100px) {
+  .video-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .shorts-grid { grid-template-columns: repeat(4,minmax(0,1fr)); }
+  .brand-area { width: 195px; }
+}
+
+@media(max-width:760px) {
+  .header {
+    height: 64px;
+    padding: 0 12px;
+    gap: 9px;
+  }
+
+  .brand-area { width: auto; gap: 8px; }
+  .logo { width: 37px; height: 37px; font-size: 17px; }
+  .brand-name { font-size: 15px; }
+  .header .menu-btn { display: none; }
+
+  .search-area {
+    height: 38px;
+    margin: 0 0 0 auto;
+    max-width: none;
+  }
+
+  .search-area input {
+    padding: 0 10px;
+    font-size: 11px;
+  }
+
+  .search-btn { width: 38px; font-size: 14px; }
+
+  .header-actions { gap: 6px; }
+  .header-actions .upload-btn { display: none; }
+  .login-btn { height: 36px; padding: 0 10px; font-size: 10px; }
+
+  .sidebar {
+    top: 64px;
+    width: 255px;
+    transform: translateX(-105%);
+    box-shadow: 20px 0 50px rgba(0,0,0,.35);
+  }
+
+  body.mobile-sidebar-open .sidebar { transform: translateX(0); }
+  body.mobile-sidebar-open::before {
+    content: "";
+    position: fixed;
+    inset: 64px 0 0;
+    background: rgba(0,0,0,.5);
+    z-index: 850;
+  }
+
+  .main {
+    margin-left: 0 !important;
+    padding: 82px 13px 85px;
+  }
+
+  .hero {
+    min-height: 280px;
+    padding: 25px 20px;
+    border-radius: 19px;
+  }
+
+  .hero::before { right: -120px; opacity: .6; }
+  .hero::after { right: -60px; opacity: .45; }
+  .hero h1 { font-size: 32px; }
+
+  .stats-grid { gap: 8px; }
+  .stat-card { padding: 11px 8px; gap: 7px; }
+  .stat-icon { width: 32px; height: 32px; font-size: 15px; }
+  .stat-card strong { font-size: 15px; }
+  .stat-card span { font-size: 8px; }
+
+  .section-heading h2 { font-size: 18px; }
+  .video-grid { gap: 20px 11px; }
+  .thumbnail { border-radius: 11px; }
+  .video-info { gap: 7px; padding-top: 9px; }
+  .avatar { width: 29px; height: 29px; font-size: 10px; }
+  .video-details h3 { font-size: 10px; }
+  .video-details p { font-size: 9px; }
+  .more-btn { display: none; }
+
+  .shorts-grid {
+    grid-template-columns: repeat(3,minmax(0,1fr));
+    gap: 9px;
+  }
+
+  .mobile-nav {
+    position: fixed;
+    z-index: 1000;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    padding: 9px 5px calc(9px + env(safe-area-inset-bottom));
+    background: rgba(9,12,28,.94);
+    border-top: 1px solid var(--border);
+    backdrop-filter: blur(22px);
+  }
+
+  .mobile-nav a {
+    min-width: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: #969db9;
+    font-size: 9px;
+  }
+
+  .mobile-nav a span:first-child { font-size: 18px; }
+  .mobile-nav a.active { color: #ad9aff; }
+
+  .footer { padding-bottom: 10px; }
+}
+
+@media(max-width:400px) {
+  .brand-name { font-size: 13px; }
+  .logo { width: 33px; height: 33px; }
+  .login-btn { padding: 0 8px; }
+  .login-btn span { display: none; }
+  .hero h1 { font-size: 28px; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .stat-card { padding: 10px 13px; }
+  .shorts-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+
+/* REVEAL ANIMATION */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .65s ease, transform .65s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media(prefers-reduced-motion:reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
 </head>
+
 <body>
 
-    <!-- Background Video -->
-    <video id="bg-video" autoplay loop muted playsinline>
-        <source src="https://assets.mixkit.co/videos/preview/mixkit-stars-in-space-1610-large.mp4" type="video/mp4">
-    </video>
-    <div class="overlay"></div>
+<div class="orb one"></div>
+<div class="orb two"></div>
+<div class="orb three"></div>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="logo">CEYLON•GO 3D</div>
-        <ul class="nav-links">
-            <li><a href="#destinations">Places</a></li>
-            <li><a href="#guide">Self-Guide Tips</a></li>
-            <li><a href="#transport">Transport</a></li>
-            <li><a href="#stays">Stays</a></li>
-        </ul>
-    </nav>
+<!-- HEADER -->
 
-    <!-- 3D Globe Container -->
-    <div id="globe-container"></div>
+<header class="header">
 
-    <!-- Left Glass Card: Quick Selector -->
-    <div class="hero-card" id="destinations">
-        <span>Self-Guided Sri Lanka</span>
-        <h1>Travel Sri Lanka Your Way</h1>
-        <p>Select a destination below to get practical self-travel info, best visiting times, and local tips without needing a middleman.</p>
+  <button class="menu-btn" id="menuBtn" aria-label="Toggle sidebar">☰</button>
 
-        <div class="destination-pills" id="pill-container"></div>
+  <a href="index.html" class="brand-area">
+    <div class="logo">N</div>
+    <div class="brand-name">NextGen <span>Learn.</span></div>
+  </a>
+
+  <form class="search-area" id="searchForm">
+    <input
+      type="search"
+      id="searchInput"
+      placeholder="Search videos, creators, topics..."
+      autocomplete="off"
+    >
+    <button class="search-btn" type="submit" aria-label="Search">⌕</button>
+  </form>
+
+  <div class="header-actions">
+    <a href="upload.html" class="upload-btn">＋ Upload</a>
+    <a href="login.html" class="login-btn">◉ <span>Sign In</span></a>
+  </div>
+
+</header>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar" id="sidebar">
+
+  <div class="side-label">DISCOVER</div>
+
+  <a href="index.html" class="nav-item active">
+    <span class="nav-icon">⌂</span> Home
+  </a>
+
+  <a href="#trending" class="nav-item">
+    <span class="nav-icon">🔥</span> Trending
+  </a>
+
+  <a href="#shorts" class="nav-item">
+    <span class="nav-icon">▶</span> Shorts
+  </a>
+
+  <a href="#latest" class="nav-item">
+    <span class="nav-icon">◷</span> Latest Videos
+  </a>
+
+  <div class="sidebar-line"></div>
+  <div class="side-label">YOUR LIBRARY</div>
+
+  <a href="login.html" class="nav-item">
+    <span class="nav-icon">◴</span> Watch History
+  </a>
+
+  <a href="login.html" class="nav-item">
+    <span class="nav-icon">▣</span> Playlists
+  </a>
+
+  <a href="login.html" class="nav-item">
+    <span class="nav-icon">♡</span> Liked Videos
+  </a>
+
+  <a href="login.html" class="nav-item">
+    <span class="nav-icon">◉</span> Watch Later
+  </a>
+
+  <div class="sidebar-line"></div>
+  <div class="side-label">EXPLORE</div>
+
+  <a href="grades.html" class="nav-item">
+    <span class="nav-icon">🎓</span> Education
+  </a>
+
+  <a href="#technology" class="nav-item">
+    <span class="nav-icon">💻</span> Technology
+  </a>
+
+  <a href="#science" class="nav-item">
+    <span class="nav-icon">🧪</span> Science
+  </a>
+
+  <a href="#creative" class="nav-item">
+    <span class="nav-icon">🎨</span> Creativity
+  </a>
+
+  <div class="sidebar-line"></div>
+  <div class="side-label">CREATE</div>
+
+  <a href="upload.html" class="nav-item">
+    <span class="nav-icon">＋</span> Upload Video
+  </a>
+
+  <a href="dashboard.html" class="nav-item">
+    <span class="nav-icon">▥</span> Creator Studio
+  </a>
+
+  <div class="sidebar-bottom">
+    <strong>✦ Become a Creator</strong>
+    <p>Share your knowledge, create videos and build your own community.</p>
+    <a href="register.html">Get Started →</a>
+  </div>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+  <!-- HERO -->
+
+  <section class="hero reveal">
+    <div class="hero-content">
+
+      <div class="hero-badge">
+        <span class="live-dot"></span>
+        THE NEXT GENERATION OF LEARNING
+      </div>
+
+      <h1>
+        Discover Beyond<br>
+        <span class="gradient-text">Your Limits.</span>
+      </h1>
+
+      <p>
+        Explore amazing videos, discover new ideas and learn something
+        extraordinary every day. Your world of knowledge starts here.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#trending" class="primary-btn">▶ Explore Videos</a>
+        <a href="register.html" class="secondary-btn">＋ Join Community</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- STATS -->
+
+  <section class="stats-grid reveal">
+
+    <div class="stat-card">
+      <div class="stat-icon">▶</div>
+      <div>
+        <strong>Videos</strong>
+        <span>Discover content</span>
+      </div>
     </div>
 
-    <!-- Right Glass Card: Selected Place Details -->
-    <div class="detail-panel" id="guide">
-        <span class="tag" id="place-region">Cultural Triangle</span>
-        <h2 id="place-name">Sigiriya Lion Rock</h2>
-        <p id="place-desc">Ancient rock fortress with frescoes, mirror wall, and panoramic views. Ideal to visit early in the morning to avoid crowds and heat.</p>
-        <ul class="info-list">
-            <li><strong>Best Time:</strong> <span id="place-time">6:30 AM – 9:30 AM (Jan – Apr)</span></li>
-            <li><strong>How to Reach:</strong> <span id="place-reach">Bus/Tuk-tuk from Dambulla (~30 mins)</span></li>
-            <li><strong>Self-Travel Tip:</strong> <span id="place-tip">Carry water and start climbing before sun gets strong.</span></li>
-        </ul>
+    <div class="stat-card">
+      <div class="stat-icon">🌎</div>
+      <div>
+        <strong>Global</strong>
+        <span>Learn without limits</span>
+      </div>
     </div>
 
-    <!-- Three.js CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script>
-        // Sri Lanka Destinations Data
-        const places = [
-            {
-                name: "Sigiriya Lion Rock",
-                region: "Central Province • Heritage",
-                desc: "Ancient rock fortress with frescoes, mirror wall, and panoramic views. Ideal to visit early in the morning to avoid crowds and heat.",
-                time: "6:30 AM – 9:30 AM (Jan – Apr)",
-                reach: "Bus/Tuk-tuk from Dambulla (~30 mins)",
-                tip: "Carry water and start climbing before the sun gets strong."
-            },
-            {
-                name: "Ella & Nine Arches",
-                region: "Uva Province • Hill Country",
-                desc: "Cool mountain town famous for scenic train rides, Nine Arches Bridge, Little Adam's Peak hike, and relaxed cafes.",
-                time: "Morning (7:00 AM – 10:00 AM)",
-                reach: "Scenic train from Kandy or Ella station walk",
-                tip: "Check train timings in advance and wear good hiking shoes."
-            },
-            {
-                name: "Galle Dutch Fort",
-                region: "Southern Province • Coastal",
-                desc: "historic walled coastal town with colonial architecture, boutique shops, lighthouse sunset views, and easy walkable streets.",
-                time: "4:00 PM – 6:30 PM (Sunset walk)",
-                reach: "Southern Expressway bus or train along coast",
-                tip: "Everything inside the fort is easy to explore on foot."
-            },
-            {
-                name: "Mirissa Beach",
-                region: "Southern Province • Beach",
-                desc: "Golden sandy bay popular for surfing, whale watching season outings, and fresh seafood dining.",
-                time: "Early Morning / Late Afternoon",
-                reach: "25–30 mins south of Matara / Galle route",
-                tip: "Always check sea currents before swimming."
-            }
-        ];
+    <div class="stat-card">
+      <div class="stat-icon">✦</div>
+      <div>
+        <strong>Creators</strong>
+        <span>Share your knowledge</span>
+      </div>
+    </div>
 
-        const pillContainer = document.getElementById("pill-container");
-        const placeNameEl = document.getElementById("place-name");
-        const placeRegionEl = document.getElementById("place-region");
-        const placeDescEl = document.getElementById("place-desc");
-        const placeTimeEl = document.getElementById("place-time");
-        const placeReachEl = document.getElementById("place-reach");
-        const placeTipEl = document.getElementById("place-tip");
+  </section>
 
-        function selectPlace(index, buttonElement) {
-            const p = places[index];
-            placeNameEl.textContent = p.name;
-            placeRegionEl.textContent = p.region;
-            placeDescEl.textContent = p.desc;
-            placeTimeEl.textContent = p.time;
-            placeReachEl.textContent = p.reach;
-            placeTipEl.textContent = p.tip;
+  <!-- CATEGORIES -->
 
-            document.querySelectorAll(".pill-btn").forEach(btn => btn.classList.remove("active"));
-            if (buttonElement) buttonElement.classList.add("active");
-        }
+  <section class="reveal">
 
-        places.forEach((place, idx) => {
-            const btn = document.createElement("button");
-            btn.className = "pill-btn" + (idx === 0 ? " active" : "");
-            btn.textContent = place.name.split(" ")[0];
-            btn.onclick = () => selectPlace(idx, btn);
-            pillContainer.appendChild(btn);
-        });
+    <div class="section-heading">
+      <div>
+        <h2>Explore Your World</h2>
+        <p>Find videos that match your interests.</p>
+      </div>
+    </div>
 
-        // 3D Globe Setup
-        const container = document.getElementById('globe-container');
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.z = 6;
+    <div class="categories" id="categories">
+      <button class="category active" data-filter="all">✨ All</button>
+      <button class="category" data-filter="education">🎓 Education</button>
+      <button class="category" data-filter="technology">💻 Technology</button>
+      <button class="category" data-filter="science">🧪 Science</button>
+      <button class="category" data-filter="creative">🎨 Creative</button>
+      <button class="category" data-filter="gaming">🎮 Gaming</button>
+      <button class="category" data-filter="music">🎵 Music</button>
+      <button class="category" data-filter="nature">🌿 Nature</button>
+    </div>
 
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(window.devicePixelRatio);
-        container.appendChild(renderer.domElement);
+  </section>
 
-        const globeGroup = new THREE.Group();
-        scene.add(globeGroup);
+  <!-- TRENDING -->
 
-        const coreGeometry = new THREE.SphereGeometry(1.75, 64, 64);
-        const coreMaterial = new THREE.MeshPhongMaterial({
-            color: 0x09262e,
-            emissive: 0x041217,
-            specular: 0x00f5a0,
-            shininess: 25,
-            transparent: true,
-            opacity: 0.9
-        });
-        const coreMesh = new THREE.Mesh(coreGeometry, coreMaterial);
-        globeGroup.add(coreMesh);
+  <section id="trending" class="reveal">
 
-        const wireGeometry = new THREE.SphereGeometry(1.79, 32, 32);
-        const wireMaterial = new THREE.MeshBasicMaterial({
-            color: 0x00d9f5,
-            wireframe: true,
-            transparent: true,
-            opacity: 0.22
-        });
-        const wireMesh = new THREE.Mesh(wireGeometry, wireMaterial);
-        globeGroup.add(wireMesh);
+    <div class="section-heading">
+      <div>
+        <h2>🔥 Trending Now</h2>
+        <p>Discover interesting content from our video community.</p>
+      </div>
+      <a href="videos.html" class="view-all">View All →</a>
+    </div>
 
-        const ringGeometry = new THREE.RingGeometry(2.05, 2.08, 64);
-        const ringMaterial = new THREE.MeshBasicMaterial({
-            color: 0x00f5a0,
-            side: THREE.DoubleSide,
-            transparent: true,
-            opacity: 0.35
-        });
-        const ringMesh = new THREE.Mesh(ringGeometry, ringMaterial);
-        ringMesh.rotation.x = Math.PI / 2.4;
-        ringMesh.rotation.y = Math.PI / 7;
-        globeGroup.add(ringMesh);
+    <div class="video-grid" id="videoGrid">
 
-        const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = 280;
-        const posArray = new Float32Array(particlesCount * 3);
-        for (let i = 0; i < particlesCount * 3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 8;
-        }
-        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-        const particlesMaterial = new THREE.PointsMaterial({
-            size: 0.02,
-            color: 0x00f5a0,
-            transparent: true,
-            opacity: 0.75
-        });
-        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-        scene.add(particlesMesh);
+      <!-- VIDEO 1 -->
 
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.65);
-        scene.add(ambientLight);
+      <a class="video-card" href="watch.html?video=1"
+         data-category="technology"
+         data-title="The Future of Artificial Intelligence">
+        <div class="thumbnail">
+          <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=700&q=85" alt="Artificial intelligence technology" loading="lazy">
+          <span class="quality">4K</span>
+          <span class="duration">12:45</span>
+          <div class="play-overlay"><span>▶</span></div>
+        </div>
+        <div class="video-info">
+          <div class="avatar">AI</div>
+          <div class="video-details">
+            <h3>The Future of Artificial Intelligence – What Comes Next?</h3>
+            <p>NextGen Academy <span class="verified">✓</span></p>
+            <p>Technology · Featured</p>
+          </div>
+          <span class="more-btn">⋮</span>
+        </div>
+      </a>
 
-        const pointLight = new THREE.PointLight(0x00f5a0, 1.4);
-        pointLight.position.set(5, 3, 5);
-        scene.add(pointLight);
+      <!-- VIDEO 2 -->
 
-        let isDragging = false;
-        let previousMousePosition = { x: 0, y: 0 };
+      <a class="video-card" href="watch.html?video=2"
+         data-category="science"
+         data-title="Explore the Wonders of Space">
+        <div class="thumbnail">
+          <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=700&q=85" alt="Beautiful galaxy and space" loading="lazy">
+          <span class="quality">HD</span>
+          <span class="duration">18:20</span>
+          <div class="play-overlay"><span>▶</span></div>
+        </div>
+        <div class="video-info">
+          <div class="avatar">SC</div>
+          <div class="video-details">
+            <h3>Explore the Wonders of Space and the Universe</h3>
+            <p>Science World <span class="verified">✓</span></p>
+            <p>Science · Featured</p>
+          </div>
+          <span class="more-btn">⋮</span>
+        </div>
+      </a>
 
-        container.addEventListener('mousedown', () => { isDragging = true; });
-        window.addEventListener('mouseup', () => { isDragging = false; });
-        window.addEventListener('mousemove', (e) => {
-            if (isDragging) {
-                const deltaMove = {
-                    x: e.offsetX - previousMousePosition.x,
-                    y: e.offsetY - previousMousePosition.y
-                };
-                globeGroup.rotation.y += deltaMove.x * 0.005;
-                globeGroup.rotation.x += deltaMove.y * 0.005;
-            }
-            previousMousePosition = { x: e.offsetX, y: e.offsetY };
-        });
+      <!-- VIDEO 3 -->
 
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
+      <a class="video-card" href="watch.html?video=3"
+         data-category="education"
+         data-title="Learn Mathematics in a New Way">
+        <div class="thumbnail">
+          <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=700&q=85" alt="Mathematics formulas" loading="lazy">
+          <span class="quality">HD</span>
+          <span class="duration">09:32</span>
+          <div class="play-overlay"><span>▶</span></div>
+        </div>
+        <div class="video-info">
+          <div class="avatar">ED</div>
+          <div class="video-details">
+            <h3>Learn Mathematics in a Completely New Way</h3>
+            <p>Learn With Us <span class="verified">✓</span></p>
+            <p>Education · Featured</p>
+          </div>
+          <span class="more-btn">⋮</span>
+        </div>
+      </a>
 
-        function animate() {
-            requestAnimationFrame(animate);
-            if (!isDragging) {
-                globeGroup.rotation.y += 0.0025;
-            }
-            particlesMesh.rotation.y -= 0.0007;
-            renderer.render(scene, camera);
-        }
+      <!-- VIDEO 4 -->
 
-        animate();
-    </script>
+      <a class="video-card" href="watch.html?video=4"
+         data-category="creative"
+         data-title="Creative Digital Design Tutorial">
+        <div class="thumbnail">
+          <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?w=700&q=85" alt="Creative digital design" loading="lazy">
+          <span class="quality">4K</span>
+          <span class="duration">15:18</span>
+          <div class="play-overlay"><span>▶</span></div>
+        </div>
+        <div class="video-info">
+          <div class="avatar">CR</div>
+          <div class="video-details">
+            <h3>Creative Digital Design – Beginner to Advanced</h3>
+            <p>Creative Studio <span class="verified">✓</span></p>
+            <p>Creative · Featured</p>
+          </div>
+          <span class="more-btn">⋮</span>
+        </div>
+      </a>
+
+      <!-- VIDEO 5 -->
+
+      <a class="video-card" href="watch.html?video=5"
+         data-category="nature"
+         data-title="Beautiful Nature and Amazing Earth">
+        <div class="thumbnail">
+          <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=700&q=85" alt="Beautiful mountain lake" loading="lazy">
+          <span class="quality">4K</span>
+          <span class="duration">08:56</span>
+          <div class="play-overlay"><span>▶</span></div>
+        </div>
+        <div class="video-info">
+          <div class="avatar">NT</div>
+          <div class="video-details">
+            <h3>Beautiful Nature and Amazing Places on Earth</h3>
+            <p>Nature Vision</p>
+            <p>Nature · Featured</p>
+          </div>
+          <span class="more-btn">⋮</span>
+        </div>
+      </a>
+
+      <!-- VIDEO 6 -->
+
+      <a class="video-card" href="watch.html?video=6"
+         data-category="gaming"
+         data-title="Gaming Technology and Future">
+        <div class="thumbnail">
+          <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=700&q=85" alt="Gaming setup" loading="lazy">
+          <span class="quality">HD</span>
+          <span class="duration">21:04</span>
+          <div class="play-overlay"><span>▶</span></div>
+        </div>
+        <div class="video-info">
+          <div class="avatar">GM</div>
+          <div class="video-details">
+            <h3>Gaming Technology and the Future of Gaming</h3>
+            <p>Game Universe <span class="verified">✓</span></p>
+            <p>Gaming · Featured</p>
+          </div>
+          <span class="more-btn">⋮</span>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="empty-state" id="emptyState">
+      <div class="empty-icon">⌕</div>
+      <h3>No videos found</h3>
+      <p>Try another search or choose a different category.</p>
+    </div>
+
+  </section>
+
+  <!-- LATEST -->
+
+  <section id="latest" class="reveal">
+
+    <div class="section-heading">
+      <div>
+        <h2>◷ Latest Videos</h2>
+        <p>Explore more content from different categories.</p>
+      </div>
+      <a href="videos.html" class="view-all">Explore More →</a>
+    </div>
+
+    <div class="video-grid">
+
+      <a class="video-card" href="watch.html?video=7">
+        <div class="thumbnail">
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=700&q=85" alt="Digital technology" loading="lazy">
+          <span class="duration">11:32</span>
+          <div class="play-overlay"><span>▶</span></div>
+        </div>
+        <div class="video-info">
+          <div class="avatar">TC</div>
+          <div class="video-details">
+            <h3>Digital Skills Everyone Should Learn</h3>
+            <p>Tech Campus</p>
+            <p>Technology · Latest</p>
+          </div>
+        </div>
+      </a>
+
+      <a class="video-card" href="watch.html?video=8">
+        <div class="thumbnail">
+          <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=700&q=85" alt="Science laboratory" loading="lazy">
+          <span class="duration">14:09</span>
+          <div class="play-overlay"><span>▶</span></div>
+        </div>
+        <div class="video-info">
+          <div class="avatar">LB</div>
+          <div class="video-details">
+            <h3>Discover the Amazing World of Science</h3>
+            <p>Lab Explorer</p>
+            <p>Science · Latest</p>
+          </div>
+        </div>
+      </a>
+
+      <a class="video-card" href="watch.html?video=9">
+        <div class="thumbnail">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=700&q=85" alt="Programming computer" loading="lazy">
+          <span class="duration">16:45</span>
+          <div class="play-overlay"><span>▶</span></div>
+        </div>
+        <div class="video-info">
+          <div class="avatar">CD</div>
+          <div class="video-details">
+            <h3>Start Your Coding Journey Today</h3>
+            <p>Code Academy</p>
+            <p>Technology · Latest</p>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+  </section>
+
+  <!-- SHORTS -->
+
+  <section class="shorts-section reveal" id="shorts">
+
+    <div class="section-heading">
+      <div>
+        <h2>⚡ NextGen Shorts</h2>
+        <p>Quick videos. Big ideas. Endless discovery.</p>
+      </div>
+      <a href="shorts.html" class="view-all">View All →</a>
+    </div>
+
+    <div class="shorts-grid">
+
+      <a href="shorts.html" class="short-card">
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=450&q=85" alt="Electronic technology" loading="lazy">
+        <div class="short-info">
+          <strong>Technology in 60 Seconds</strong>
+          <span>NextGen Tech</span>
+        </div>
+      </a>
+
+      <a href="shorts.html" class="short-card">
+        <img src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?w=450&q=85" alt="Digital innovation" loading="lazy">
+        <div class="short-info">
+          <strong>Future of Innovation</strong>
+          <span>Future Lab</span>
+        </div>
+      </a>
+
+      <a href="shorts.html" class="short-card">
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=450&q=85" alt="Nature landscape" loading="lazy">
+        <div class="short-info">
+          <strong>Beautiful World</strong>
+          <span>Nature Vision</span>
+        </div>
+      </a>
+
+      <a href="shorts.html" class="short-card">
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=450&q=85" alt="Digital learning" loading="lazy">
+        <div class="short-info">
+          <strong>Learn Something New</strong>
+          <span>Learn Daily</span>
+        </div>
+      </a>
+
+      <a href="shorts.html" class="short-card">
+        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=450&q=85" alt="Creative team" loading="lazy">
+        <div class="short-info">
+          <strong>Creative Minds</strong>
+          <span>Creative Studio</span>
+        </div>
+      </a>
+
+    </div>
+
+  </section>
+
+  <!-- CREATOR BANNER -->
+
+  <section class="hero reveal" style="min-height:190px;margin-top:35px;">
+    <div class="hero-content">
+      <div class="hero-badge">✦ CREATE. SHARE. INSPIRE.</div>
+      <h1 style="font-size:29px;">Your Ideas Deserve <span class="gradient-text">An Audience.</span></h1>
+      <p>Start your own channel and share your knowledge with the NextGen community.</p>
+      <div class="hero-buttons">
+        <a href="register.html" class="primary-btn">Become a Creator →</a>
+        <a href="upload.html" class="secondary-btn">＋ Upload Video</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer class="footer">
+    <div>© 2026 NextGen Learn. All rights reserved.</div>
+    <div class="footer-links">
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+  </footer>
+
+</main>
+
+<!-- MOBILE BOTTOM NAV -->
+
+<nav class="mobile-nav">
+  <a href="index.html" class="active">
+    <span>⌂</span><span>Home</span>
+  </a>
+  <a href="#trending">
+    <span>🔥</span><span>Trending</span>
+  </a>
+  <a href="upload.html">
+    <span>＋</span><span>Create</span>
+  </a>
+  <a href="#shorts">
+    <span>▶</span><span>Shorts</span>
+  </a>
+  <a href="login.html">
+    <span>◉</span><span>You</span>
+  </a>
+</nav>
+
+<script>
+
+// SIDEBAR TOGGLE
+
+const menuBtn = document.getElementById("menuBtn");
+
+menuBtn.addEventListener("click", () => {
+  if (window.innerWidth <= 760) {
+    document.body.classList.toggle("mobile-sidebar-open");
+  } else {
+    document.body.classList.toggle("sidebar-collapsed");
+  }
+});
+
+document.querySelectorAll(".sidebar .nav-item").forEach(item => {
+  item.addEventListener("click", () => {
+    document.querySelectorAll(".sidebar .nav-item").forEach(link => {
+      link.classList.remove("active");
+    });
+    item.classList.add("active");
+
+    if (window.innerWidth <= 760) {
+      document.body.classList.remove("mobile-sidebar-open");
+    }
+  });
+});
+
+// CATEGORY FILTER
+
+const categoryButtons = document.querySelectorAll(".category");
+const videoCards = document.querySelectorAll("#videoGrid .video-card");
+const emptyState = document.getElementById("emptyState");
+
+let currentCategory = "all";
+
+function filterVideos() {
+  const query = document.getElementById("searchInput").value
+    .trim().toLowerCase();
+
+  let visibleCount = 0;
+
+  videoCards.forEach(card => {
+    const category = card.dataset.category;
+    const title = card.dataset.title.toLowerCase();
+    const text = card.innerText.toLowerCase();
+
+    const categoryMatch =
+      currentCategory === "all" || category === currentCategory;
+
+    const searchMatch =
+      !query || title.includes(query) || text.includes(query);
+
+    const show = categoryMatch && searchMatch;
+
+    card.style.display = show ? "" : "none";
+
+    if (show) visibleCount++;
+  });
+
+  emptyState.style.display = visibleCount === 0 ? "block" : "none";
+}
+
+categoryButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    categoryButtons.forEach(btn => btn.classList.remove("active"));
+    button.classList.add("active");
+
+    currentCategory = button.dataset.filter;
+    filterVideos();
+  });
+});
+
+// SEARCH
+
+document.getElementById("searchForm").addEventListener("submit", event => {
+  event.preventDefault();
+  filterVideos();
+  document.getElementById("trending").scrollIntoView({
+    behavior: "smooth"
+  });
+});
+
+document.getElementById("searchInput").addEventListener("input", filterVideos);
+
+// REVEAL ANIMATION
+
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll(".reveal").forEach(element => {
+  revealObserver.observe(element);
+});
+
+// CLOSE MOBILE SIDEBAR WHEN CLICKING OUTSIDE
+
+document.addEventListener("click", event => {
+  if (
+    document.body.classList.contains("mobile-sidebar-open") &&
+    !event.target.closest(".sidebar") &&
+    !event.target.closest(".menu-btn")
+  ) {
+    document.body.classList.remove("mobile-sidebar-open");
+  }
+});
+
+</script>
+
 </body>
 </html>
