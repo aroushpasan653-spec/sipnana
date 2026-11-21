@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Travel & Explore</title>
+    <title>Ceylon 3D Travel Guide | Explore Sri Lanka Independently</title>
     <style>
         * {
             margin: 0;
@@ -14,7 +14,7 @@
 
         body {
             overflow: hidden;
-            background-color: #050814;
+            background-color: #050d14;
             color: #ffffff;
         }
 
@@ -27,7 +27,7 @@
             height: 100vh;
             object-fit: cover;
             z-index: -2;
-            opacity: 0.45;
+            opacity: 0.4;
         }
 
         /* Dark Gradient Overlay */
@@ -37,7 +37,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle at center, rgba(10, 15, 35, 0.3) 0%, rgba(5, 8, 20, 0.85) 100%);
+            background: radial-gradient(circle at center, rgba(10, 28, 35, 0.35) 0%, rgba(5, 10, 20, 0.9) 100%);
             z-index: -1;
         }
 
@@ -59,12 +59,12 @@
         /* Glassmorphism Navigation Bar */
         nav {
             position: fixed;
-            top: 25px;
+            top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 90%;
+            width: 92%;
             max-width: 1200px;
-            padding: 15px 35px;
+            padding: 14px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -74,26 +74,26 @@
             border: 1px solid rgba(255, 255, 255, 0.18);
             border-radius: 50px;
             z-index: 10;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            letter-spacing: 2px;
-            background: linear-gradient(90deg, #00f2fe, #4facfe);
+            letter-spacing: 1.5px;
+            background: linear-gradient(90deg, #00f5a0, #00d9f5);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 25px;
             list-style: none;
         }
 
         .nav-links a {
-            color: #e0e6ed;
+            color: #e2e8f0;
             text-decoration: none;
             font-size: 0.95rem;
             font-weight: 500;
@@ -101,92 +101,146 @@
         }
 
         .nav-links a:hover {
-            color: #00f2fe;
+            color: #00f5a0;
         }
 
-        /* Floating Glass Content Card */
+        /* Left Floating Glass Card */
         .hero-card {
             position: fixed;
-            bottom: 40px;
-            left: 50px;
-            max-width: 420px;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.07);
+            bottom: 35px;
+            left: 40px;
+            max-width: 410px;
+            padding: 28px;
+            background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.16);
             border-radius: 24px;
             z-index: 10;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+        }
+
+        .hero-card span {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #00f5a0;
+            font-weight: 600;
         }
 
         .hero-card h1 {
-            font-size: 2rem;
-            margin-bottom: 12px;
+            font-size: 1.85rem;
+            margin: 8px 0 12px;
             line-height: 1.2;
         }
 
         .hero-card p {
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             color: #cbd5e1;
             line-height: 1.6;
-            margin-bottom: 22px;
+            margin-bottom: 18px;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 12px 28px;
-            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-            color: #050814;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 30px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        /* Quick Destination Buttons */
+        .destination-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 18px;
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 242, 254, 0.4);
-        }
-
-        /* Destination Info Panel (Right Side) */
-        .info-panel {
-            position: fixed;
-            bottom: 40px;
-            right: 50px;
-            width: 280px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.07);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+        .pill-btn {
+            padding: 7px 14px;
             border-radius: 20px;
+            border: 1px solid rgba(0, 245, 160, 0.35);
+            background: rgba(0, 245, 160, 0.1);
+            color: #ffffff;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .pill-btn:hover, .pill-btn.active {
+            background: linear-gradient(135deg, #00f5a0, #00d9f5);
+            color: #051018;
+            font-weight: 600;
+        }
+
+        /* Right Destination Detail Glass Card */
+        .detail-panel {
+            position: fixed;
+            bottom: 35px;
+            right: 40px;
+            width: 350px;
+            padding: 24px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 24px;
             z-index: 10;
-            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
         }
 
-        .info-panel span {
-            font-size: 0.8rem;
+        .detail-panel .tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            color: #00d9f5;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #00f2fe;
+            letter-spacing: 1.2px;
+            margin-bottom: 6px;
         }
 
-        .info-panel h3 {
-            margin-top: 8px;
-            font-size: 1.2rem;
+        .detail-panel h2 {
+            font-size: 1.45rem;
+            margin-bottom: 10px;
         }
 
-        @media (max-width: 768px) {
+        .detail-panel p {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            line-height: 1.55;
+            margin-bottom: 14px;
+        }
+
+        .info-list {
+            list-style: none;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            padding-top: 12px;
+        }
+
+        .info-list li {
+            margin-bottom: 6px;
+        }
+
+        .info-list strong {
+            color: #00f5a0;
+        }
+
+        @media (max-width: 900px) {
+            body { overflow-y: auto; }
             .nav-links { display: none; }
-            .hero-card { left: 20px; right: 20px; bottom: 20px; max-width: none; }
-            .info-panel { display: none; }
+            .hero-card, .detail-panel {
+                position: relative;
+                left: auto;
+                right: auto;
+                bottom: auto;
+                width: 92%;
+                max-width: none;
+                margin: 90px auto 20px;
+            }
+            .detail-panel {
+                margin-top: 15px;
+                margin-bottom: 40px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Background Video (Free stock earth/nature video) -->
+    <!-- Background Video -->
     <video id="bg-video" autoplay loop muted playsinline>
         <source src="https://assets.mixkit.co/videos/preview/mixkit-stars-in-space-1610-large.mp4" type="video/mp4">
     </video>
@@ -194,35 +248,108 @@
 
     <!-- Navigation -->
     <nav>
-        <div class="logo">AERO•3D</div>
+        <div class="logo">CEYLON•GO 3D</div>
         <ul class="nav-links">
-            <li><a href="#">Destinations</a></li>
-            <li><a href="#">3D Map</a></li>
-            <li><a href="#">Experiences</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#destinations">Places</a></li>
+            <li><a href="#guide">Self-Guide Tips</a></li>
+            <li><a href="#transport">Transport</a></li>
+            <li><a href="#stays">Stays</a></li>
         </ul>
     </nav>
 
     <!-- 3D Globe Container -->
     <div id="globe-container"></div>
 
-    <!-- Left Glass Card -->
-    <div class="hero-card">
-        <h1>Explore The World in 3D</h1>
-        <p>Drag the interactive globe to discover breathtaking destinations around the planet with real-time spatial navigation.</p>
-        <a href="#" class="btn">Start Journey</a>
+    <!-- Left Glass Card: Quick Selector -->
+    <div class="hero-card" id="destinations">
+        <span>Self-Guided Sri Lanka</span>
+        <h1>Travel Sri Lanka Your Way</h1>
+        <p>Select a destination below to get practical self-travel info, best visiting times, and local tips without needing a middleman.</p>
+
+        <div class="destination-pills" id="pill-container"></div>
     </div>
 
-    <!-- Right Glass Hint -->
-    <div class="info-panel">
-        <span>Interactive Mode</span>
-        <h3>Drag to Rotate Globe</h3>
+    <!-- Right Glass Card: Selected Place Details -->
+    <div class="detail-panel" id="guide">
+        <span class="tag" id="place-region">Cultural Triangle</span>
+        <h2 id="place-name">Sigiriya Lion Rock</h2>
+        <p id="place-desc">Ancient rock fortress with frescoes, mirror wall, and panoramic views. Ideal to visit early in the morning to avoid crowds and heat.</p>
+        <ul class="info-list">
+            <li><strong>Best Time:</strong> <span id="place-time">6:30 AM – 9:30 AM (Jan – Apr)</span></li>
+            <li><strong>How to Reach:</strong> <span id="place-reach">Bus/Tuk-tuk from Dambulla (~30 mins)</span></li>
+            <li><strong>Self-Travel Tip:</strong> <span id="place-tip">Carry water and start climbing before sun gets strong.</span></li>
+        </ul>
     </div>
 
     <!-- Three.js CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // Setup Scene, Camera, Renderer
+        // Sri Lanka Destinations Data
+        const places = [
+            {
+                name: "Sigiriya Lion Rock",
+                region: "Central Province • Heritage",
+                desc: "Ancient rock fortress with frescoes, mirror wall, and panoramic views. Ideal to visit early in the morning to avoid crowds and heat.",
+                time: "6:30 AM – 9:30 AM (Jan – Apr)",
+                reach: "Bus/Tuk-tuk from Dambulla (~30 mins)",
+                tip: "Carry water and start climbing before the sun gets strong."
+            },
+            {
+                name: "Ella & Nine Arches",
+                region: "Uva Province • Hill Country",
+                desc: "Cool mountain town famous for scenic train rides, Nine Arches Bridge, Little Adam's Peak hike, and relaxed cafes.",
+                time: "Morning (7:00 AM – 10:00 AM)",
+                reach: "Scenic train from Kandy or Ella station walk",
+                tip: "Check train timings in advance and wear good hiking shoes."
+            },
+            {
+                name: "Galle Dutch Fort",
+                region: "Southern Province • Coastal",
+                desc: "historic walled coastal town with colonial architecture, boutique shops, lighthouse sunset views, and easy walkable streets.",
+                time: "4:00 PM – 6:30 PM (Sunset walk)",
+                reach: "Southern Expressway bus or train along coast",
+                tip: "Everything inside the fort is easy to explore on foot."
+            },
+            {
+                name: "Mirissa Beach",
+                region: "Southern Province • Beach",
+                desc: "Golden sandy bay popular for surfing, whale watching season outings, and fresh seafood dining.",
+                time: "Early Morning / Late Afternoon",
+                reach: "25–30 mins south of Matara / Galle route",
+                tip: "Always check sea currents before swimming."
+            }
+        ];
+
+        const pillContainer = document.getElementById("pill-container");
+        const placeNameEl = document.getElementById("place-name");
+        const placeRegionEl = document.getElementById("place-region");
+        const placeDescEl = document.getElementById("place-desc");
+        const placeTimeEl = document.getElementById("place-time");
+        const placeReachEl = document.getElementById("place-reach");
+        const placeTipEl = document.getElementById("place-tip");
+
+        function selectPlace(index, buttonElement) {
+            const p = places[index];
+            placeNameEl.textContent = p.name;
+            placeRegionEl.textContent = p.region;
+            placeDescEl.textContent = p.desc;
+            placeTimeEl.textContent = p.time;
+            placeReachEl.textContent = p.reach;
+            placeTipEl.textContent = p.tip;
+
+            document.querySelectorAll(".pill-btn").forEach(btn => btn.classList.remove("active"));
+            if (buttonElement) buttonElement.classList.add("active");
+        }
+
+        places.forEach((place, idx) => {
+            const btn = document.createElement("button");
+            btn.className = "pill-btn" + (idx === 0 ? " active" : "");
+            btn.textContent = place.name.split(" ")[0];
+            btn.onclick = () => selectPlace(idx, btn);
+            pillContainer.appendChild(btn);
+        });
+
+        // 3D Globe Setup
         const container = document.getElementById('globe-container');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -233,114 +360,95 @@
         renderer.setPixelRatio(window.devicePixelRatio);
         container.appendChild(renderer.domElement);
 
-        // Create 3D Globe Group
         const globeGroup = new THREE.Group();
         scene.add(globeGroup);
 
-        // Inner Solid Core
-        const coreGeometry = new THREE.SphereGeometry(1.8, 64, 64);
+        const coreGeometry = new THREE.SphereGeometry(1.75, 64, 64);
         const coreMaterial = new THREE.MeshPhongMaterial({
-            color: 0x0a192f,
-            emissive: 0x051024,
-            specular: 0x4facfe,
-            shininess: 30,
+            color: 0x09262e,
+            emissive: 0x041217,
+            specular: 0x00f5a0,
+            shininess: 25,
             transparent: true,
             opacity: 0.9
         });
         const coreMesh = new THREE.Mesh(coreGeometry, coreMaterial);
         globeGroup.add(coreMesh);
 
-        // Outer Wireframe Grid (3D Tech Look)
-        const wireGeometry = new THREE.SphereGeometry(1.84, 32, 32);
+        const wireGeometry = new THREE.SphereGeometry(1.79, 32, 32);
         const wireMaterial = new THREE.MeshBasicMaterial({
-            color: 0x00f2fe,
+            color: 0x00d9f5,
             wireframe: true,
             transparent: true,
-            opacity: 0.25
+            opacity: 0.22
         });
         const wireMesh = new THREE.Mesh(wireGeometry, wireMaterial);
         globeGroup.add(wireMesh);
 
-        // Glowing Atmosphere Ring
-        const ringGeometry = new THREE.RingGeometry(2.1, 2.13, 64);
+        const ringGeometry = new THREE.RingGeometry(2.05, 2.08, 64);
         const ringMaterial = new THREE.MeshBasicMaterial({
-            color: 0x4facfe,
+            color: 0x00f5a0,
             side: THREE.DoubleSide,
             transparent: true,
-            opacity: 0.4
+            opacity: 0.35
         });
         const ringMesh = new THREE.Mesh(ringGeometry, ringMaterial);
-        ringMesh.rotation.x = Math.PI / 2.5;
-        ringMesh.rotation.y = Math.PI / 6;
+        ringMesh.rotation.x = Math.PI / 2.4;
+        ringMesh.rotation.y = Math.PI / 7;
         globeGroup.add(ringMesh);
 
-        // Floating Particles around Globe
         const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = 300;
+        const particlesCount = 280;
         const posArray = new Float32Array(particlesCount * 3);
-
         for (let i = 0; i < particlesCount * 3; i++) {
             posArray[i] = (Math.random() - 0.5) * 8;
         }
         particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
         const particlesMaterial = new THREE.PointsMaterial({
             size: 0.02,
-            color: 0x00f2fe,
+            color: 0x00f5a0,
             transparent: true,
-            opacity: 0.8
+            opacity: 0.75
         });
         const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
         scene.add(particlesMesh);
 
-        // Lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.65);
         scene.add(ambientLight);
 
-        const pointLight = new THREE.PointLight(0x00f2fe, 1.5);
+        const pointLight = new THREE.PointLight(0x00f5a0, 1.4);
         pointLight.position.set(5, 3, 5);
         scene.add(pointLight);
 
-        // Mouse Drag Interaction
         let isDragging = false;
         let previousMousePosition = { x: 0, y: 0 };
 
-        container.addEventListener('mousedown', (e) => {
-            isDragging = true;
-        });
-
-        window.addEventListener('mouseup', () => {
-            isDragging = false;
-        });
-
+        container.addEventListener('mousedown', () => { isDragging = true; });
+        window.addEventListener('mouseup', () => { isDragging = false; });
         window.addEventListener('mousemove', (e) => {
             if (isDragging) {
                 const deltaMove = {
                     x: e.offsetX - previousMousePosition.x,
                     y: e.offsetY - previousMousePosition.y
                 };
-
                 globeGroup.rotation.y += deltaMove.x * 0.005;
                 globeGroup.rotation.x += deltaMove.y * 0.005;
             }
             previousMousePosition = { x: e.offsetX, y: e.offsetY };
         });
 
-        // Handle Window Resize
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // Animation Loop
         function animate() {
             requestAnimationFrame(animate);
-
             if (!isDragging) {
-                globeGroup.rotation.y += 0.003;
+                globeGroup.rotation.y += 0.0025;
             }
-            particlesMesh.rotation.y -= 0.0008;
-
+            particlesMesh.rotation.y -= 0.0007;
             renderer.render(scene, camera);
         }
 
