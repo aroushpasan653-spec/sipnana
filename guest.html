@@ -3,19 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>Veltrix — 3D Spatial Glass Media</title>
+  <title>All Streams — Veltrix</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Dark Theme Variables (Default) */
       --bg-base: #07080c;
       --bg-gradient-1: rgba(245, 158, 11, 0.14);
       --bg-gradient-2: rgba(239, 68, 68, 0.12);
       --bg-gradient-3: rgba(59, 130, 246, 0.10);
       --glass-surface: rgba(20, 22, 30, 0.68);
-      --glass-surface-strong: rgba(16, 18, 25, 0.88);
+      --glass-surface-strong: rgba(16, 18, 25, 0.90);
       --glass-border: rgba(255, 255, 255, 0.10);
       --glass-highlight: rgba(255, 255, 255, 0.18);
       --text-primary: #f8fafc;
@@ -28,16 +27,22 @@
       --switch-track-bg: #161822;
       --switch-track-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.8), inset -2px -2px 5px rgba(255, 255, 255, 0.06);
       --pill-bg: rgba(255, 255, 255, 0.05);
+
+      /* Bottom Dock Theme Variables (Dark Default) */
+      --dock-bg: rgba(16, 17, 22, 0.92);
+      --dock-border: rgba(255, 255, 255, 0.10);
+      --dock-shadow: 0 18px 38px rgba(0, 0, 0, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.12);
+      --dock-text: #e2e8f0;
+      --dock-plus-ring: #101116;
     }
 
     [data-theme="light"] {
-      /* Light Theme Variables */
       --bg-base: #eef1f6;
       --bg-gradient-1: rgba(245, 158, 11, 0.20);
       --bg-gradient-2: rgba(239, 68, 68, 0.12);
       --bg-gradient-3: rgba(99, 102, 241, 0.14);
       --glass-surface: rgba(255, 255, 255, 0.72);
-      --glass-surface-strong: rgba(255, 255, 255, 0.92);
+      --glass-surface-strong: rgba(255, 255, 255, 0.94);
       --glass-border: rgba(15, 23, 42, 0.09);
       --glass-highlight: rgba(255, 255, 255, 0.95);
       --text-primary: #0f172a;
@@ -48,6 +53,13 @@
       --switch-track-bg: #e2e6ee;
       --switch-track-shadow: inset 3px 3px 6px rgba(163, 177, 198, 0.65), inset -3px -3px 6px rgba(255, 255, 255, 0.95);
       --pill-bg: rgba(15, 23, 42, 0.05);
+
+      /* Bottom Dock Theme Variables (Light Mode) */
+      --dock-bg: rgba(255, 255, 255, 0.88);
+      --dock-border: rgba(15, 23, 42, 0.12);
+      --dock-shadow: 0 14px 32px rgba(15, 23, 42, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+      --dock-text: #334155;
+      --dock-plus-ring: #eef1f6;
     }
 
     * {
@@ -67,7 +79,6 @@
       padding-bottom: calc(96px + env(safe-area-inset-bottom));
     }
 
-    /* Ambient Animated Mesh Background */
     .ambient-bg {
       position: fixed;
       inset: 0;
@@ -121,14 +132,12 @@
       100% { transform: translate(4%, 6%) scale(1.08); }
     }
 
-    /* ============================================================
-       1. UNIFIED SINGLE TOP STRIP (Logo + Golden Liquid Nav + 3D Switch)
-       ============================================================ */
+    /* 1. TOP BAR */
     .top-header-wrapper {
       position: sticky;
       top: 0;
       z-index: 100;
-      padding: calc(12px + env(safe-area-inset-top)) 16px 10px;
+      padding: calc(12px + env(safe-area-inset-top)) 14px 10px;
       display: flex;
       justify-content: center;
       pointer-events: none;
@@ -145,18 +154,18 @@
       border: 1px solid var(--glass-border);
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22), inset 0 1px 0 var(--glass-highlight);
       border-radius: 999px;
-      padding: 0 10px 0 16px;
+      padding: 0 10px 0 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
+      gap: 6px;
       transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
       text-decoration: none;
       color: var(--text-primary);
       flex-shrink: 0;
@@ -172,16 +181,21 @@
       place-items: center;
       box-shadow: 0 6px 16px rgba(245, 158, 11, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.5);
       color: #fff;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .brand:hover .brand-icon {
+      transform: scale(1.06);
+      box-shadow: 0 8px 20px rgba(245, 158, 11, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.65);
     }
 
     .brand-name {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 800;
-      font-size: 1.15rem;
+      font-size: 1.12rem;
       letter-spacing: -0.03em;
     }
 
-    /* Liquid Golden-Amber Navigation Bar */
     .liquid-nav {
       position: relative;
       display: flex;
@@ -191,7 +205,14 @@
       border-radius: 999px;
       padding: 4px;
       height: 44px;
-      overflow: hidden;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none;
+      max-width: 100%;
+    }
+
+    .liquid-nav::-webkit-scrollbar {
+      display: none;
     }
 
     .liquid-pill {
@@ -228,22 +249,23 @@
       background: transparent;
       color: var(--text-secondary);
       font-family: 'Inter', sans-serif;
-      font-size: 0.86rem;
+      font-size: 0.85rem;
       font-weight: 600;
-      padding: 0 15px;
+      padding: 0 14px;
       height: 34px;
       border-radius: 999px;
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 6px;
       cursor: pointer;
       transition: color 0.25s ease;
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .nav-tab svg {
-      width: 15px;
-      height: 15px;
+      width: 14px;
+      height: 14px;
       stroke-width: 2.2;
       transition: transform 0.25s ease;
     }
@@ -261,10 +283,9 @@
       transform: scale(1.08);
     }
 
-    /* 3D Neumorphic Theme Switch */
     .theme-switch-btn {
       position: relative;
-      width: 68px;
+      width: 66px;
       height: 36px;
       border-radius: 999px;
       border: 1px solid var(--glass-border);
@@ -320,7 +341,7 @@
     }
 
     [data-theme="dark"] .switch-knob {
-      transform: translateX(32px);
+      transform: translateX(30px);
       background: radial-gradient(circle at 32% 28%, #475569 0%, #1e293b 65%, #0f172a 100%);
       box-shadow:
         0 4px 12px rgba(0, 0, 0, 0.75),
@@ -334,13 +355,150 @@
       height: 15px;
     }
 
-    /* ============================================================
-       MAIN CONTENT & CATEGORY FILTER PILLS
-       ============================================================ */
+    /* LOGO DRAWER */
+    .logo-drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 180;
+      background: rgba(4, 6, 11, 0.65);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .logo-drawer-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .logo-side-drawer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 280px;
+      max-width: 82vw;
+      z-index: 190;
+      background: var(--glass-surface-strong);
+      backdrop-filter: blur(28px) saturate(185%);
+      -webkit-backdrop-filter: blur(28px) saturate(185%);
+      border-right: 1px solid var(--glass-border);
+      box-shadow: 20px 0 50px rgba(0, 0, 0, 0.55), inset -1px 0 0 var(--glass-highlight);
+      padding: calc(20px + env(safe-area-inset-top)) 16px calc(24px + env(safe-area-inset-bottom));
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transform: translateX(-105%);
+      transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .logo-side-drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2px 4px 12px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .drawer-brand-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+
+    .drawer-close-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid var(--glass-border);
+      background: var(--pill-bg);
+      color: var(--text-primary);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: 0.85rem;
+    }
+
+    .drawer-section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      padding: 0 8px;
+    }
+
+    .drawer-tab-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+
+    .drawer-tab-btn {
+      width: 100%;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 11px 14px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.24s ease;
+      text-align: left;
+    }
+
+    .drawer-tab-btn:hover {
+      background: var(--pill-bg);
+      color: var(--text-primary);
+      transform: translateX(3px);
+    }
+
+    .drawer-tab-btn.active {
+      background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+      color: #ffffff;
+      box-shadow: 0 8px 20px rgba(245, 158, 11, 0.35);
+    }
+
+    .drawer-tab-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .drawer-chevron {
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+
+    /* MAIN CONTENT */
     .main-container {
       max-width: 1220px;
       margin: 0 auto;
-      padding: 8px 18px 24px;
+      padding: 12px 18px 24px;
+    }
+
+    .page-switch-anim {
+      animation: pageFadeIn 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes pageFadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .floating-search-drawer {
@@ -394,52 +552,6 @@
       font-size: 0.8rem;
     }
 
-    .category-strip {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      overflow-x: auto;
-      padding: 6px 2px 16px;
-      scrollbar-width: none;
-    }
-
-    .category-strip::-webkit-scrollbar {
-      display: none;
-    }
-
-    .cat-pill {
-      padding: 7px 15px;
-      border-radius: 999px;
-      border: 1px solid var(--glass-border);
-      background: var(--glass-surface);
-      backdrop-filter: blur(12px);
-      color: var(--text-secondary);
-      font-size: 0.82rem;
-      font-weight: 600;
-      white-space: nowrap;
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }
-
-    .cat-pill:hover {
-      border-color: rgba(245, 158, 11, 0.45);
-      color: var(--text-primary);
-      transform: translateY(-1px);
-    }
-
-    .cat-pill.active {
-      background: linear-gradient(135deg, #f59e0b, #ea580c);
-      color: #ffffff;
-      border-color: transparent;
-      box-shadow: 0 6px 16px rgba(245, 158, 11, 0.35);
-    }
-
-    /* Special Purple/Violet Accent when BTS pill is active */
-    .cat-pill[data-cat="BTS"].active {
-      background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 55%, #4c1d95 100%);
-      box-shadow: 0 6px 18px rgba(139, 92, 246, 0.45);
-    }
-
     .section-meta {
       display: flex;
       align-items: center;
@@ -470,9 +582,180 @@
       font-weight: 500;
     }
 
-    /* ============================================================
-       3D TILT GLASS MEDIA CARDS GRID
-       ============================================================ */
+    /* SUBSCRIBED CHANNELS STRIP */
+    .subs-channels-panel {
+      grid-column: 1 / -1;
+      border-radius: 22px;
+      background: var(--glass-surface);
+      backdrop-filter: blur(18px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--card-shadow), inset 0 1px 0 var(--glass-highlight);
+      padding: 18px;
+      margin-bottom: 6px;
+    }
+
+    .subs-panel-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.98rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .channels-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .channel-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: var(--pill-bg);
+      border: 1px solid var(--glass-border);
+    }
+
+    .channel-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .channel-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid rgba(245, 158, 11, 0.55);
+      flex-shrink: 0;
+    }
+
+    .channel-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .channel-sub-meta {
+      font-size: 0.73rem;
+      color: var(--text-muted);
+    }
+
+    .sub-toggle-btn {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--glass-border);
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .sub-toggle-btn.subscribed {
+      background: rgba(245, 158, 11, 0.16);
+      border-color: rgba(245, 158, 11, 0.5);
+      color: #f59e0b;
+    }
+
+    .sub-toggle-btn:not(.subscribed) {
+      background: linear-gradient(135deg, #f59e0b, #ea580c);
+      border-color: transparent;
+      color: #fff;
+    }
+
+    /* MORE / CONTACT PANEL */
+    .info-panel-card {
+      grid-column: 1 / -1;
+      border-radius: 24px;
+      background: var(--glass-surface);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--card-shadow), inset 0 1px 0 var(--glass-highlight);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .info-badge {
+      align-self: flex-start;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: rgba(245, 158, 11, 0.18);
+      color: #f59e0b;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
+    .info-heading {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+
+    .info-desc {
+      color: var(--text-secondary);
+      line-height: 1.65;
+      font-size: 0.94rem;
+      max-width: 72ch;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .contact-tile {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 15px 17px;
+      border-radius: 18px;
+      background: var(--pill-bg);
+      border: 1px solid var(--glass-border);
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+    }
+
+    .contact-tile:hover {
+      transform: translateY(-2px);
+      border-color: rgba(245, 158, 11, 0.45);
+      background: rgba(245, 158, 11, 0.08);
+    }
+
+    .contact-label {
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+
+    .contact-value {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    /* 3D TILT GLASS MEDIA CARDS GRID */
     .media-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -498,11 +781,6 @@
     .glass-card:hover {
       border-color: rgba(245, 158, 11, 0.38);
       box-shadow: 0 28px 54px -12px rgba(0, 0, 0, 0.45), 0 0 24px rgba(245, 158, 11, 0.12);
-    }
-
-    .glass-card.bts-card:hover {
-      border-color: rgba(139, 92, 246, 0.52);
-      box-shadow: 0 28px 54px -12px rgba(0, 0, 0, 0.48), 0 0 26px rgba(139, 92, 246, 0.18);
     }
 
     .card-glare {
@@ -539,6 +817,31 @@
       transform: scale(1.07);
     }
 
+    .slot-placeholder-thumb {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.16), rgba(59, 130, 246, 0.14));
+      color: var(--text-primary);
+      padding: 12px;
+      text-align: center;
+    }
+
+    .slot-placeholder-label {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+
+    .slot-placeholder-sub {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+    }
+
     .duration-badge {
       position: absolute;
       bottom: 10px;
@@ -554,19 +857,19 @@
       z-index: 2;
     }
 
-    .bts-pill-badge {
+    .section-pill-badge {
       position: absolute;
       top: 10px;
       left: 10px;
-      background: linear-gradient(135deg, rgba(139, 92, 246, 0.9), rgba(109, 40, 217, 0.9));
+      background: rgba(15, 23, 42, 0.78);
       backdrop-filter: blur(8px);
-      color: #fff;
+      color: #fbbf24;
       font-size: 0.65rem;
       font-weight: 800;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.05em;
       padding: 3px 8px;
       border-radius: 7px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(245, 158, 11, 0.35);
       z-index: 2;
     }
 
@@ -638,10 +941,6 @@
       border: 1.5px solid rgba(245, 158, 11, 0.5);
     }
 
-    .bts-card .creator-avatar {
-      border-color: rgba(139, 92, 246, 0.75);
-    }
-
     .card-info {
       flex: 1;
       min-width: 0;
@@ -674,39 +973,25 @@
       color: var(--text-muted);
     }
 
-    /* Notes / About Cards */
-    .note-card-preview {
-      padding: 18px;
-      min-height: 175px;
+    .load-more-wrap {
+      grid-column: 1 / -1;
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background: linear-gradient(145deg, rgba(245, 158, 11, 0.12), rgba(239, 68, 68, 0.06));
-      border-bottom: 1px solid var(--glass-border);
+      justify-content: center;
+      margin-top: 10px;
     }
 
-    .note-tag {
-      align-self: flex-start;
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      padding: 4px 10px;
-      border-radius: 8px;
-      background: rgba(245, 158, 11, 0.2);
-      color: #f59e0b;
-    }
-
-    .note-excerpt {
-      font-size: 0.88rem;
-      line-height: 1.55;
+    .load-more-btn {
+      padding: 10px 22px;
+      border-radius: 999px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-surface-strong);
       color: var(--text-primary);
-      margin-top: 12px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
     }
 
-    /* ============================================================
-       2. COMPACT BOTTOM NEON-WAVE DOCK BAR + STANDALONE ROUND '+'
-       ============================================================ */
+    /* 2. BOTTOM DOCK (Adapts to Dark & Light Theme) */
     .bottom-dock-wrapper {
       position: fixed;
       bottom: calc(14px + env(safe-area-inset-bottom));
@@ -723,17 +1008,18 @@
       position: relative;
       width: 340px;
       height: 62px;
-      background: #101116;
+      background: var(--dock-bg);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
       border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      box-shadow:
-        0 18px 38px rgba(0, 0, 0, 0.65),
-        inset 0 1px 1px rgba(255, 255, 255, 0.12);
+      border: 1px solid var(--dock-border);
+      box-shadow: var(--dock-shadow);
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       align-items: center;
       padding: 0 8px;
       overflow: visible;
+      transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
     }
 
     .neon-wave-svg {
@@ -761,7 +1047,7 @@
       z-index: 2;
       background: transparent;
       border: none;
-      color: #e2e8f0;
+      color: var(--dock-text);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -773,14 +1059,14 @@
     }
 
     .dock-item svg {
-      width: 18px;
-      height: 18px;
+      width: 17px;
+      height: 17px;
       stroke-width: 2.1;
       transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
     }
 
     .dock-label {
-      font-size: 0.64rem;
+      font-size: 0.62rem;
       font-weight: 600;
       letter-spacing: 0.01em;
     }
@@ -790,14 +1076,14 @@
     }
 
     .dock-item.active svg {
-      transform: translateY(-2px) scale(1.08);
+      transform: translateY(1px) scale(1.06);
       filter: drop-shadow(0 0 8px var(--red-neon-glow));
     }
 
     .inbox-badge {
       position: absolute;
-      top: 11px;
-      right: 17px;
+      top: 12px;
+      right: 18px;
       width: 7px;
       height: 7px;
       border-radius: 50%;
@@ -817,7 +1103,7 @@
       width: 48px;
       height: 48px;
       border-radius: 50%;
-      border: 2px solid #101116;
+      border: 2px solid var(--dock-plus-ring);
       background: linear-gradient(135deg, #00f5d4 0%, #00bbf9 55%, #3b82f6 100%);
       color: #06121e;
       display: grid;
@@ -827,7 +1113,7 @@
       box-shadow:
         0 8px 20px rgba(0, 187, 249, 0.55),
         inset 0 2px 3px rgba(255, 255, 255, 0.75);
-      transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+      transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.35s ease;
     }
 
     .standalone-plus-btn:hover {
@@ -841,9 +1127,7 @@
       stroke-width: 2.8;
     }
 
-    /* ============================================================
-       MODALS (Theater Player with YouTube Embed & Create Modal)
-       ============================================================ */
+    /* MODALS */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -888,6 +1172,7 @@
     }
 
     .player-stage iframe,
+    .player-stage video,
     .player-stage img {
       width: 100%;
       height: 100%;
@@ -956,18 +1241,24 @@
       padding: 24px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
+    }
+
+    .form-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-secondary);
     }
 
     .form-input {
       width: 100%;
-      padding: 12px 15px;
+      padding: 11px 14px;
       border-radius: 14px;
       border: 1px solid var(--glass-border);
       background: var(--pill-bg);
       color: var(--text-primary);
       font-family: inherit;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       outline: none;
     }
 
@@ -980,6 +1271,7 @@
       font-weight: 700;
       font-size: 0.95rem;
       cursor: pointer;
+      margin-top: 4px;
     }
 
     .toast-msg {
@@ -1006,13 +1298,19 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* ============================================================
-       RESPONSIVE BREAKPOINTS (DESKTOP, TABLET & MOBILE PHONE)
-       ============================================================ */
     @media (max-width: 1024px) {
       .media-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 16px;
+      }
+      .channels-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -1021,77 +1319,68 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 14px;
       }
-
+      .channels-grid {
+        grid-template-columns: 1fr;
+      }
       .brand-name {
         display: none;
       }
-
       .unified-top-bar {
         height: 52px;
-        padding: 0 8px 0 10px;
-      }
-
-      .liquid-nav {
-        height: 40px;
-        padding: 3px;
-      }
-
-      .liquid-pill {
-        top: 3px;
-        height: 32px;
-      }
-
-      .nav-tab {
-        height: 32px;
-        padding: 0 10px;
-        font-size: 0.78rem;
+        padding: 0 7px 0 8px;
         gap: 5px;
       }
-
-      .nav-tab svg {
-        width: 13px;
-        height: 13px;
+      .brand-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 10px;
       }
-
+      .liquid-nav {
+        height: 38px;
+        padding: 3px;
+      }
+      .liquid-pill {
+        top: 3px;
+        height: 30px;
+      }
+      .nav-tab {
+        height: 30px;
+        padding: 0 9px;
+        font-size: 0.76rem;
+        gap: 4px;
+      }
+      .nav-tab svg {
+        display: none;
+      }
       .theme-switch-btn {
-        width: 60px;
+        width: 56px;
         height: 32px;
       }
-
       .switch-knob {
         width: 24px;
         height: 24px;
       }
-
       [data-theme="dark"] .switch-knob {
-        transform: translateX(28px);
+        transform: translateX(24px);
       }
     }
 
     @media (max-width: 480px) {
       .top-header-wrapper {
-        padding: calc(8px + env(safe-area-inset-top)) 10px 8px;
+        padding: calc(8px + env(safe-area-inset-top)) 8px 8px;
       }
-
       .media-grid {
         grid-template-columns: 1fr;
         gap: 16px;
       }
-
       .nav-tab {
-        padding: 0 8px;
-        font-size: 0.75rem;
+        padding: 0 7.5px;
+        font-size: 0.73rem;
       }
-
-      .nav-tab svg {
-        display: none;
-      }
-
       .neon-dock {
         width: 312px;
         height: 58px;
       }
-
       .standalone-plus-btn {
         width: 44px;
         height: 44px;
@@ -1101,51 +1390,98 @@
 </head>
 <body>
 
-  <!-- Ambient Floating Mesh -->
   <div class="ambient-bg">
     <div class="ambient-orb orb-1"></div>
     <div class="ambient-orb orb-2"></div>
     <div class="ambient-orb orb-3"></div>
   </div>
 
-  <!-- Toast Feedback -->
   <div id="toast" class="toast-msg"></div>
 
-  <!-- 1. UNIFIED SINGLE TOP STRIP -->
+  <!-- LOGO SIDE DRAWER -->
+  <div class="logo-drawer-backdrop" id="logoDrawerBackdrop" onclick="closeLogoDrawer()"></div>
+  <aside class="logo-side-drawer" id="logoSideDrawer" aria-label="Site Navigation Tabs">
+    <div class="drawer-header">
+      <div class="drawer-brand-title">
+        <div class="brand-icon" style="width:30px; height:30px; border-radius:9px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="6 4 20 12 6 20 6 4"></polygon>
+          </svg>
+        </div>
+        <span>Veltrix Tabs</span>
+      </div>
+      <button class="drawer-close-btn" onclick="closeLogoDrawer()" aria-label="Close Menu">✕</button>
+    </div>
+
+    <span class="drawer-section-label">Site Channels & Tabs</span>
+    <div class="drawer-tab-list" id="drawerTabList">
+      <button class="drawer-tab-btn active" data-drawer-tab="All Streams" data-drawer-cat="All" onclick="openTabPage(this, 'All Streams', 'All')">
+        <span class="drawer-tab-left"><span>✦</span><span>All Streams</span></span>
+        <span class="drawer-chevron">›</span>
+      </button>
+      <button class="drawer-tab-btn" data-drawer-tab="UI Architecture" data-drawer-cat="UI Architecture" onclick="openTabPage(this, 'UI Architecture', 'UI Architecture')">
+        <span class="drawer-tab-left"><span>◈</span><span>UI Architecture</span></span>
+        <span class="drawer-chevron">›</span>
+      </button>
+      <button class="drawer-tab-btn" data-drawer-tab="Cinematography" data-drawer-cat="Cinematography" onclick="openTabPage(this, 'Cinematography', 'Cinematography')">
+        <span class="drawer-tab-left"><span>🎬</span><span>Cinematography</span></span>
+        <span class="drawer-chevron">›</span>
+      </button>
+      <button class="drawer-tab-btn" data-drawer-tab="Hardware" data-drawer-cat="Hardware" onclick="openTabPage(this, 'Hardware', 'Hardware')">
+        <span class="drawer-tab-left"><span>⚙</span><span>Hardware</span></span>
+        <span class="drawer-chevron">›</span>
+      </button>
+      <button class="drawer-tab-btn" data-drawer-tab="Spatial Audio" data-drawer-cat="Spatial Audio" onclick="openTabPage(this, 'Spatial Audio', 'Spatial Audio')">
+        <span class="drawer-tab-left"><span>🎧</span><span>Spatial Audio</span></span>
+        <span class="drawer-chevron">›</span>
+      </button>
+      <button class="drawer-tab-btn" data-drawer-tab="Travel" data-drawer-cat="Travel" onclick="openTabPage(this, 'Travel', 'Travel')">
+        <span class="drawer-tab-left"><span>✈</span><span>Travel</span></span>
+        <span class="drawer-chevron">›</span>
+      </button>
+      <button class="drawer-tab-btn" data-drawer-tab="Saved Videos" data-drawer-cat="Saved" onclick="openTabPage(this, 'Saved Videos', 'Saved')">
+        <span class="drawer-tab-left"><span>★</span><span>Saved Videos</span></span>
+        <span class="drawer-chevron">›</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- 1. TOP BAR -->
   <header class="top-header-wrapper">
     <div class="unified-top-bar">
-      <!-- Brand Logo -->
-      <div class="brand" onclick="resetToHome()">
+      <div class="brand" onclick="openLogoDrawer()" title="Open Site Tabs">
         <div class="brand-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
             <polygon points="6 4 20 12 6 20 6 4"></polygon>
           </svg>
         </div>
         <span class="brand-name">Veltrix</span>
       </div>
 
-      <!-- Liquid Golden-Amber Pill Navigation -->
       <nav class="liquid-nav" id="liquidNav" aria-label="Primary Sections">
         <div class="liquid-pill" id="liquidPill"></div>
         <button class="nav-tab active" data-section="Home" onclick="selectTopNav(this, 'Home')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
           <span>Home</span>
         </button>
-        <button class="nav-tab" data-section="Work" onclick="selectTopNav(this, 'Work')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
-          <span>Work</span>
+        <button class="nav-tab" data-section="Subs" onclick="selectTopNav(this, 'Subs')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M6 4h12"/><polygon points="10 11 15 13.5 10 16 10 11"/></svg>
+          <span>Subs</span>
         </button>
-        <button class="nav-tab" data-section="Notes" onclick="selectTopNav(this, 'Notes')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-          <span>Notes</span>
+        <button class="nav-tab" data-section="Music" onclick="selectTopNav(this, 'Music')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          <span>Music</span>
         </button>
-        <button class="nav-tab" data-section="About" onclick="selectTopNav(this, 'About')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          <span>About</span>
+        <button class="nav-tab" data-section="Live" onclick="selectTopNav(this, 'Live')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
+          <span>Live</span>
+        </button>
+        <button class="nav-tab" data-section="More" onclick="selectTopNav(this, 'More')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+          <span>More</span>
         </button>
       </nav>
 
-      <!-- 3D Neumorphic Sun/Moon Theme Switch -->
       <button class="theme-switch-btn" id="themeSwitch" onclick="toggleTheme()" aria-label="Toggle Light and Dark Theme">
         <div class="switch-track-icons">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
@@ -1159,75 +1495,56 @@
   </header>
 
   <!-- MAIN CONTENT -->
-  <main class="main-container">
-    <!-- Expandable Search Drawer -->
+  <main class="main-container page-switch-anim" id="pageContainer">
     <div class="floating-search-drawer" id="searchDrawer">
       <div class="search-glass-box">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" id="searchInput" placeholder="Search BTS episodes, vlogs, sketches..." oninput="handleSearch(this.value)" />
+        <input type="text" id="searchInput" placeholder="Search videos, channels, music or live..." oninput="handleSearch(this.value)" />
         <button class="search-clear-btn" onclick="closeSearchDrawer()">✕</button>
       </div>
     </div>
 
-    <!-- Category Filter Strip ('3D Motion' replaced with 'BTS') -->
-    <div class="category-strip" id="categoryStrip">
-      <button class="cat-pill active" data-cat="All" onclick="filterCategory(this, 'All')">All Streams</button>
-      <button class="cat-pill" data-cat="BTS" onclick="filterCategory(this, 'BTS')">BTS</button>
-      <button class="cat-pill" data-cat="UI Architecture" onclick="filterCategory(this, 'UI Architecture')">UI Architecture</button>
-      <button class="cat-pill" data-cat="Cinematography" onclick="filterCategory(this, 'Cinematography')">Cinematography</button>
-      <button class="cat-pill" data-cat="Hardware" onclick="filterCategory(this, 'Hardware')">Hardware</button>
-      <button class="cat-pill" data-cat="Spatial Audio" onclick="filterCategory(this, 'Spatial Audio')">Spatial Audio</button>
-      <button class="cat-pill" data-cat="Travel" onclick="filterCategory(this, 'Travel')">Travel</button>
-    </div>
-
-    <!-- Section Header -->
     <div class="section-meta">
       <h2 class="section-title">
         <span class="live-dot"></span>
-        <span id="sectionHeading">Featured Spatial Feed</span>
+        <span id="sectionHeading">All Streams</span>
       </h2>
       <span class="item-count" id="itemCount">0 items</span>
     </div>
 
-    <!-- 3D Tilt Glass Cards Grid -->
     <section class="media-grid" id="mediaGrid"></section>
   </main>
 
-  <!-- 2. COMPACT BOTTOM NEON-WAVE DOCK BAR + STANDALONE CIRCULAR '+' -->
+  <!-- 2. BOTTOM DOCK -->
   <div class="bottom-dock-wrapper">
     <div class="neon-dock" id="neonDock">
       <svg class="neon-wave-svg" viewBox="0 0 500 90" preserveAspectRatio="none">
         <path id="neonWavePath" class="neon-wave-path"
-          d="M -400,84 L 8,84 C 26,84 30,14 50,14 C 70,14 74,84 92,84 L 900,84" />
+          d="M -400,85 L 4,85 C 12,85 13,8 30,8 L 70,8 C 87,8 88,85 96,85 L 900,85" />
       </svg>
 
-      <!-- Slot 0: Home -->
       <button class="dock-item active" data-index="0" onclick="selectBottomDock(0, 'Home')">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L4 9v11a1 1 0 0 0 1 1h5v-6h4v6h5a1 1 0 0 0 1-1V9l-8-6z"/></svg>
         <span class="dock-label">Home</span>
       </button>
 
-      <!-- Slot 1: Search -->
       <button class="dock-item" data-index="1" onclick="selectBottomDock(1, 'Search')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="7"/><line x1="20" y1="20" x2="16.2" y2="16.2"/></svg>
         <span class="dock-label">Search</span>
       </button>
 
-      <!-- Slot 2: Standalone Circular '+' Button -->
       <div class="dock-create-slot">
-        <button class="standalone-plus-btn" onclick="openCreateModal()" aria-label="Create New Post">
+        <button class="standalone-plus-btn" onclick="openCreateModal()" aria-label="Upload or Add Video">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
       </div>
 
-      <!-- Slot 3: Inbox -->
       <button class="dock-item" data-index="3" onclick="selectBottomDock(3, 'Inbox')">
         <span class="inbox-badge" id="inboxBadge"></span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
         <span class="dock-label">Inbox</span>
       </button>
 
-      <!-- Slot 4: Saved -->
       <button class="dock-item" data-index="4" onclick="selectBottomDock(4, 'Saved')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         <span class="dock-label">Saved</span>
@@ -1235,16 +1552,14 @@
     </div>
   </div>
 
-  <!-- THEATER PLAYER MODAL (Supports Live YouTube Embed + Image Preview) -->
+  <!-- PLAYER MODAL -->
   <div class="modal-backdrop" id="playerModal" onclick="closeModalOnBg(event, 'playerModal')">
     <div class="glass-modal">
       <div class="modal-top-bar">
         <span style="font-size:0.8rem; font-weight:700; color:var(--text-secondary);">VELTRIX SPATIAL THEATER</span>
         <button class="close-modal-btn" onclick="closePlayerModal()">✕</button>
       </div>
-      <div class="player-stage" id="playerStage">
-        <!-- Dynamically injected YouTube iframe or thumbnail -->
-      </div>
+      <div class="player-stage" id="playerStage"></div>
       <div class="modal-details">
         <div style="flex:1; min-width: 220px;">
           <h3 id="modalTitle" style="font-size:1.05rem; margin-bottom:4px;">Title</h3>
@@ -1253,433 +1568,188 @@
         <div class="modal-actions">
           <button class="action-chip" id="likeBtn" onclick="toggleLike()">♥ Like</button>
           <button class="action-chip" id="modalSaveBtn" onclick="toggleSaveCurrent()">★ Save</button>
-          <a class="action-chip" id="ytExternalLink" href="#" target="_blank" rel="noopener noreferrer">↗ YouTube</a>
+          <a class="action-chip" id="ytExternalLink" href="#" target="_blank" rel="noopener noreferrer">↗ Open Link</a>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- CREATE STREAM MODAL ('+' Button) -->
+  <!-- UPLOAD / ADD VIDEO MODAL ('+' Button) -->
   <div class="modal-backdrop" id="createModal" onclick="closeModalOnBg(event, 'createModal')">
-    <div class="glass-modal" style="max-width: 440px;">
+    <div class="glass-modal" style="max-width: 450px;">
       <div class="create-form">
         <div style="display:flex; justify-content:space-between; align-items:center;">
-          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;">Add Video to Feed</h3>
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;">Upload or Add Video</h3>
           <button class="search-clear-btn" onclick="closeModal('createModal')">✕</button>
         </div>
+
+        <label class="form-label" for="newTitle">Video Title</label>
         <input type="text" id="newTitle" class="form-input" placeholder="Enter video title..." />
-        <input type="text" id="newAuthor" class="form-input" placeholder="Channel name (e.g. BANGTANTV)" />
-        <input type="text" id="newYoutubeUrl" class="form-input" placeholder="Optional YouTube URL (e.g. https://youtu.be/...)" />
-        <select id="newCategory" class="form-input">
-          <option value="BTS">BTS</option>
-          <option value="UI Architecture">UI Architecture</option>
-          <option value="Cinematography">Cinematography</option>
-          <option value="Hardware">Hardware</option>
-          <option value="Travel">Travel</option>
+
+        <label class="form-label" for="newAuthor">Channel Name</label>
+        <input type="text" id="newAuthor" class="form-input" placeholder="e.g. Veltrix Studio" />
+
+        <label class="form-label" for="newVideoFile">Upload Video File (MP4 / WebM)</label>
+        <input type="file" id="newVideoFile" class="form-input" accept="video/*" />
+
+        <label class="form-label" for="newVideoUrl">Or YouTube / Direct Video URL</label>
+        <input type="text" id="newVideoUrl" class="form-input" placeholder="https://youtu.be/... or direct .mp4 link" />
+
+        <label class="form-label" for="newSection">Tab / Section</label>
+        <select id="newSection" class="form-input">
+          <option value="Music">Music</option>
+          <option value="Live">Live</option>
+          <option value="Subs">Subs (Channel)</option>
+          <option value="Home">Home</option>
         </select>
-        <button class="submit-create-btn" onclick="publishNewItem()">Publish to Feed</button>
+
+        <button class="submit-create-btn" onclick="publishNewItem()">Upload & Run Video</button>
       </div>
     </div>
   </div>
 
   <script>
-    const BTS_AVATAR = 'https://images.unsplash.com/photo-1614680376593-902f74cf0d41?auto=format&fit=crop&w=120&q=80';
+    const DEFAULT_AVATAR = 'https://images.unsplash.com/photo-1614680376593-902f74cf0d41?auto=format&fit=crop&w=120&q=80';
+    const DEFAULT_THUMB = 'https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&w=800&q=80';
 
-    // Full Curated Dataset including all 20 BTS videos under the 'BTS' category
-    let mediaItems = [
-      // 1. GyJS58cAN94
+    // Subscribed Channels for 'Subs' Tab
+    let subscribedChannels = [
       {
-        id: 101,
-        section: 'Home',
-        category: 'BTS',
-        youtubeId: 'GyJS58cAN94',
-        youtubeUrl: 'https://youtu.be/GyJS58cAN94',
-        title: 'BTS WORLD TOUR ‘ARIRANG’ Practice Sketch',
-        author: 'BANGTANTV',
-        views: '4.6M views',
-        duration: '22:46',
-        thumb: 'https://i.ytimg.com/vi/GyJS58cAN94/hqdefault.jpg',
-        avatar: BTS_AVATAR,
-        saved: false
+        id: 'ch-1',
+        name: 'Veltrix Studio',
+        subscribers: '128K subscribers',
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80',
+        subscribed: true
       },
-      // 2. qhB30FChG18
       {
-        id: 102,
-        section: 'Home',
-        category: 'BTS',
-        youtubeId: 'qhB30FChG18',
-        youtubeUrl: 'https://youtu.be/qhB30FChG18',
-        title: 'BTS WORLD TOUR ‘ARIRANG’ IN EUROPE Sketch',
-        author: 'BANGTANTV',
-        views: '6.2M views',
-        duration: '36:42',
-        thumb: 'https://i.ytimg.com/vi/qhB30FChG18/hqdefault.jpg',
-        avatar: BTS_AVATAR,
-        saved: true
+        id: 'ch-2',
+        name: 'PulseWave Live',
+        subscribers: '84K subscribers',
+        avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80',
+        subscribed: true
       },
-      // 3. 1qOJvWakMz0
       {
-        id: 103,
-        section: 'Home',
-        category: 'BTS',
-        youtubeId: '1qOJvWakMz0',
-        youtubeUrl: 'https://youtu.be/1qOJvWakMz0',
-        title: '3 DAYS IN LA l V’s VLOG',
-        author: 'BANGTANTV',
-        views: '7.2M views',
-        duration: '21:47',
-        thumb: 'https://i.ytimg.com/vi/1qOJvWakMz0/hqdefault.jpg',
-        avatar: BTS_AVATAR,
-        saved: false
-      },
-      // 4. Z4hrFgiZHVo
-      {
-        id: 104,
-        section: 'Home',
-        category: 'BTS',
-        youtubeId: 'Z4hrFgiZHVo',
-        youtubeUrl: 'https://youtu.be/Z4hrFgiZHVo',
-        title: "BTS 'iHeartRadio Music Festival 2026' Sketch",
-        author: 'BANGTANTV',
-        views: '3.0M views',
-        duration: '13:16',
-        thumb: 'https://i.ytimg.com/vi/Z4hrFgiZHVo/hqdefault.jpg',
-        avatar: BTS_AVATAR,
-        saved: false
-      },
-      // 5. HD9TQigBMxk
-      {
-        id: 105,
-        section: 'Home',
-        category: 'BTS',
-        youtubeId: 'HD9TQigBMxk',
-        youtubeUrl: 'https://youtu.be/HD9TQigBMxk',
-        title: 'BTS WORLD TOUR ‘ARIRANG’ IN TOKYO Sketch',
-        author: 'BANGTANTV',
-        views: '2.9M views',
-        duration: '15:47',
-        thumb: 'https://i.ytimg.com/vi/HD9TQigBMxk/hqdefault.jpg',
-        avatar: BTS_AVATAR,
-        saved: false
-      },
-      // 6. V9UUPuMa5ck
-      {
-        id: 106,
-        section: 'Home',
-        category: 'BTS',
-        youtubeId: 'V9UUPuMa5ck',
-        youtubeUrl: 'https://youtu.be/V9UUPuMa5ck',
-        title: '러너 슈가, 샌프란시스코에서 뜨거운 맛을 보다 l SUGA’s VLOG',
-        author: 'BANGTANTV',
-        views: '1.8M views',
-        duration: '08:50',
-        thumb: 'https://i.ytimg.com/vi/V9UUPuMa5ck/hqdefault.jpg',
-        avatar: BTS_AVATAR,
-        saved: false
-      },
-      // 7. flxMZDu38Ng
-      {
-        id: 107,
-        section: 'Home',
-        category: 'BTS',
-        youtubeId: 'flxMZDu38Ng',
-        youtubeUrl: 'https://youtu.be/flxMZDu38Ng',
-        title: 'BTS WORLD TOUR ‘ARIRANG’ IN BUSAN Sketch',
-        author: 'BANGTANTV',
-        views: '2.4M views',
-        duration: '19:27',
-        thumb: 'https://i.ytimg.com/vi/flxMZDu38Ng/hqdefault.jpg',
-        avatar: BTS_AVATAR,
-        saved: false
-      },
-      // 8. qhB30FChG18 (Item #8 from user list)
-      {
-        id: 108,
-        section: 'Home',
-        category: 'BTS',
-        youtubeId: 'qhB30FChG18',
-        youtubeUrl: 'https://youtu.be/qhB30FChG18',
-        title: 'BTS WORLD TOUR ‘ARIRANG’ IN EUROPE Sketch (Encore Cut)',
-        author: 'BANGTANTV',
-        views: '6.2M views',
-        duration: '36:42',
-        thumb: 'https://i.ytimg.com/vi/qhB30FChG18/hqdefault.jpg',
-        avatar: BTS_AVATAR,
-        saved: false
-      },
-      // 9. jvvuHBGKuR0
-      {
-        id: 109,
-        section: 'Home',
-        category: 'BTS',
-        youtubeId: 'jvvuHBGKuR0',
-        youtubeUrl: 'https://youtu.be/jvvuHBGKuR0',
-        title: '자비 없는 세기의 족구 대결 l BTS’s TRIP EP.3',
-        author: 'BANGTANTV',
-        views: '9.3M views',
-        duration: '32:00',
-        thumb: 'https://i.ytimg.com/vi/jvvuHBGKuR0/hqdefault.jpg',
-        avatar: BTS_AVATAR,
-        saved: true
-      },
-      // 10. ZOj-K8-_PIc
-      {
-        id: 110,
-        section: 'Home',
-        category: 'BTS',
-        youtubeId: 'ZOj-K8-_PIc',
-        youtubeUrl: 'https://youtu.be/ZOj-K8-_PIc',
-        title: 'BTS WORLD TOUR ‘ARIRANG’ IN GOYANG Sketch',
-        author: 'BANGTANTV',
-        views: '3.5M views',
-        duration: '21:56',
-        thumb: 'https://i.ytimg.com/vi/ZOj-K8-_PIc/hqdefault.jpg',
-        avatar: BTS_AVATAR,
-        saved: false
-      },
-      // 11. 9jI2CZ0bMuM
-      {
-        id: 111,
-        section: 'Home',
-        category: 'BTS',
-        youtubeId: '9jI2CZ0bMuM',
-        youtubeUrl: 'https://youtu.be/9jI2CZ0bMuM',
-        title: "BTS 'ARIRANG' North America Promotions Sketch",
-        author: 'BANGTANTV',
-        views: '3.2M views',
-        duration: '19:53',
-        thumb: 'https://i.ytimg.com/vi/9jI2CZ0bMuM/hqdefault.jpg',
-        avatar: BTS_AVATAR,
-        saved: false
-      },
-      // 12. i9T0TiqiARY
-      {
-        id: 112,
-        section: 'Home',
-        category: 'BTS',
-        youtubeId: 'i9T0TiqiARY',
-        youtubeUrl: 'https://youtu.be/i9T0TiqiARY',
-        title: '방탄회식 2.0 #2026BTSFESTA',
-        author: 'BANGTANTV',
-        views: '6.2M views',
-        duration: '22:44',
-        thumb: 'https://i.ytimg.com/vi/i9T0TiqiARY/hqdefault.jpg',
-        avatar: BTS_AVATAR,
-        saved: false
-      },
-      // 13. 0hH9gsprag8
-      {
-        id: 113,
-        section: 'Home',
-        category: 'BTS',
-        youtubeId: '0hH9gsprag8',
-        youtubeUrl: 'https://youtu.be/0hH9gsprag8',
-        title: "[Episode] 진 (Jin) 'RUNSEOKJIN_EP.TOUR' ENCORE - BTS (방탄소년단)",
-        author: 'BANGTANTV',
-        views: '1.6M views',
-        duration: '44:30',
-        thumb: 'https://i.ytimg.com/vi/0hH9gsprag8/hqdefault.jpg',
-        avatar: BTS_AVATAR,
-        saved: false
-      },
-      // 14. KA6OilIOjcI
-      {
-        id: 114,
-        section: 'Home',
-        category: 'BTS',
-        youtubeId: 'KA6OilIOjcI',
-        youtubeUrl: 'https://youtu.be/KA6OilIOjcI',
-        title: '여러분!! 왔어요!! 달방 2.0 왔어요!!',
-        author: 'BANGTANTV',
-        views: '4.8M views',
-        duration: '12:10',
-        thumb: 'https://i.ytimg.com/vi/KA6OilIOjcI/hqdefault.jpg',
-        avatar: BTS_AVATAR,
-        saved: false
-      },
-      // 15. wu6bA3zK_us
-      {
-        id: 115,
-        section: 'Home',
-        category: 'BTS',
-        youtubeId: 'wu6bA3zK_us',
-        youtubeUrl: 'https://youtu.be/wu6bA3zK_us',
-        title: '방탄이가방에들어가신다 l BTS’s TRIP EP.1',
-        author: 'BANGTANTV',
-        views: '15.6M views',
-        duration: '25:09',
-        thumb: 'https://i.ytimg.com/vi/wu6bA3zK_us/hqdefault.jpg',
-        avatar: BTS_AVATAR,
-        saved: true
-      },
-      // 16. WOmHZv4USUs
-      {
-        id: 116,
-        section: 'Home',
-        category: 'BTS',
-        youtubeId: 'WOmHZv4USUs',
-        youtubeUrl: 'https://youtu.be/WOmHZv4USUs',
-        title: 'BTS ’SWIM’ Dance Practice Sketch',
-        author: 'BANGTANTV',
-        views: '3.9M views',
-        duration: '11:42',
-        thumb: 'https://i.ytimg.com/vi/WOmHZv4USUs/hqdefault.jpg',
-        avatar: BTS_AVATAR,
-        saved: false
-      },
-      // 17. sqCz07uaEwQ
-      {
-        id: 117,
-        section: 'Home',
-        category: 'BTS',
-        youtubeId: 'sqCz07uaEwQ',
-        youtubeUrl: 'https://youtu.be/sqCz07uaEwQ',
-        title: '[EPISODE] j-hope @ Lollapalooza Berlin 2025 - BTS (방탄소년단)',
-        author: 'BANGTANTV',
-        views: '572K views',
-        duration: '26:27',
-        thumb: 'https://i.ytimg.com/vi/sqCz07uaEwQ/hqdefault.jpg',
-        avatar: BTS_AVATAR,
-        saved: false
-      },
-      // 18. fIbuWN_gDsc
-      {
-        id: 118,
-        section: 'Home',
-        category: 'BTS',
-        youtubeId: 'fIbuWN_gDsc',
-        youtubeUrl: 'https://youtu.be/fIbuWN_gDsc',
-        title: "[EPISODE] j-hope Tour 'HOPE ON THE STAGE' Practice Sketch - BTS (방탄소년단)",
-        author: 'BANGTANTV',
-        views: '703K views',
-        duration: '37:31',
-        thumb: 'https://i.ytimg.com/vi/fIbuWN_gDsc/hqdefault.jpg',
-        avatar: BTS_AVATAR,
-        saved: false
-      },
-      // 19. 1ZcB3M7tMTQ
-      {
-        id: 119,
-        section: 'Home',
-        category: 'BTS',
-        youtubeId: '1ZcB3M7tMTQ',
-        youtubeUrl: 'https://youtu.be/1ZcB3M7tMTQ',
-        title: '[EPISODE] 진 (Jin) ‘RUNSEOKJIN_EP.TOUR’ in U.S. & EUROPE - BTS (방탄소년단)',
-        author: 'BANGTANTV',
-        views: '899K views',
-        duration: '27:20',
-        thumb: 'https://i.ytimg.com/vi/1ZcB3M7tMTQ/hqdefault.jpg',
-        avatar: BTS_AVATAR,
-        saved: false
-      },
-      // 20. 5q9-MtXKhJM
-      {
-        id: 120,
-        section: 'Home',
-        category: 'BTS',
-        youtubeId: '5q9-MtXKhJM',
-        youtubeUrl: 'https://youtu.be/5q9-MtXKhJM',
-        title: '[EPISODE] 진 (Jin) ‘RUNSEOKJIN_EP.TOUR’ in JAPAN - BTS (방탄소년단)',
-        author: 'BANGTANTV',
-        views: '748K views',
-        duration: '20:26',
-        thumb: 'https://i.ytimg.com/vi/5q9-MtXKhJM/hqdefault.jpg',
-        avatar: BTS_AVATAR,
-        saved: false
-      },
+        id: 'ch-3',
+        name: 'Aether Audio',
+        subscribers: '62K subscribers',
+        avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=120&q=80',
+        subscribed: true
+      }
+    ];
 
-      // Other Categories
+    // Helper to build 100 numbered video placeholders ("වීඩියෝ 1" ... "වීඩියෝ 100")
+    function createNumberedSlots(sectionName, categoryName, defaultAuthor, startId) {
+      const list = [];
+      for (let i = 1; i <= 100; i++) {
+        list.push({
+          id: startId + i,
+          section: sectionName,
+          category: categoryName,
+          slotLabel: `වීඩියෝ ${i}`,
+          youtubeUrl: `වීඩියෝ ${i}`,
+          videoSrc: '',
+          title: `${sectionName} — වීඩියෝ ${i}`,
+          author: defaultAuthor,
+          views: 'Ready for link',
+          duration: 'SLOT',
+          thumb: '',
+          avatar: DEFAULT_AVATAR,
+          saved: false
+        });
+      }
+      return list;
+    }
+
+    const musicSlots100 = createNumberedSlots('Music', 'Spatial Audio', 'Aether Audio', 1000);
+    const liveSlots100 = createNumberedSlots('Live', 'Cinematography', 'PulseWave Live', 2000);
+
+    const subChannelVideos = [
       {
-        id: 2,
-        section: 'Work',
+        id: 301,
+        section: 'Subs',
         category: 'UI Architecture',
-        title: 'Spatial Glassmorphism & CSS 3D Perspective Systems',
-        author: 'Adem Design Lab',
-        views: '182K views • 4 days ago',
-        duration: '18:35',
+        slotLabel: '',
+        youtubeUrl: '',
+        videoSrc: '',
+        title: 'Veltrix Studio — Spatial Glass System Breakdown',
+        author: 'Veltrix Studio',
+        views: '14K views • 2 days ago',
+        duration: '14:20',
         thumb: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
         avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80',
         saved: false
       },
       {
-        id: 3,
-        section: 'Home',
+        id: 302,
+        section: 'Subs',
         category: 'Cinematography',
-        title: 'Botanical Macro: Golden Saffron Harvest Documentary',
-        author: 'Coskun Visuals',
-        views: '96K views • 1 week ago',
-        duration: '12:19',
+        slotLabel: '',
+        youtubeUrl: '',
+        videoSrc: '',
+        title: 'PulseWave Live — Night Stage Lighting Session',
+        author: 'PulseWave Live',
+        views: '29K views • 5 days ago',
+        duration: '26:10',
         thumb: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=800&q=80',
         avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80',
         saved: false
       },
       {
-        id: 4,
-        section: 'Work',
-        category: 'Hardware',
-        title: 'MicroMod Neural Board & Custom Aluminum Enclosure',
-        author: 'SparkTech Foundry',
-        views: '43K views • 3 days ago',
-        duration: '14:02',
-        thumb: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
-        avatar: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=120&q=80',
-        saved: false
-      },
-      {
-        id: 6,
-        section: 'Home',
-        category: 'Travel',
-        title: 'Mediterranean Yacht Architecture: Inside the F50',
-        author: 'Nautical Studio',
-        views: '490K views • 21 hours ago',
-        duration: '34:15',
-        thumb: 'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=800&q=80',
-        avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80',
-        saved: false
-      },
-      {
-        id: 7,
-        section: 'Work',
+        id: 303,
+        section: 'Subs',
         category: 'Spatial Audio',
-        title: 'Designing Tactile Soundscapes for Glass Interfaces',
-        author: 'EchoLab Acoustics',
-        views: '64K views • 5 days ago',
-        duration: '11:48',
+        slotLabel: '',
+        youtubeUrl: '',
+        videoSrc: '',
+        title: 'Aether Audio — 3D Synth & Ambient Mix',
+        author: 'Aether Audio',
+        views: '19K views • 1 week ago',
+        duration: '19:45',
         thumb: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800&q=80',
         avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=120&q=80',
         saved: false
+      },
+      {
+        id: 304,
+        section: 'Subs',
+        category: 'Hardware',
+        slotLabel: '',
+        youtubeUrl: '',
+        videoSrc: '',
+        title: 'Veltrix Studio — Custom CNC Dock & Sensor Build',
+        author: 'Veltrix Studio',
+        views: '22K views • 3 days ago',
+        duration: '16:08',
+        thumb: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80',
+        saved: false
+      },
+      {
+        id: 305,
+        section: 'Subs',
+        category: 'Travel',
+        slotLabel: '',
+        youtubeUrl: '',
+        videoSrc: '',
+        title: 'PulseWave Live — Coastal Sunset Location Scout',
+        author: 'PulseWave Live',
+        views: '31K views • 6 days ago',
+        duration: '21:50',
+        thumb: 'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=800&q=80',
+        avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80',
+        saved: false
       }
     ];
 
-    const notesItems = [
-      {
-        tag: 'Architecture Note',
-        title: 'Layered Glass Depth & Specular Rim Lighting',
-        excerpt: 'Combining 24px backdrop-filter blur with a 1px top inner highlight creates physical thickness without visual clutter.',
-        author: 'System Design Log',
-        date: 'Updated 2h ago'
-      },
-      {
-        tag: 'Motion Spec',
-        title: 'Spring Physics for Liquid Pill Transitions',
-        excerpt: 'Using cubic-bezier(0.34, 1.56, 0.64, 1) gives navigation indicators a natural liquid overshoot.',
-        author: 'Interaction Lab',
-        date: 'Updated Yesterday'
-      },
-      {
-        tag: 'Mobile Ergonomics',
-        title: 'Thumb-Zone Reachability & Floating Dock Geometry',
-        excerpt: 'Keeping the bottom dock compact at 312px–340px centers all primary actions within natural single-hand thumb arc.',
-        author: 'UX Research',
-        date: 'Updated 3d ago'
-      }
-    ];
+    let mediaItems = [...subChannelVideos, ...musicSlots100, ...liveSlots100];
 
     let activeTopSection = 'Home';
     let activeCategory = 'All';
+    let activePageTabName = 'All Streams';
     let searchQuery = '';
     let bottomMode = 'Home';
     let currentPlayingItem = null;
+    let visibleLimit = 24;
 
     window.addEventListener('DOMContentLoaded', () => {
       const initialTab = document.querySelector('.nav-tab.active');
@@ -1692,7 +1762,65 @@
       if (currentTab) positionLiquidPill(currentTab);
     });
 
-    // 1. TOP LIQUID GOLDEN-AMBER NAVIGATION
+    function triggerPageTransition() {
+      const pageEl = document.getElementById('pageContainer');
+      if (!pageEl) return;
+      pageEl.classList.remove('page-switch-anim');
+      void pageEl.offsetWidth;
+      pageEl.classList.add('page-switch-anim');
+    }
+
+    function updateBrowserTabPage(tabName) {
+      activePageTabName = tabName;
+      document.title = `${tabName} — Veltrix`;
+      const slug = encodeURIComponent(tabName.toLowerCase().replace(/\s+/g, '-'));
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState({ tab: tabName }, `${tabName} — Veltrix`, `#${slug}`);
+      }
+    }
+
+    function openLogoDrawer() {
+      document.getElementById('logoDrawerBackdrop').classList.add('open');
+      document.getElementById('logoSideDrawer').classList.add('open');
+    }
+
+    function closeLogoDrawer() {
+      document.getElementById('logoDrawerBackdrop').classList.remove('open');
+      document.getElementById('logoSideDrawer').classList.remove('open');
+    }
+
+    function openTabPage(btnEl, tabName, catValue) {
+      document.querySelectorAll('.drawer-tab-btn').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+
+      activeTopSection = 'Home';
+      visibleLimit = 24;
+      updateBrowserTabPage(tabName);
+
+      const homeTopTab = document.querySelector('.nav-tab[data-section="Home"]');
+      if (homeTopTab) {
+        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+        homeTopTab.classList.add('active');
+        positionLiquidPill(homeTopTab);
+      }
+
+      if (catValue === 'Saved') {
+        bottomMode = 'Saved';
+        activeCategory = 'All';
+        syncBottomDockVisual(4);
+      } else {
+        bottomMode = 'Home';
+        activeCategory = catValue;
+        syncBottomDockVisual(0);
+      }
+
+      document.getElementById('searchDrawer').classList.remove('open');
+      closeLogoDrawer();
+      triggerPageTransition();
+      renderContent();
+      showToast(`Opened ${tabName}`);
+    }
+
     function positionLiquidPill(tabEl) {
       const pill = document.getElementById('liquidPill');
       if (!tabEl || !pill) return;
@@ -1706,12 +1834,16 @@
       positionLiquidPill(tabEl);
 
       activeTopSection = sectionName;
+      activeCategory = 'All';
       bottomMode = 'Home';
+      visibleLimit = 24;
+      updateBrowserTabPage(sectionName);
+      document.getElementById('searchDrawer').classList.remove('open');
       syncBottomDockVisual(0);
+      triggerPageTransition();
       renderContent();
     }
 
-    // 2. 3D NEUMORPHIC LIGHT / DARK THEME TOGGLE
     function toggleTheme() {
       const html = document.documentElement;
       const knob = document.getElementById('switchKnob');
@@ -1721,17 +1853,17 @@
 
       if (next === 'light') {
         knob.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>`;
-        showToast('Light Glass Theme Enabled');
+        showToast('Light Theme — Bar & Surfaces Updated');
       } else {
         knob.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
-        showToast('Dark Obsidian Theme Enabled');
+        showToast('Dark Theme — Bar & Surfaces Updated');
       }
     }
 
-    // 3. BOTTOM NEON-WAVE DOCK BAR
     function selectBottomDock(slotIndex, modeName) {
       syncBottomDockVisual(slotIndex);
       bottomMode = modeName;
+      visibleLimit = 24;
 
       const searchDrawer = document.getElementById('searchDrawer');
       if (modeName === 'Search') {
@@ -1745,6 +1877,7 @@
         document.getElementById('inboxBadge').style.display = 'none';
       }
 
+      triggerPageTransition();
       renderContent();
     }
 
@@ -1770,129 +1903,178 @@
       renderContent();
     }
 
-    function filterCategory(btn, cat) {
-      document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      activeCategory = cat;
+    function toggleChannelSubscribe(channelId) {
+      const ch = subscribedChannels.find(c => c.id === channelId);
+      if (!ch) return;
+      ch.subscribed = !ch.subscribed;
+      showToast(ch.subscribed ? `Subscribed to ${ch.name}` : `Unsubscribed from ${ch.name}`);
       renderContent();
     }
 
-    function resetToHome() {
-      const homeTab = document.querySelector('.nav-tab[data-section="Home"]');
-      selectTopNav(homeTab, 'Home');
-      activeCategory = 'All';
-      document.querySelectorAll('.cat-pill').forEach((p, idx) => p.classList.toggle('active', idx === 0));
-      renderContent();
-    }
-
-    // 4. RENDER CONTENT & 3D TILT CARDS
     function renderContent() {
       const grid = document.getElementById('mediaGrid');
       const heading = document.getElementById('sectionHeading');
       const countEl = document.getElementById('itemCount');
-      const catStrip = document.getElementById('categoryStrip');
 
-      if (activeTopSection === 'Notes' && bottomMode !== 'Saved') {
-        catStrip.style.display = 'none';
-        heading.textContent = 'Spatial Design Notes';
-        countEl.textContent = `${notesItems.length} notes`;
-        grid.innerHTML = notesItems.map(note => `
-          <article class="glass-card" onmousemove="handleCardTilt(event, this)" onmouseleave="resetCardTilt(this)">
-            <div class="card-glare"></div>
-            <div class="note-card-preview">
-              <span class="note-tag">${note.tag}</span>
-              <p class="note-excerpt">${note.excerpt}</p>
-            </div>
-            <div class="card-body">
-              <div class="card-info">
-                <h3 class="card-title">${note.title}</h3>
-                <div class="card-author">${note.author}</div>
-                <div class="card-stats">${note.date}</div>
-              </div>
-            </div>
-          </article>
-        `).join('');
-        return;
-      }
-
-      if (activeTopSection === 'About' && bottomMode !== 'Saved') {
-        catStrip.style.display = 'none';
-        heading.textContent = 'About Veltrix Spatial UI';
-        countEl.textContent = 'v2.6';
+      if (bottomMode !== 'Saved' && activeTopSection === 'More') {
+        heading.textContent = 'More — About Veltrix & Contact';
+        countEl.textContent = 'Contact Info';
         grid.innerHTML = `
-          <article class="glass-card" style="grid-column: 1 / -1; padding: 26px;" onmousemove="handleCardTilt(event, this)" onmouseleave="resetCardTilt(this)">
-            <div class="card-glare"></div>
-            <span class="note-tag">3D Glass Architecture</span>
-            <h3 style="font-family:'Plus Jakarta Sans',sans-serif; font-size:1.35rem; margin:12px 0 8px;">Crafted for Tactile Depth & Fluid Motion</h3>
-            <p style="color:var(--text-secondary); line-height:1.65; max-width:68ch;">
-              Veltrix combines real-time 3D perspective tilt cards, specular light refraction, a liquid golden-amber top navigation pill, and a compact red neon-wave bottom dock engineered seamlessly for both desktop displays and mobile touchscreens.
-            </p>
-          </article>
-        `;
-        return;
-      }
+          <div class="info-panel-card">
+            <div>
+              <span class="info-badge">About Veltrix</span>
+              <h3 class="info-heading">Veltrix — 3D Spatial Glass Media</h3>
+              <p class="info-desc">
+                Veltrix is a modern spatial glassmorphic media experience built for smooth navigation, 3D interactive cards, real-time video playback, and curated collections across desktop and mobile screens.
+              </p>
+            </div>
 
-      if (bottomMode === 'Inbox') {
-        catStrip.style.display = 'none';
-        heading.textContent = 'Activity & Studio Inbox';
-        countEl.textContent = '3 updates';
-        grid.innerHTML = `
-          <article class="glass-card" style="grid-column: 1 / -1; padding: 20px;">
-            <div style="display:flex; flex-direction:column; gap:14px;">
-              <div style="padding-bottom:12px; border-bottom:1px solid var(--glass-border);">
-                <strong>BANGTANTV</strong> uploaded <em>BTS WORLD TOUR ‘ARIRANG’ Practice Sketch</em> • New
-              </div>
-              <div style="padding-bottom:12px; border-bottom:1px solid var(--glass-border);">
-                <strong>BANGTANTV</strong> uploaded <em>3 DAYS IN LA l V’s VLOG</em> • Featured
-              </div>
-              <div>
-                <strong>BANGTANTV</strong> uploaded <em>방탄회식 2.0 #2026BTSFESTA</em> • Trending
+            <div>
+              <span class="info-badge" style="margin-bottom:12px; display:inline-block;">Contact Us</span>
+              <div class="contact-grid">
+                <a class="contact-tile" href="https://www.instagram.com/itz_pazzan?avpt=MTJwbDJyb3FqNGdrdA==" target="_blank" rel="noopener noreferrer">
+                  <div>
+                    <div class="contact-label">Instagram</div>
+                    <div class="contact-value">@itz_pazzan</div>
+                  </div>
+                  <span>↗</span>
+                </a>
+
+                <a class="contact-tile" href="https://wa.me/message/XOOAFQKPPUQNP1" target="_blank" rel="noopener noreferrer">
+                  <div>
+                    <div class="contact-label">WhatsApp</div>
+                    <div class="contact-value">Message on WhatsApp</div>
+                  </div>
+                  <span>↗</span>
+                </a>
+
+                <a class="contact-tile" href="tel:+94726667863">
+                  <div>
+                    <div class="contact-label">Call</div>
+                    <div class="contact-value">+94726667863</div>
+                  </div>
+                  <span>📞</span>
+                </a>
               </div>
             </div>
-          </article>
-        `;
-        return;
-      }
-
-      catStrip.style.display = 'flex';
-
-      let filtered = mediaItems.filter(item => {
-        if (bottomMode === 'Saved' && !item.saved) return false;
-        if (bottomMode !== 'Saved' && activeTopSection === 'Work' && item.section !== 'Work') return false;
-        if (activeCategory !== 'All' && item.category !== activeCategory) return false;
-        if (searchQuery && !item.title.toLowerCase().includes(searchQuery) && !item.author.toLowerCase().includes(searchQuery)) return false;
-        return true;
-      });
-
-      if (bottomMode === 'Saved') {
-        heading.textContent = 'Saved Collection';
-      } else if (activeCategory === 'BTS') {
-        heading.textContent = 'BTS — BANGTANTV Collection';
-      } else if (activeTopSection === 'Work') {
-        heading.textContent = 'Studio Work & Showcases';
-      } else {
-        heading.textContent = 'Featured Spatial Feed';
-      }
-
-      countEl.textContent = `${filtered.length} videos`;
-
-      if (filtered.length === 0) {
-        grid.innerHTML = `
-          <div style="grid-column: 1 / -1; text-align:center; padding: 48px 16px; color: var(--text-secondary);">
-            No videos matched your current filter. Try selecting "All Streams" or "BTS".
           </div>
         `;
         return;
       }
 
-      grid.innerHTML = filtered.map(item => {
-        const isBts = item.category === 'BTS';
+      if (bottomMode === 'Inbox') {
+        heading.textContent = 'Inbox';
+        countEl.textContent = '3 updates';
+        grid.innerHTML = `
+          <article class="glass-card" style="grid-column: 1 / -1; padding: 20px;">
+            <div style="display:flex; flex-direction:column; gap:14px;">
+              <div style="padding-bottom:12px; border-bottom:1px solid var(--glass-border);">
+                <strong>Veltrix Studio</strong> posted <em>Spatial Glass System Breakdown</em> • New
+              </div>
+              <div style="padding-bottom:12px; border-bottom:1px solid var(--glass-border);">
+                <strong>PulseWave Live</strong> posted <em>Night Stage Lighting Session</em> • Live
+              </div>
+              <div>
+                <strong>Aether Audio</strong> posted <em>3D Synth & Ambient Mix</em> • Music
+              </div>
+            </div>
+          </article>
+        `;
+        return;
+      }
+
+      let filtered = mediaItems.filter(item => {
+        if (bottomMode === 'Saved' && !item.saved) return false;
+
+        if (bottomMode !== 'Saved' && activeTopSection === 'Subs' && activeCategory === 'All' && !searchQuery) {
+          const activeNames = subscribedChannels.filter(c => c.subscribed).map(c => c.name);
+          if (item.section !== 'Subs' || !activeNames.includes(item.author)) return false;
+        } else if (bottomMode !== 'Saved' && activeTopSection !== 'Home' && activeTopSection !== 'Subs' && activeCategory === 'All' && !searchQuery) {
+          if (item.section !== activeTopSection) return false;
+        }
+
+        if (activeCategory !== 'All' && item.category !== activeCategory) return false;
+
+        if (searchQuery) {
+          const matchTitle = item.title.toLowerCase().includes(searchQuery);
+          const matchAuthor = item.author.toLowerCase().includes(searchQuery);
+          const matchSlot = (item.slotLabel || '').toLowerCase().includes(searchQuery);
+          if (!matchTitle && !matchAuthor && !matchSlot) return false;
+        }
+        return true;
+      });
+
+      let subsHeaderHtml = '';
+      if (bottomMode !== 'Saved' && activeTopSection === 'Subs') {
+        heading.textContent = 'Subs — Subscribed Channels';
+        countEl.textContent = `${subscribedChannels.filter(c => c.subscribed).length} channels • ${filtered.length} videos`;
+        subsHeaderHtml = `
+          <div class="subs-channels-panel">
+            <div class="subs-panel-title">Subscribed Channels</div>
+            <div class="channels-grid">
+              ${subscribedChannels.map(ch => `
+                <div class="channel-card">
+                  <div class="channel-left">
+                    <img class="channel-avatar" src="${ch.avatar}" alt="${ch.name}" />
+                    <div style="min-width:0;">
+                      <div class="channel-name">${ch.name}</div>
+                      <div class="channel-sub-meta">${ch.subscribers}</div>
+                    </div>
+                  </div>
+                  <button class="sub-toggle-btn ${ch.subscribed ? 'subscribed' : ''}" onclick="toggleChannelSubscribe('${ch.id}')">
+                    ${ch.subscribed ? 'Subscribed' : 'Subscribe'}
+                  </button>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      } else if (bottomMode === 'Saved') {
+        heading.textContent = 'Saved Videos';
+        countEl.textContent = `${filtered.length} videos`;
+      } else if (activeCategory !== 'All') {
+        heading.textContent = activePageTabName;
+        countEl.textContent = `${filtered.length} videos`;
+      } else if (activeTopSection === 'Music') {
+        heading.textContent = 'Music — 100 Videos';
+        countEl.textContent = `${filtered.length} videos`;
+      } else if (activeTopSection === 'Live') {
+        heading.textContent = 'Live — 100 Videos';
+        countEl.textContent = `${filtered.length} videos`;
+      } else {
+        heading.textContent = 'All Streams';
+        countEl.textContent = `${filtered.length} videos`;
+      }
+
+      if (filtered.length === 0) {
+        grid.innerHTML = subsHeaderHtml + `
+          <div style="grid-column: 1 / -1; text-align:center; padding: 48px 16px; color: var(--text-secondary);">
+            No videos found for this view.
+          </div>
+        `;
+        return;
+      }
+
+      const sliceToShow = searchQuery ? filtered : filtered.slice(0, visibleLimit);
+      const hasMore = !searchQuery && filtered.length > sliceToShow.length;
+
+      const cardsHtml = sliceToShow.map(item => {
+        const ytId = extractYouTubeId(item.youtubeUrl);
+        const displayThumb = item.thumb || (ytId ? `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg` : '');
+
+        const thumbInner = displayThumb
+          ? `<img src="${displayThumb}" alt="${item.title}" loading="lazy" />`
+          : `<div class="slot-placeholder-thumb">
+               <span class="slot-placeholder-label">${item.slotLabel || item.title}</span>
+               <span class="slot-placeholder-sub">Add link in code or upload video</span>
+             </div>`;
+
         return `
-          <article class="glass-card ${isBts ? 'bts-card' : ''}" onclick="openPlayer(${item.id})" onmousemove="handleCardTilt(event, this)" onmouseleave="resetCardTilt(this)">
+          <article class="glass-card" onclick="openPlayer(${item.id})" onmousemove="handleCardTilt(event, this)" onmouseleave="resetCardTilt(this)">
             <div class="card-glare"></div>
             <div class="thumb-wrapper">
-              <img src="${item.thumb}" alt="${item.title}" loading="lazy" />
-              ${isBts ? '<span class="bts-pill-badge">BTS</span>' : ''}
+              ${thumbInner}
+              <span class="section-pill-badge">${item.section}</span>
               <button class="bookmark-mini-btn ${item.saved ? 'saved' : ''}" onclick="toggleBookmark(event, ${item.id})" title="Save video">
                 ★
               </button>
@@ -1912,9 +2094,23 @@
           </article>
         `;
       }).join('');
+
+      const loadMoreHtml = hasMore ? `
+        <div class="load-more-wrap">
+          <button class="load-more-btn" onclick="showMoreItems()">
+            Show More (${filtered.length - sliceToShow.length} remaining)
+          </button>
+        </div>
+      ` : '';
+
+      grid.innerHTML = subsHeaderHtml + cardsHtml + loadMoreHtml;
     }
 
-    // 3D Mouse Tilt + Specular Glare Physics
+    function showMoreItems() {
+      visibleLimit += 24;
+      renderContent();
+    }
+
     function handleCardTilt(e, card) {
       if (window.innerWidth < 768) return;
       const rect = card.getBoundingClientRect();
@@ -1949,29 +2145,47 @@
       renderContent();
     }
 
-    // Theater Modal Controls (Plays Real YouTube Embed for BTS Videos)
+    function extractYouTubeId(url) {
+      if (!url || typeof url !== 'string') return null;
+      const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/))([a-zA-Z0-9_-]{11})/);
+      return match ? match[1] : null;
+    }
+
     function openPlayer(id) {
       const item = mediaItems.find(m => m.id === id);
       if (!item) return;
       currentPlayingItem = item;
 
       const stage = document.getElementById('playerStage');
-      const ytLink = document.getElementById('ytExternalLink');
+      const extLink = document.getElementById('ytExternalLink');
+      const ytId = extractYouTubeId(item.youtubeUrl);
 
-      if (item.youtubeId) {
+      if (item.videoSrc) {
+        stage.innerHTML = `<video src="${item.videoSrc}" controls autoplay playsinline></video>`;
+        extLink.style.display = 'none';
+      } else if (ytId) {
         stage.innerHTML = `
           <iframe
-            src="https://www.youtube.com/embed/${item.youtubeId}?autoplay=1&rel=0"
+            src="https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0"
             title="${item.title}"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen>
           </iframe>
         `;
-        ytLink.href = item.youtubeUrl;
-        ytLink.style.display = 'inline-flex';
+        extLink.href = item.youtubeUrl;
+        extLink.style.display = 'inline-flex';
+      } else if (item.youtubeUrl && /^https?:\/\//i.test(item.youtubeUrl)) {
+        stage.innerHTML = `<video src="${item.youtubeUrl}" controls autoplay playsinline></video>`;
+        extLink.href = item.youtubeUrl;
+        extLink.style.display = 'inline-flex';
       } else {
-        stage.innerHTML = `<img src="${item.thumb}" alt="${item.title}" />`;
-        ytLink.style.display = 'none';
+        stage.innerHTML = `
+          <div class="slot-placeholder-thumb" style="width:100%;height:100%;">
+            <span class="slot-placeholder-label">${item.slotLabel || item.title}</span>
+            <span class="slot-placeholder-sub">Replace "${item.slotLabel || 'video'}" in code with a real video link or use '+' to upload a video file.</span>
+          </div>
+        `;
+        extLink.style.display = 'none';
       }
 
       document.getElementById('modalTitle').textContent = item.title;
@@ -1983,7 +2197,7 @@
     }
 
     function closePlayerModal() {
-      document.getElementById('playerStage').innerHTML = ''; // Stop video playback
+      document.getElementById('playerStage').innerHTML = '';
       closeModal('playerModal');
     }
 
@@ -2000,53 +2214,54 @@
       renderContent();
     }
 
-    // Extract YouTube ID helper for '+' modal
-    function extractYouTubeId(url) {
-      if (!url) return null;
-      const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([a-zA-Z0-9_-]{11})/);
-      return match ? match[1] : null;
-    }
-
     function openCreateModal() {
       document.getElementById('createModal').classList.add('open');
     }
 
     function publishNewItem() {
-      const title = document.getElementById('newTitle').value.trim();
-      const author = document.getElementById('newAuthor').value.trim() || 'BANGTANTV';
-      const rawUrl = document.getElementById('newYoutubeUrl').value.trim();
-      const category = document.getElementById('newCategory').value;
+      const titleInput = document.getElementById('newTitle').value.trim();
+      const author = document.getElementById('newAuthor').value.trim() || 'Veltrix Studio';
+      const fileInput = document.getElementById('newVideoFile');
+      const rawUrl = document.getElementById('newVideoUrl').value.trim();
+      const section = document.getElementById('newSection').value;
 
-      if (!title) {
-        showToast('Please enter a video title first');
+      const uploadedFile = fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
+      const blobUrl = uploadedFile ? URL.createObjectURL(uploadedFile) : '';
+      const ytId = extractYouTubeId(rawUrl);
+
+      if (!titleInput && !uploadedFile && !rawUrl) {
+        showToast('Please select a video file, enter a link, or add a title');
         return;
       }
 
-      const ytId = extractYouTubeId(rawUrl);
+      const finalTitle = titleInput || (uploadedFile ? uploadedFile.name : 'Uploaded Video');
+      const thumbUrl = ytId
+        ? `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`
+        : DEFAULT_THUMB;
 
       mediaItems.unshift({
         id: Date.now(),
-        section: 'Home',
-        category,
-        youtubeId: ytId,
-        youtubeUrl: ytId ? `https://youtu.be/${ytId}` : '',
-        title,
+        section,
+        category: section === 'Music' ? 'Spatial Audio' : 'Cinematography',
+        slotLabel: '',
+        youtubeUrl: ytId ? `https://youtu.be/${ytId}` : rawUrl,
+        videoSrc: blobUrl,
+        title: finalTitle,
         author,
-        views: 'Just added',
-        duration: 'HD',
-        thumb: ytId
-          ? `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`
-          : 'https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&w=800&q=80',
-        avatar: category === 'BTS' ? BTS_AVATAR : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80',
+        views: 'Just uploaded',
+        duration: uploadedFile ? 'LOCAL' : 'HD',
+        thumb: thumbUrl,
+        avatar: DEFAULT_AVATAR,
         saved: false
       });
 
       document.getElementById('newTitle').value = '';
       document.getElementById('newAuthor').value = '';
-      document.getElementById('newYoutubeUrl').value = '';
+      document.getElementById('newVideoFile').value = '';
+      document.getElementById('newVideoUrl').value = '';
       closeModal('createModal');
       renderContent();
-      showToast('Published to Feed!');
+      showToast('Video added & ready to play!');
     }
 
     function closeModal(id) {
