@@ -14,7 +14,7 @@
       --bg-gradient-2: rgba(239, 68, 68, 0.12);
       --bg-gradient-3: rgba(59, 130, 246, 0.10);
       --glass-surface: rgba(20, 22, 30, 0.68);
-      --glass-surface-strong: rgba(16, 18, 25, 0.90);
+      --glass-surface-strong: rgba(16, 18, 25, 0.92);
       --glass-border: rgba(255, 255, 255, 0.10);
       --glass-highlight: rgba(255, 255, 255, 0.18);
       --text-primary: #f8fafc;
@@ -27,6 +27,8 @@
       --switch-track-bg: #161822;
       --switch-track-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.8), inset -2px -2px 5px rgba(255, 255, 255, 0.06);
       --pill-bg: rgba(255, 255, 255, 0.05);
+      --input-bg: rgba(255, 255, 255, 0.06);
+      --select-option-bg: #121520;
 
       /* Bottom Dock Theme Variables (Dark Default) */
       --dock-bg: rgba(16, 17, 22, 0.92);
@@ -41,8 +43,8 @@
       --bg-gradient-1: rgba(245, 158, 11, 0.20);
       --bg-gradient-2: rgba(239, 68, 68, 0.12);
       --bg-gradient-3: rgba(99, 102, 241, 0.14);
-      --glass-surface: rgba(255, 255, 255, 0.72);
-      --glass-surface-strong: rgba(255, 255, 255, 0.94);
+      --glass-surface: rgba(255, 255, 255, 0.74);
+      --glass-surface-strong: rgba(255, 255, 255, 0.95);
       --glass-border: rgba(15, 23, 42, 0.09);
       --glass-highlight: rgba(255, 255, 255, 0.95);
       --text-primary: #0f172a;
@@ -53,6 +55,8 @@
       --switch-track-bg: #e2e6ee;
       --switch-track-shadow: inset 3px 3px 6px rgba(163, 177, 198, 0.65), inset -3px -3px 6px rgba(255, 255, 255, 0.95);
       --pill-bg: rgba(15, 23, 42, 0.05);
+      --input-bg: rgba(15, 23, 42, 0.04);
+      --select-option-bg: #ffffff;
 
       /* Bottom Dock Theme Variables (Light Mode) */
       --dock-bg: rgba(255, 255, 255, 0.88);
@@ -226,7 +230,7 @@
         0 4px 15px var(--amber-glow),
         inset 0 2px 3px rgba(255, 255, 255, 0.75),
         inset 0 -2px 4px rgba(146, 64, 14, 0.45);
-      transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.38s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
       z-index: 1;
       pointer-events: none;
     }
@@ -355,7 +359,7 @@
       height: 15px;
     }
 
-    /* LOGO DRAWER */
+    /* LOGO DRAWER (3D COLORFUL PROFESSIONAL TABS -> .html LINKS) */
     .logo-drawer-backdrop {
       position: fixed;
       inset: 0;
@@ -377,20 +381,20 @@
       top: 0;
       left: 0;
       bottom: 0;
-      width: 280px;
-      max-width: 82vw;
+      width: 304px;
+      max-width: 86vw;
       z-index: 190;
       background: var(--glass-surface-strong);
       backdrop-filter: blur(28px) saturate(185%);
       -webkit-backdrop-filter: blur(28px) saturate(185%);
       border-right: 1px solid var(--glass-border);
-      box-shadow: 20px 0 50px rgba(0, 0, 0, 0.55), inset -1px 0 0 var(--glass-highlight);
+      box-shadow: 24px 0 56px rgba(0, 0, 0, 0.58), inset -1px 0 0 var(--glass-highlight);
       padding: calc(20px + env(safe-area-inset-top)) 16px calc(24px + env(safe-area-inset-bottom));
       display: flex;
       flex-direction: column;
       gap: 14px;
       transform: translateX(-105%);
-      transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), background 0.35s ease, border-color 0.35s ease;
     }
 
     .logo-side-drawer.open {
@@ -439,50 +443,152 @@
     .drawer-tab-list {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 10px;
       overflow-y: auto;
-      padding-right: 2px;
+      padding: 4px 4px 10px;
+      perspective: 900px;
     }
 
-    .drawer-tab-btn {
+    .drawer-3d-tab {
+      --tab-grad: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+      --tab-glow: rgba(245, 158, 11, 0.42);
+      --tab-bottom: rgba(124, 45, 18, 0.65);
+
+      position: relative;
       width: 100%;
-      border: 1px solid transparent;
-      background: transparent;
-      color: var(--text-secondary);
-      font-family: 'Inter', sans-serif;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: var(--tab-grad);
+      color: #ffffff;
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
       font-size: 0.9rem;
-      font-weight: 600;
-      padding: 11px 14px;
-      border-radius: 16px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      padding: 12px 15px;
+      border-radius: 17px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      text-decoration: none;
       cursor: pointer;
-      transition: all 0.24s ease;
-      text-align: left;
+      box-shadow:
+        0 8px 18px -4px var(--tab-glow),
+        0 4px 0 -1px var(--tab-bottom),
+        inset 0 1.5px 1px rgba(255, 255, 255, 0.55),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.25);
+      transform: translate3d(0, 0, 0);
+      transition:
+        transform 0.26s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.26s ease,
+        filter 0.25s ease;
     }
 
-    .drawer-tab-btn:hover {
-      background: var(--pill-bg);
-      color: var(--text-primary);
-      transform: translateX(3px);
+    .drawer-3d-tab::after {
+      content: '';
+      position: absolute;
+      top: 1px;
+      left: 8%;
+      right: 8%;
+      height: 44%;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0));
+      pointer-events: none;
     }
 
-    .drawer-tab-btn.active {
-      background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
-      color: #ffffff;
-      box-shadow: 0 8px 20px rgba(245, 158, 11, 0.35);
+    .drawer-3d-tab:hover {
+      transform: translate3d(4px, -2px, 14px) rotateY(-3deg);
+      filter: brightness(1.06);
+      box-shadow:
+        0 14px 26px -4px var(--tab-glow),
+        0 6px 0 -1px var(--tab-bottom),
+        inset 0 1.5px 1.5px rgba(255, 255, 255, 0.7),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.22);
+    }
+
+    .drawer-3d-tab:active {
+      transform: translate3d(2px, 2px, 0px);
+      box-shadow:
+        0 4px 10px -2px var(--tab-glow),
+        0 1px 0 0 var(--tab-bottom),
+        inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Per-Tab Rich Professional 3D Palettes */
+    .drawer-3d-tab[data-theme-tone="amber"] {
+      --tab-grad: linear-gradient(135deg, #fbbf24 0%, #f97316 55%, #dc2626 100%);
+      --tab-glow: rgba(249, 115, 22, 0.45);
+      --tab-bottom: rgba(154, 52, 18, 0.72);
+    }
+
+    .drawer-3d-tab[data-theme-tone="violet"] {
+      --tab-grad: linear-gradient(135deg, #8b5cf6 0%, #6366f1 55%, #3b82f6 100%);
+      --tab-glow: rgba(99, 102, 241, 0.48);
+      --tab-bottom: rgba(49, 46, 129, 0.75);
+    }
+
+    .drawer-3d-tab[data-theme-tone="rose"] {
+      --tab-grad: linear-gradient(135deg, #f43f5e 0%, #e11d48 55%, #be185d 100%);
+      --tab-glow: rgba(244, 63, 94, 0.48);
+      --tab-bottom: rgba(136, 19, 55, 0.75);
+    }
+
+    .drawer-3d-tab[data-theme-tone="cyan"] {
+      --tab-grad: linear-gradient(135deg, #06b6d4 0%, #0284c7 55%, #2563eb 100%);
+      --tab-glow: rgba(6, 182, 212, 0.48);
+      --tab-bottom: rgba(22, 78, 99, 0.75);
+    }
+
+    .drawer-3d-tab[data-theme-tone="emerald"] {
+      --tab-grad: linear-gradient(135deg, #10b981 0%, #059669 55%, #0d9488 100%);
+      --tab-glow: rgba(16, 185, 129, 0.45);
+      --tab-bottom: rgba(6, 78, 59, 0.75);
+    }
+
+    .drawer-3d-tab[data-theme-tone="gold"] {
+      --tab-grad: linear-gradient(135deg, #eab308 0%, #d97706 55%, #b45309 100%);
+      --tab-glow: rgba(234, 179, 8, 0.45);
+      --tab-bottom: rgba(120, 53, 15, 0.75);
+    }
+
+    .drawer-3d-tab[data-theme-tone="fuchsia"] {
+      --tab-grad: linear-gradient(135deg, #d946ef 0%, #9333ea 55%, #7e22ce 100%);
+      --tab-glow: rgba(217, 70, 239, 0.46);
+      --tab-bottom: rgba(88, 28, 135, 0.75);
     }
 
     .drawer-tab-left {
+      position: relative;
+      z-index: 1;
       display: flex;
       align-items: center;
       gap: 10px;
+      min-width: 0;
+    }
+
+    .drawer-icon-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      display: grid;
+      place-items: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.5);
+    }
+
+    .drawer-tab-title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .drawer-chevron {
-      font-size: 0.85rem;
-      opacity: 0.7;
+      position: relative;
+      z-index: 1;
+      font-size: 0.95rem;
+      opacity: 0.92;
+      flex-shrink: 0;
     }
 
     /* MAIN CONTENT */
@@ -527,6 +633,7 @@
       border-radius: 18px;
       padding: 10px 16px;
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+      transition: background 0.35s ease, border-color 0.35s ease;
     }
 
     .search-glass-box input {
@@ -541,7 +648,7 @@
 
     .search-clear-btn {
       background: var(--pill-bg);
-      border: none;
+      border: 1px solid var(--glass-border);
       color: var(--text-secondary);
       width: 26px;
       height: 26px;
@@ -557,6 +664,8 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: 16px;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .section-title {
@@ -582,6 +691,149 @@
       font-weight: 500;
     }
 
+    /* DEDICATED ACTION PAGE CARD (FOR '+' UPLOAD PAGE & PROFILE VIEW) */
+    .dedicated-page-card {
+      grid-column: 1 / -1;
+      border-radius: 24px;
+      background: var(--glass-surface);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--card-shadow), inset 0 1px 0 var(--glass-highlight);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .page-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .back-page-btn {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--glass-border);
+      background: var(--pill-bg);
+      color: var(--text-primary);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .back-page-btn:hover {
+      background: rgba(245, 158, 11, 0.14);
+      transform: translateX(-2px);
+    }
+
+    /* PROFILE VIEW STYLES */
+    .profile-hero-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      padding: 20px;
+      border-radius: 20px;
+      background: var(--pill-bg);
+      border: 1px solid var(--glass-border);
+    }
+
+    .profile-user-main {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-width: 240px;
+    }
+
+    .profile-avatar-lg {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #f59e0b;
+      box-shadow: 0 8px 20px rgba(245, 158, 11, 0.25);
+      flex-shrink: 0;
+    }
+
+    .profile-name-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .profile-display-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+
+    .profile-status-pill {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.16);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    .profile-handle {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    .profile-bio {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 6px;
+      max-width: 56ch;
+    }
+
+    .profile-stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .profile-stat-box {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: var(--pill-bg);
+      border: 1px solid var(--glass-border);
+    }
+
+    .profile-stat-val {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .profile-stat-lbl {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .profile-edit-box {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      padding: 16px;
+      border-radius: 18px;
+      background: var(--pill-bg);
+      border: 1px solid var(--glass-border);
+    }
+
     /* SUBSCRIBED CHANNELS STRIP */
     .subs-channels-panel {
       grid-column: 1 / -1;
@@ -592,6 +844,7 @@
       box-shadow: var(--card-shadow), inset 0 1px 0 var(--glass-highlight);
       padding: 18px;
       margin-bottom: 6px;
+      transition: background 0.35s ease, border-color 0.35s ease;
     }
 
     .subs-panel-title {
@@ -616,6 +869,7 @@
       border-radius: 16px;
       background: var(--pill-bg);
       border: 1px solid var(--glass-border);
+      transition: background 0.25s ease, border-color 0.25s ease;
     }
 
     .channel-left {
@@ -684,6 +938,7 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
+      transition: background 0.35s ease, border-color 0.35s ease;
     }
 
     .info-badge {
@@ -774,7 +1029,7 @@
       overflow: hidden;
       cursor: pointer;
       transform-style: preserve-3d;
-      transition: transform 0.18s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+      transition: transform 0.18s ease-out, box-shadow 0.3s ease, border-color 0.3s ease, background 0.35s ease;
       will-change: transform;
     }
 
@@ -825,7 +1080,7 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.16), rgba(59, 130, 246, 0.14));
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.18), rgba(59, 130, 246, 0.16));
       color: var(--text-primary);
       padding: 12px;
       text-align: center;
@@ -989,6 +1244,11 @@
       font-weight: 700;
       font-size: 0.85rem;
       cursor: pointer;
+      transition: background 0.25s ease, transform 0.2s ease;
+    }
+
+    .load-more-btn:hover {
+      transform: translateY(-1px);
     }
 
     /* 2. BOTTOM DOCK (Adapts to Dark & Light Theme) */
@@ -1039,7 +1299,7 @@
       stroke-width: 2.3;
       stroke-linecap: round;
       filter: drop-shadow(0 0 6px var(--red-neon)) drop-shadow(0 0 12px var(--red-neon));
-      transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
     }
 
     .dock-item {
@@ -1116,9 +1376,10 @@
       transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.35s ease;
     }
 
-    .standalone-plus-btn:hover {
+    .standalone-plus-btn:hover,
+    .standalone-plus-btn.active {
       transform: translateY(-13px) scale(1.08) rotate(90deg);
-      box-shadow: 0 12px 26px rgba(0, 245, 212, 0.7);
+      box-shadow: 0 12px 26px rgba(0, 245, 212, 0.75);
     }
 
     .standalone-plus-btn svg {
@@ -1127,7 +1388,7 @@
       stroke-width: 2.8;
     }
 
-    /* MODALS */
+    /* PLAYER MODAL */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -1156,7 +1417,7 @@
       overflow: hidden;
       box-shadow: 0 32px 64px rgba(0, 0, 0, 0.72);
       transform: scale(0.94) translateY(12px);
-      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.35s ease, border-color 0.35s ease;
     }
 
     .modal-backdrop.open .glass-modal {
@@ -1237,11 +1498,11 @@
       color: var(--red-neon);
     }
 
-    .create-form {
-      padding: 24px;
+    .upload-page-form {
       display: flex;
       flex-direction: column;
       gap: 12px;
+      max-width: 540px;
     }
 
     .form-label {
@@ -1255,23 +1516,39 @@
       padding: 11px 14px;
       border-radius: 14px;
       border: 1px solid var(--glass-border);
-      background: var(--pill-bg);
+      background: var(--input-bg);
       color: var(--text-primary);
       font-family: inherit;
       font-size: 0.9rem;
       outline: none;
+      transition: border-color 0.2s ease, background 0.3s ease;
+    }
+
+    .form-input:focus {
+      border-color: rgba(245, 158, 11, 0.65);
+    }
+
+    .form-input option {
+      background: var(--select-option-bg);
+      color: var(--text-primary);
     }
 
     .submit-create-btn {
-      padding: 12px;
+      padding: 11px 18px;
       border-radius: 14px;
       border: none;
       background: linear-gradient(135deg, #f59e0b, #ea580c);
       color: #fff;
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       cursor: pointer;
-      margin-top: 4px;
+      box-shadow: 0 8px 20px rgba(234, 88, 12, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .submit-create-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(234, 88, 12, 0.45);
     }
 
     .toast-msg {
@@ -1312,6 +1589,9 @@
       .contact-grid {
         grid-template-columns: 1fr;
       }
+      .profile-edit-box {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 768px) {
@@ -1319,7 +1599,8 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 14px;
       }
-      .channels-grid {
+      .channels-grid,
+      .profile-stats-row {
         grid-template-columns: 1fr;
       }
       .brand-name {
@@ -1398,9 +1679,9 @@
 
   <div id="toast" class="toast-msg"></div>
 
-  <!-- LOGO SIDE DRAWER -->
+  <!-- LOGO SIDE DRAWER (3D COLORFUL TABS -> .html FILES) -->
   <div class="logo-drawer-backdrop" id="logoDrawerBackdrop" onclick="closeLogoDrawer()"></div>
-  <aside class="logo-side-drawer" id="logoSideDrawer" aria-label="Site Navigation Tabs">
+  <aside class="logo-side-drawer" id="logoSideDrawer" aria-label="HTML Pages Navigation">
     <div class="drawer-header">
       <div class="drawer-brand-title">
         <div class="brand-icon" style="width:30px; height:30px; border-radius:9px;">
@@ -1413,43 +1694,14 @@
       <button class="drawer-close-btn" onclick="closeLogoDrawer()" aria-label="Close Menu">✕</button>
     </div>
 
-    <span class="drawer-section-label">Site Channels & Tabs</span>
-    <div class="drawer-tab-list" id="drawerTabList">
-      <button class="drawer-tab-btn active" data-drawer-tab="All Streams" data-drawer-cat="All" onclick="openTabPage(this, 'All Streams', 'All')">
-        <span class="drawer-tab-left"><span>✦</span><span>All Streams</span></span>
-        <span class="drawer-chevron">›</span>
-      </button>
-      <button class="drawer-tab-btn" data-drawer-tab="UI Architecture" data-drawer-cat="UI Architecture" onclick="openTabPage(this, 'UI Architecture', 'UI Architecture')">
-        <span class="drawer-tab-left"><span>◈</span><span>UI Architecture</span></span>
-        <span class="drawer-chevron">›</span>
-      </button>
-      <button class="drawer-tab-btn" data-drawer-tab="Cinematography" data-drawer-cat="Cinematography" onclick="openTabPage(this, 'Cinematography', 'Cinematography')">
-        <span class="drawer-tab-left"><span>🎬</span><span>Cinematography</span></span>
-        <span class="drawer-chevron">›</span>
-      </button>
-      <button class="drawer-tab-btn" data-drawer-tab="Hardware" data-drawer-cat="Hardware" onclick="openTabPage(this, 'Hardware', 'Hardware')">
-        <span class="drawer-tab-left"><span>⚙</span><span>Hardware</span></span>
-        <span class="drawer-chevron">›</span>
-      </button>
-      <button class="drawer-tab-btn" data-drawer-tab="Spatial Audio" data-drawer-cat="Spatial Audio" onclick="openTabPage(this, 'Spatial Audio', 'Spatial Audio')">
-        <span class="drawer-tab-left"><span>🎧</span><span>Spatial Audio</span></span>
-        <span class="drawer-chevron">›</span>
-      </button>
-      <button class="drawer-tab-btn" data-drawer-tab="Travel" data-drawer-cat="Travel" onclick="openTabPage(this, 'Travel', 'Travel')">
-        <span class="drawer-tab-left"><span>✈</span><span>Travel</span></span>
-        <span class="drawer-chevron">›</span>
-      </button>
-      <button class="drawer-tab-btn" data-drawer-tab="Saved Videos" data-drawer-cat="Saved" onclick="openTabPage(this, 'Saved Videos', 'Saved')">
-        <span class="drawer-tab-left"><span>★</span><span>Saved Videos</span></span>
-        <span class="drawer-chevron">›</span>
-      </button>
-    </div>
+    <span class="drawer-section-label">3D Channels & Pages</span>
+    <div class="drawer-tab-list" id="drawerFileList"></div>
   </aside>
 
   <!-- 1. TOP BAR -->
   <header class="top-header-wrapper">
     <div class="unified-top-bar">
-      <div class="brand" onclick="openLogoDrawer()" title="Open Site Tabs">
+      <div class="brand" onclick="openLogoDrawer()" title="Open 3D Tabs">
         <div class="brand-icon">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
             <polygon points="6 4 20 12 6 20 6 4"></polygon>
@@ -1534,7 +1786,7 @@
       </button>
 
       <div class="dock-create-slot">
-        <button class="standalone-plus-btn" onclick="openCreateModal()" aria-label="Upload or Add Video">
+        <button class="standalone-plus-btn" id="plusActionBtn" onclick="openUploadPage()" aria-label="Open Upload Video Page">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
       </div>
@@ -1545,9 +1797,9 @@
         <span class="dock-label">Inbox</span>
       </button>
 
-      <button class="dock-item" data-index="4" onclick="selectBottomDock(4, 'Saved')">
+      <button class="dock-item" data-index="4" onclick="selectBottomDock(4, 'Profile')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span class="dock-label">Saved</span>
+        <span class="dock-label">Profile</span>
       </button>
     </div>
   </div>
@@ -1574,43 +1826,31 @@
     </div>
   </div>
 
-  <!-- UPLOAD / ADD VIDEO MODAL ('+' Button) -->
-  <div class="modal-backdrop" id="createModal" onclick="closeModalOnBg(event, 'createModal')">
-    <div class="glass-modal" style="max-width: 450px;">
-      <div class="create-form">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;">Upload or Add Video</h3>
-          <button class="search-clear-btn" onclick="closeModal('createModal')">✕</button>
-        </div>
-
-        <label class="form-label" for="newTitle">Video Title</label>
-        <input type="text" id="newTitle" class="form-input" placeholder="Enter video title..." />
-
-        <label class="form-label" for="newAuthor">Channel Name</label>
-        <input type="text" id="newAuthor" class="form-input" placeholder="e.g. Veltrix Studio" />
-
-        <label class="form-label" for="newVideoFile">Upload Video File (MP4 / WebM)</label>
-        <input type="file" id="newVideoFile" class="form-input" accept="video/*" />
-
-        <label class="form-label" for="newVideoUrl">Or YouTube / Direct Video URL</label>
-        <input type="text" id="newVideoUrl" class="form-input" placeholder="https://youtu.be/... or direct .mp4 link" />
-
-        <label class="form-label" for="newSection">Tab / Section</label>
-        <select id="newSection" class="form-input">
-          <option value="Music">Music</option>
-          <option value="Live">Live</option>
-          <option value="Subs">Subs (Channel)</option>
-          <option value="Home">Home</option>
-        </select>
-
-        <button class="submit-create-btn" onclick="publishNewItem()">Upload & Run Video</button>
-      </div>
-    </div>
-  </div>
-
   <script>
     const DEFAULT_AVATAR = 'https://images.unsplash.com/photo-1614680376593-902f74cf0d41?auto=format&fit=crop&w=120&q=80';
     const DEFAULT_THUMB = 'https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&w=800&q=80';
+
+    // Label shown without `.html`, while `href` still points to your actual `.html` page file
+    const HTML_FILE_TABS = [
+      { icon: '✦', label: 'All Streams', href: 'all-streams.html', tone: 'amber' },
+      { icon: '◈', label: 'UI Architecture', href: 'ui-architecture.html', tone: 'violet' },
+      { icon: '🎬', label: 'Cinematography', href: 'cinematography.html', tone: 'rose' },
+      { icon: '⚙', label: 'Hardware', href: 'hardware.html', tone: 'cyan' },
+      { icon: '🎧', label: 'Spatial Audio', href: 'spatial-audio.html', tone: 'emerald' },
+      { icon: '✈', label: 'Travel', href: 'travel.html', tone: 'gold' },
+      { icon: '★', label: 'Saved Videos', href: 'saved-videos.html', tone: 'fuchsia' }
+    ];
+
+    // Logged-in User Profile State
+    let loggedInUser = {
+      isLoggedIn: true,
+      name: 'Pazzan Silva',
+      handle: '@itz_pazzan',
+      email: 'pazzan.veltrix@example.com',
+      bio: 'Creator & UI explorer crafting 3D spatial glass experiences, cinematography streams, and audio sessions.',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=160&q=80'
+    };
+    let isEditingProfile = false;
 
     // Subscribed Channels for 'Subs' Tab
     let subscribedChannels = [
@@ -1677,7 +1917,7 @@
         duration: '14:20',
         thumb: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
         avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80',
-        saved: false
+        saved: true
       },
       {
         id: 302,
@@ -1746,21 +1986,126 @@
     let activeTopSection = 'Home';
     let activeCategory = 'All';
     let activePageTabName = 'All Streams';
+    let activeActionPage = ''; // e.g., 'Upload Video'
     let searchQuery = '';
     let bottomMode = 'Home';
     let currentPlayingItem = null;
     let visibleLimit = 24;
+    let isSyncingFromHash = false;
 
     window.addEventListener('DOMContentLoaded', () => {
-      const initialTab = document.querySelector('.nav-tab.active');
-      positionLiquidPill(initialTab);
-      renderContent();
+      renderDrawerHtmlFileButtons();
+
+      if (window.location.hash && window.location.hash.startsWith('#page/')) {
+        applyRouteFromHash(window.location.hash, false);
+      } else {
+        updateBrowserTabPage('All Streams', 'all-streams');
+        const initialTab = document.querySelector('.nav-tab.active');
+        positionLiquidPill(initialTab);
+        syncPlusButtonState();
+        renderContent();
+      }
+    });
+
+    window.addEventListener('hashchange', () => {
+      applyRouteFromHash(window.location.hash, true);
     });
 
     window.addEventListener('resize', () => {
       const currentTab = document.querySelector('.nav-tab.active');
       if (currentTab) positionLiquidPill(currentTab);
     });
+
+    function renderDrawerHtmlFileButtons() {
+      const listEl = document.getElementById('drawerFileList');
+      if (!listEl) return;
+      listEl.innerHTML = HTML_FILE_TABS.map(item => `
+        <a class="drawer-3d-tab" data-theme-tone="${item.tone}" href="${item.href}" onclick="closeLogoDrawer()">
+          <span class="drawer-tab-left">
+            <span class="drawer-icon-badge">${item.icon}</span>
+            <span class="drawer-tab-title">${item.label}</span>
+          </span>
+          <span class="drawer-chevron">›</span>
+        </a>
+      `).join('');
+    }
+
+    function toSlug(name) {
+      return encodeURIComponent(name.toLowerCase().trim().replace(/\s+/g, '-'));
+    }
+
+    function applyRouteFromHash(hashValue, withAnim) {
+      const clean = (hashValue || '').replace(/^#page\//, '').split('?')[0].toLowerCase().trim();
+      if (!clean) return;
+
+      isSyncingFromHash = true;
+
+      if (clean === 'upload-video' || clean === 'upload') {
+        activeActionPage = 'Upload Video';
+        bottomMode = 'Home';
+        activePageTabName = 'Upload Video';
+        document.title = 'Upload Video — Veltrix';
+        document.getElementById('searchDrawer').classList.remove('open');
+        syncBottomDockVisual(-1);
+        syncPlusButtonState();
+      } else if (clean === 'home') {
+        activeActionPage = '';
+        bottomMode = 'Home';
+        activeTopSection = 'Home';
+        activeCategory = 'All';
+        activePageTabName = 'Home';
+        document.title = 'Home — Veltrix';
+        document.getElementById('searchDrawer').classList.remove('open');
+        syncTopNavActive('Home');
+        syncBottomDockVisual(0);
+        syncPlusButtonState();
+      } else if (clean === 'search') {
+        activeActionPage = '';
+        bottomMode = 'Search';
+        activePageTabName = 'Search';
+        document.title = 'Search — Veltrix';
+        syncBottomDockVisual(1);
+        syncPlusButtonState();
+        const searchDrawer = document.getElementById('searchDrawer');
+        searchDrawer.classList.add('open');
+        setTimeout(() => document.getElementById('searchInput').focus(), 180);
+      } else if (clean === 'inbox') {
+        activeActionPage = '';
+        bottomMode = 'Inbox';
+        activePageTabName = 'Inbox';
+        document.title = 'Inbox — Veltrix';
+        document.getElementById('searchDrawer').classList.remove('open');
+        document.getElementById('inboxBadge').style.display = 'none';
+        syncBottomDockVisual(3);
+        syncPlusButtonState();
+      } else if (clean === 'profile') {
+        activeActionPage = '';
+        bottomMode = 'Profile';
+        activeCategory = 'All';
+        activePageTabName = 'Profile';
+        document.title = 'Profile — Veltrix';
+        document.getElementById('searchDrawer').classList.remove('open');
+        syncBottomDockVisual(4);
+        syncPlusButtonState();
+      } else if (['subs', 'music', 'live', 'more'].includes(clean)) {
+        const secMap = { subs: 'Subs', music: 'Music', live: 'Live', more: 'More' };
+        const secName = secMap[clean];
+        activeActionPage = '';
+        activeTopSection = secName;
+        activeCategory = 'All';
+        bottomMode = 'Home';
+        activePageTabName = secName;
+        document.title = `${secName} — Veltrix`;
+        document.getElementById('searchDrawer').classList.remove('open');
+        syncTopNavActive(secName);
+        syncBottomDockVisual(0);
+        syncPlusButtonState();
+      }
+
+      if (withAnim) triggerPageTransition();
+      renderContent();
+      isSyncingFromHash = false;
+    }
 
     function triggerPageTransition() {
       const pageEl = document.getElementById('pageContainer');
@@ -1770,12 +2115,28 @@
       pageEl.classList.add('page-switch-anim');
     }
 
-    function updateBrowserTabPage(tabName) {
+    function updateBrowserTabPage(tabName, customSlug = '') {
       activePageTabName = tabName;
       document.title = `${tabName} — Veltrix`;
-      const slug = encodeURIComponent(tabName.toLowerCase().replace(/\s+/g, '-'));
-      if (window.history && window.history.replaceState) {
-        window.history.replaceState({ tab: tabName }, `${tabName} — Veltrix`, `#${slug}`);
+      const slug = customSlug || toSlug(tabName);
+      const targetHash = `#page/${slug}`;
+      if (!isSyncingFromHash && window.location.hash !== targetHash) {
+        window.location.hash = targetHash;
+      }
+    }
+
+    function syncTopNavActive(sectionName) {
+      document.querySelectorAll('.nav-tab').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.section === sectionName);
+      });
+      const activeEl = document.querySelector(`.nav-tab[data-section="${sectionName}"]`);
+      if (activeEl) positionLiquidPill(activeEl);
+    }
+
+    function syncPlusButtonState() {
+      const plusBtn = document.getElementById('plusActionBtn');
+      if (plusBtn) {
+        plusBtn.classList.toggle('active', activeActionPage === 'Upload Video');
       }
     }
 
@@ -1789,36 +2150,28 @@
       document.getElementById('logoSideDrawer').classList.remove('open');
     }
 
-    function openTabPage(btnEl, tabName, catValue) {
-      document.querySelectorAll('.drawer-tab-btn').forEach(b => b.classList.remove('active'));
-      if (btnEl) btnEl.classList.add('active');
-
-      activeTopSection = 'Home';
-      visibleLimit = 24;
-      updateBrowserTabPage(tabName);
-
-      const homeTopTab = document.querySelector('.nav-tab[data-section="Home"]');
-      if (homeTopTab) {
-        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-        homeTopTab.classList.add('active');
-        positionLiquidPill(homeTopTab);
-      }
-
-      if (catValue === 'Saved') {
-        bottomMode = 'Saved';
-        activeCategory = 'All';
-        syncBottomDockVisual(4);
-      } else {
-        bottomMode = 'Home';
-        activeCategory = catValue;
-        syncBottomDockVisual(0);
-      }
-
+    function openUploadPage() {
+      activeActionPage = 'Upload Video';
+      syncPlusButtonState();
+      syncBottomDockVisual(-1);
+      updateBrowserTabPage('Upload Video', 'upload-video');
       document.getElementById('searchDrawer').classList.remove('open');
-      closeLogoDrawer();
       triggerPageTransition();
       renderContent();
-      showToast(`Opened ${tabName}`);
+      showToast('Opened Upload Video');
+    }
+
+    function goBackToMainFeed() {
+      activeActionPage = '';
+      bottomMode = 'Home';
+      activeTopSection = 'Home';
+      activeCategory = 'All';
+      syncPlusButtonState();
+      updateBrowserTabPage('All Streams', 'all-streams');
+      syncTopNavActive('Home');
+      syncBottomDockVisual(0);
+      triggerPageTransition();
+      renderContent();
     }
 
     function positionLiquidPill(tabEl) {
@@ -1833,11 +2186,13 @@
       tabEl.classList.add('active');
       positionLiquidPill(tabEl);
 
+      activeActionPage = '';
       activeTopSection = sectionName;
       activeCategory = 'All';
       bottomMode = 'Home';
       visibleLimit = 24;
-      updateBrowserTabPage(sectionName);
+      syncPlusButtonState();
+      updateBrowserTabPage(sectionName, sectionName.toLowerCase());
       document.getElementById('searchDrawer').classList.remove('open');
       syncBottomDockVisual(0);
       triggerPageTransition();
@@ -1861,9 +2216,12 @@
     }
 
     function selectBottomDock(slotIndex, modeName) {
+      activeActionPage = '';
+      syncPlusButtonState();
       syncBottomDockVisual(slotIndex);
       bottomMode = modeName;
       visibleLimit = 24;
+      updateBrowserTabPage(modeName, modeName.toLowerCase());
 
       const searchDrawer = document.getElementById('searchDrawer');
       if (modeName === 'Search') {
@@ -1887,8 +2245,13 @@
       });
 
       const wavePath = document.getElementById('neonWavePath');
-      const offsetX = slotIndex * 100;
-      wavePath.style.transform = `translateX(${offsetX}px)`;
+      if (slotIndex < 0) {
+        wavePath.style.opacity = '0';
+      } else {
+        wavePath.style.opacity = '1';
+        const offsetX = slotIndex * 100;
+        wavePath.style.transform = `translateX(${offsetX}px)`;
+      }
     }
 
     function closeSearchDrawer() {
@@ -1911,14 +2274,227 @@
       renderContent();
     }
 
+    function toggleProfileEdit() {
+      isEditingProfile = !isEditingProfile;
+      renderContent();
+    }
+
+    function saveProfileDetails() {
+      const nameVal = document.getElementById('editUserName').value.trim();
+      const handleVal = document.getElementById('editUserHandle').value.trim();
+      const emailVal = document.getElementById('editUserEmail').value.trim();
+      const bioVal = document.getElementById('editUserBio').value.trim();
+
+      if (nameVal) loggedInUser.name = nameVal;
+      if (handleVal) loggedInUser.handle = handleVal.startsWith('@') ? handleVal : `@${handleVal}`;
+      if (emailVal) loggedInUser.email = emailVal;
+      loggedInUser.bio = bioVal;
+
+      isEditingProfile = false;
+      showToast('Profile updated');
+      renderContent();
+    }
+
+    function toggleAuthSession() {
+      loggedInUser.isLoggedIn = !loggedInUser.isLoggedIn;
+      isEditingProfile = false;
+      showToast(loggedInUser.isLoggedIn ? `Logged in as ${loggedInUser.name}` : 'Signed out');
+      renderContent();
+    }
+
+    function renderProfileView(heading, countEl, grid) {
+      heading.textContent = 'Profile';
+      countEl.textContent = loggedInUser.isLoggedIn ? `${loggedInUser.handle} • #page/profile` : 'Signed out • #page/profile';
+
+      if (!loggedInUser.isLoggedIn) {
+        grid.innerHTML = `
+          <div class="dedicated-page-card">
+            <div class="page-top-row">
+              <div>
+                <span class="info-badge">Account Session</span>
+                <h3 class="info-heading">You are currently signed out</h3>
+                <p class="info-desc">Sign back in to view your logged-in user profile, saved videos, and subscriptions.</p>
+              </div>
+              <button class="submit-create-btn" onclick="toggleAuthSession()">Log In to Account</button>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      const savedCount = mediaItems.filter(m => m.saved).length;
+      const subCount = subscribedChannels.filter(c => c.subscribed).length;
+      const savedVideos = mediaItems.filter(m => m.saved);
+
+      const editFormHtml = isEditingProfile ? `
+        <div class="profile-edit-box">
+          <div>
+            <label class="form-label" for="editUserName">Display Name</label>
+            <input type="text" id="editUserName" class="form-input" value="${loggedInUser.name}" />
+          </div>
+          <div>
+            <label class="form-label" for="editUserHandle">Username</label>
+            <input type="text" id="editUserHandle" class="form-input" value="${loggedInUser.handle}" />
+          </div>
+          <div>
+            <label class="form-label" for="editUserEmail">Email</label>
+            <input type="email" id="editUserEmail" class="form-input" value="${loggedInUser.email}" />
+          </div>
+          <div>
+            <label class="form-label" for="editUserBio">Bio</label>
+            <input type="text" id="editUserBio" class="form-input" value="${loggedInUser.bio}" />
+          </div>
+          <div style="grid-column: 1 / -1; display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="submit-create-btn" onclick="saveProfileDetails()">Save Profile</button>
+            <button class="back-page-btn" onclick="toggleProfileEdit()">Cancel</button>
+          </div>
+        </div>
+      ` : '';
+
+      const savedCardsHtml = savedVideos.length ? `
+        <div style="margin-top: 6px;">
+          <div class="subs-panel-title">Saved Videos (${savedVideos.length})</div>
+          <div class="media-grid">
+            ${savedVideos.map(item => {
+              const ytId = extractYouTubeId(item.youtubeUrl);
+              const displayThumb = item.thumb || (ytId ? `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg` : '');
+              const thumbInner = displayThumb
+                ? `<img src="${displayThumb}" alt="${item.title}" loading="lazy" />`
+                : `<div class="slot-placeholder-thumb">
+                     <span class="slot-placeholder-label">${item.slotLabel || item.title}</span>
+                     <span class="slot-placeholder-sub">Saved video slot</span>
+                   </div>`;
+              return `
+                <article class="glass-card" onclick="openPlayer(${item.id})" onmousemove="handleCardTilt(event, this)" onmouseleave="resetCardTilt(this)">
+                  <div class="card-glare"></div>
+                  <div class="thumb-wrapper">
+                    ${thumbInner}
+                    <span class="section-pill-badge">${item.section}</span>
+                    <button class="bookmark-mini-btn saved" onclick="toggleBookmark(event, ${item.id})" title="Remove saved">★</button>
+                    <div class="play-hover-orb">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+                    </div>
+                    <span class="duration-badge">${item.duration}</span>
+                  </div>
+                  <div class="card-body">
+                    <img class="creator-avatar" src="${item.avatar}" alt="${item.author}" />
+                    <div class="card-info">
+                      <h3 class="card-title">${item.title}</h3>
+                      <div class="card-author">${item.author}</div>
+                      <div class="card-stats">${item.views}</div>
+                    </div>
+                  </div>
+                </article>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      ` : `
+        <div style="padding: 18px; border-radius: 16px; background: var(--pill-bg); border: 1px solid var(--glass-border); color: var(--text-secondary); font-size: 0.88rem;">
+          No saved videos yet. Tap ★ on any video card to save it to your profile.
+        </div>
+      `;
+
+      grid.innerHTML = `
+        <div class="dedicated-page-card">
+          <div class="page-top-row">
+            <span class="info-badge">Logged-In User Profile</span>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <button class="back-page-btn" onclick="toggleProfileEdit()">${isEditingProfile ? 'Close Edit' : 'Edit Profile'}</button>
+              <button class="back-page-btn" onclick="toggleAuthSession()">Log Out</button>
+            </div>
+          </div>
+
+          <div class="profile-hero-card">
+            <div class="profile-user-main">
+              <img class="profile-avatar-lg" src="${loggedInUser.avatar}" alt="${loggedInUser.name}" />
+              <div>
+                <div class="profile-name-row">
+                  <h3 class="profile-display-name">${loggedInUser.name}</h3>
+                  <span class="profile-status-pill">Logged In</span>
+                </div>
+                <div class="profile-handle">${loggedInUser.handle} • ${loggedInUser.email}</div>
+                <p class="profile-bio">${loggedInUser.bio}</p>
+              </div>
+            </div>
+          </div>
+
+          ${editFormHtml}
+
+          <div class="profile-stats-row">
+            <div class="profile-stat-box">
+              <div class="profile-stat-val">${savedCount}</div>
+              <div class="profile-stat-lbl">Saved Videos</div>
+            </div>
+            <div class="profile-stat-box">
+              <div class="profile-stat-val">${subCount}</div>
+              <div class="profile-stat-lbl">Subscribed Channels</div>
+            </div>
+            <div class="profile-stat-box">
+              <div class="profile-stat-val">${document.documentElement.getAttribute('data-theme').toUpperCase()}</div>
+              <div class="profile-stat-lbl">Active Theme</div>
+            </div>
+          </div>
+
+          ${savedCardsHtml}
+        </div>
+      `;
+    }
+
     function renderContent() {
       const grid = document.getElementById('mediaGrid');
       const heading = document.getElementById('sectionHeading');
       const countEl = document.getElementById('itemCount');
 
-      if (bottomMode !== 'Saved' && activeTopSection === 'More') {
-        heading.textContent = 'More — About Veltrix & Contact';
-        countEl.textContent = 'Contact Info';
+      if (activeActionPage === 'Upload Video') {
+        heading.textContent = 'Upload Video';
+        countEl.textContent = 'Page View • #page/upload-video';
+        grid.innerHTML = `
+          <div class="dedicated-page-card">
+            <div class="page-top-row">
+              <div>
+                <span class="info-badge">Upload Video</span>
+                <h3 class="info-heading">Upload or Add New Video</h3>
+              </div>
+              <button class="back-page-btn" onclick="goBackToMainFeed()">← Back to All Streams</button>
+            </div>
+
+            <div class="upload-page-form">
+              <label class="form-label" for="newTitle">Video Title</label>
+              <input type="text" id="newTitle" class="form-input" placeholder="Enter video title..." />
+
+              <label class="form-label" for="newAuthor">Channel Name</label>
+              <input type="text" id="newAuthor" class="form-input" placeholder="e.g. Veltrix Studio" />
+
+              <label class="form-label" for="newVideoFile">Upload Video File (MP4 / WebM)</label>
+              <input type="file" id="newVideoFile" class="form-input" accept="video/mp4,video/webm,video/*" />
+
+              <label class="form-label" for="newVideoUrl">Or YouTube / Direct Video URL</label>
+              <input type="text" id="newVideoUrl" class="form-input" placeholder="https://youtu.be/... or direct .mp4 link" />
+
+              <label class="form-label" for="newSection">Tab / Section</label>
+              <select id="newSection" class="form-input">
+                <option value="Music">Music</option>
+                <option value="Live">Live</option>
+                <option value="Subs">Subs (Channel)</option>
+                <option value="Home">Home</option>
+              </select>
+
+              <button class="submit-create-btn" onclick="publishNewItem()">Upload & Run Video</button>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      if (bottomMode === 'Profile') {
+        renderProfileView(heading, countEl, grid);
+        return;
+      }
+
+      if (activeTopSection === 'More') {
+        heading.textContent = 'More';
+        countEl.textContent = 'Contact Info • #page/more';
         grid.innerHTML = `
           <div class="info-panel-card">
             <div>
@@ -1964,7 +2540,7 @@
 
       if (bottomMode === 'Inbox') {
         heading.textContent = 'Inbox';
-        countEl.textContent = '3 updates';
+        countEl.textContent = '3 updates • #page/inbox';
         grid.innerHTML = `
           <article class="glass-card" style="grid-column: 1 / -1; padding: 20px;">
             <div style="display:flex; flex-direction:column; gap:14px;">
@@ -1984,12 +2560,10 @@
       }
 
       let filtered = mediaItems.filter(item => {
-        if (bottomMode === 'Saved' && !item.saved) return false;
-
-        if (bottomMode !== 'Saved' && activeTopSection === 'Subs' && activeCategory === 'All' && !searchQuery) {
+        if (activeTopSection === 'Subs' && activeCategory === 'All' && !searchQuery) {
           const activeNames = subscribedChannels.filter(c => c.subscribed).map(c => c.name);
           if (item.section !== 'Subs' || !activeNames.includes(item.author)) return false;
-        } else if (bottomMode !== 'Saved' && activeTopSection !== 'Home' && activeTopSection !== 'Subs' && activeCategory === 'All' && !searchQuery) {
+        } else if (activeTopSection !== 'Home' && activeTopSection !== 'Subs' && activeCategory === 'All' && !searchQuery) {
           if (item.section !== activeTopSection) return false;
         }
 
@@ -2005,8 +2579,8 @@
       });
 
       let subsHeaderHtml = '';
-      if (bottomMode !== 'Saved' && activeTopSection === 'Subs') {
-        heading.textContent = 'Subs — Subscribed Channels';
+      if (activeTopSection === 'Subs') {
+        heading.textContent = 'Subs';
         countEl.textContent = `${subscribedChannels.filter(c => c.subscribed).length} channels • ${filtered.length} videos`;
         subsHeaderHtml = `
           <div class="subs-channels-panel">
@@ -2029,20 +2603,17 @@
             </div>
           </div>
         `;
-      } else if (bottomMode === 'Saved') {
-        heading.textContent = 'Saved Videos';
-        countEl.textContent = `${filtered.length} videos`;
       } else if (activeCategory !== 'All') {
         heading.textContent = activePageTabName;
         countEl.textContent = `${filtered.length} videos`;
       } else if (activeTopSection === 'Music') {
-        heading.textContent = 'Music — 100 Videos';
+        heading.textContent = 'Music';
         countEl.textContent = `${filtered.length} videos`;
       } else if (activeTopSection === 'Live') {
-        heading.textContent = 'Live — 100 Videos';
+        heading.textContent = 'Live';
         countEl.textContent = `${filtered.length} videos`;
       } else {
-        heading.textContent = 'All Streams';
+        heading.textContent = activePageTabName === 'Home' ? 'Home' : 'All Streams';
         countEl.textContent = `${filtered.length} videos`;
       }
 
@@ -2141,7 +2712,7 @@
       const item = mediaItems.find(m => m.id === id);
       if (!item) return;
       item.saved = !item.saved;
-      showToast(item.saved ? 'Saved to your collection' : 'Removed from saved');
+      showToast(item.saved ? 'Saved to your profile' : 'Removed from saved');
       renderContent();
     }
 
@@ -2198,7 +2769,7 @@
 
     function closePlayerModal() {
       document.getElementById('playerStage').innerHTML = '';
-      closeModal('playerModal');
+      document.getElementById('playerModal').classList.remove('open');
     }
 
     function toggleLike() {
@@ -2212,10 +2783,6 @@
       currentPlayingItem.saved = !currentPlayingItem.saved;
       document.getElementById('modalSaveBtn').textContent = currentPlayingItem.saved ? '★ Saved' : '☆ Save';
       renderContent();
-    }
-
-    function openCreateModal() {
-      document.getElementById('createModal').classList.add('open');
     }
 
     function publishNewItem() {
@@ -2255,23 +2822,22 @@
         saved: false
       });
 
-      document.getElementById('newTitle').value = '';
-      document.getElementById('newAuthor').value = '';
-      document.getElementById('newVideoFile').value = '';
-      document.getElementById('newVideoUrl').value = '';
-      closeModal('createModal');
+      activeActionPage = '';
+      bottomMode = 'Home';
+      activeTopSection = 'Home';
+      activeCategory = 'All';
+      syncPlusButtonState();
+      syncTopNavActive('Home');
+      updateBrowserTabPage('All Streams', 'all-streams');
+      syncBottomDockVisual(0);
+      triggerPageTransition();
       renderContent();
-      showToast('Video added & ready to play!');
-    }
-
-    function closeModal(id) {
-      document.getElementById(id).classList.remove('open');
+      showToast('Video uploaded & ready to play!');
     }
 
     function closeModalOnBg(e, id) {
-      if (e.target.id === id) {
-        if (id === 'playerModal') closePlayerModal();
-        else closeModal(id);
+      if (e.target.id === id && id === 'playerModal') {
+        closePlayerModal();
       }
     }
 
