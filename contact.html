@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1120">
+<title>Contact | NextGen Play</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+ margin:0;padding:0;box-sizing:border-box;
+ -webkit-tap-highlight-color:transparent;
+}
+:root{
+ --bg:#0b1120;--text:#f8fafc;--muted:#94a3b8;
+ --gold:#fbbf24;--amber:#f59e0b;--blue:#3b82f6;--teal:#14b8a6;
+}
+html,body{
+ width:100%;min-height:100%;
+ overflow-x:hidden;
+}
+body{
+ background:var(--bg);color:var(--text);
+ font-family:Inter,sans-serif;
+ transition:background .45s,color .45s;
+}
+button,a,input,textarea{font:inherit}
+button,a{cursor:pointer}
+a{color:inherit;text-decoration:none}
+
+/* BACKGROUND */
+.background{
+ position:fixed;inset:0;z-index:-2;overflow:hidden;
+ background:
+ radial-gradient(circle at 50% 22%,rgba(245,158,11,.08),transparent 48%),
+ radial-gradient(ellipse at 14% 18%,rgba(59,130,246,.14),transparent 42%),
+ radial-gradient(ellipse at 86% 82%,rgba(20,184,166,.12),transparent 42%),
+ #0b1120;
+ transition:background .5s;
+}
+.orb{
+ position:absolute;width:360px;height:360px;
+ border-radius:50%;filter:blur(135px);opacity:.14;
+ animation:floatOrb 12s ease-in-out infinite alternate;
+}
+.orb1{background:#3b82f6;top:10%;left:-160px}
+.orb2{background:#f59e0b;right:-170px;top:18%;animation-delay:-4s}
+.orb3{background:#14b8a6;bottom:-220px;left:34%;animation-delay:-7s}
+@keyframes floatOrb{
+ to{transform:translate(85px,55px) scale(1.16)}
+}
+
+/* TOP BAR */
+.top-bar{
+ position:fixed;top:16px;left:16px;right:16px;
+ display:flex;justify-content:space-between;align-items:center;
+ z-index:300;pointer-events:none;
+}
+.top-bar>*{pointer-events:auto}
+.top-right{display:flex;align-items:center;gap:10px}
+
+.back-btn{
+ display:inline-flex;align-items:center;gap:8px;
+ padding:10px 15px;border-radius:14px;
+ border:1px solid rgba(255,255,255,.15);
+ background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.03));
+ backdrop-filter:blur(20px);color:#f8fafc;
+ font-size:12px;font-weight:700;transition:.25s;
+}
+.back-btn:hover{transform:translateY(-2px);border-color:rgba(251,191,36,.45)}
+
+.language-area{position:relative}
+.language-button{
+ display:flex;align-items:center;gap:8px;
+ padding:10px 14px;border-radius:14px;
+ border:1px solid rgba(255,255,255,.15);color:#f8fafc;
+ background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.03));
+ backdrop-filter:blur(20px);font-size:12px;font-weight:700;transition:.25s;
+}
+.language-button:hover{transform:translateY(-2px);border-color:rgba(251,191,36,.45)}
+.language-menu{
+ position:absolute;top:52px;right:0;width:185px;padding:8px;
+ border-radius:16px;border:1px solid rgba(255,255,255,.15);
+ background:rgba(15,23,42,.97);backdrop-filter:blur(24px);
+ box-shadow:0 20px 45px rgba(0,0,0,.6);
+ opacity:0;visibility:hidden;transform:translateY(-8px) scale(.97);
+ transform-origin:top right;transition:.2s;
+}
+.language-menu.open{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+.language-option{
+ width:100%;display:flex;align-items:center;gap:10px;
+ padding:10px;border:0;border-radius:10px;
+ color:#f8fafc;background:transparent;text-align:left;
+ font-size:12px;font-weight:600;
+}
+.language-option:hover,.language-option.selected{background:rgba(251,191,36,.15)}
+.check{margin-left:auto;color:#fbbf24;opacity:0}
+.language-option.selected .check{opacity:1}
+
+.theme-switch{
+ width:88px;height:42px;position:relative;
+ border-radius:50px;border:1px solid rgba(255,255,255,.2);
+ background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.04));
+ backdrop-filter:blur(20px);overflow:hidden;
+}
+.theme-thumb{
+ position:absolute;top:2px;left:2px;width:36px;height:36px;
+ border-radius:50%;display:grid;place-items:center;
+ background:linear-gradient(145deg,#fde68a,#f59e0b);
+ transition:transform .45s cubic-bezier(.2,.9,.25,1.3),background .35s;
+ z-index:2;
+}
+body:not(.light) .theme-thumb{
+ transform:translateX(46px);
+ background:linear-gradient(145deg,#475569,#1e293b);
+}
+.sun-icon,.moon-icon{position:absolute;top:10px;width:20px;height:20px}
+.sun-icon{left:10px;color:#fff}
+.moon-icon{right:10px;color:#cbd5e1}
+
+/* MAIN WRAPPER */
+.wrap{
+ min-height:100vh;min-height:100dvh;
+ width:100%;max-width:780px;
+ margin:0 auto;padding:86px 18px 44px;
+ display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+
+.badge{
+ display:inline-flex;align-items:center;gap:8px;
+ padding:7px 14px;border-radius:999px;
+ background:rgba(251,191,36,.1);
+ border:1px solid rgba(251,191,36,.3);
+ color:#fde68a;font-size:10px;font-weight:800;letter-spacing:1.4px;
+ margin-bottom:14px;
+}
+.badge-dot{
+ width:7px;height:7px;border-radius:50%;
+ background:#fbbf24;box-shadow:0 0 10px #fbbf24;
+}
+
+.title{
+ font-family:"Space Grotesk",sans-serif;
+ font-size:clamp(28px,6vw,42px);
+ font-weight:800;letter-spacing:-1px;
+ text-align:center;margin-bottom:8px;
+}
+.title span{
+ background:linear-gradient(90deg,#fde68a,#f59e0b 55%,#60a5fa);
+ -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.subtitle{
+ font-size:12.5px;color:var(--muted);text-align:center;
+ max-width:480px;line-height:1.7;margin-bottom:26px;
+}
+
+/* 3D CHANNEL CARDS */
+.channels{
+ width:100%;
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:14px;
+ margin-bottom:22px;
+}
+
+.channel-card{
+ position:relative;
+ padding:20px 16px;
+ border-radius:22px;
+ background:linear-gradient(155deg,rgba(255,255,255,.085),rgba(255,255,255,.02));
+ border:1px solid rgba(255,255,255,.15);
+ backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+ box-shadow:0 20px 45px rgba(0,0,0,.45),inset 0 1px 1px rgba(255,255,255,.22);
+ display:flex;flex-direction:column;align-items:center;text-align:center;
+ transition:transform .3s cubic-bezier(.22,1.25,.36,1),border-color .3s,box-shadow .3s;
+ overflow:hidden;
+}
+.channel-card::before{
+ content:"";position:absolute;top:0;left:15%;right:15%;height:1px;
+ background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);
+}
+.channel-card:hover{
+ transform:translateY(-6px);
+}
+.channel-card.ig:hover{
+ border-color:rgba(244,114,182,.55);
+ box-shadow:0 24px 50px rgba(0,0,0,.55),0 0 28px rgba(236,72,153,.2);
+}
+.channel-card.wa:hover{
+ border-color:rgba(52,211,153,.55);
+ box-shadow:0 24px 50px rgba(0,0,0,.55),0 0 28px rgba(16,185,129,.2);
+}
+.channel-card.call:hover{
+ border-color:rgba(251,191,36,.6);
+ box-shadow:0 24px 50px rgba(0,0,0,.55),0 0 28px rgba(245,158,11,.22);
+}
+
+.icon-box{
+ width:50px;height:50px;border-radius:16px;
+ display:grid;place-items:center;
+ margin-bottom:12px;
+ border:1px solid rgba(255,255,255,.2);
+ box-shadow:0 10px 22px rgba(0,0,0,.35);
+}
+.ig .icon-box{
+ background:linear-gradient(135deg,#f59e0b,#ec4899,#8b5cf6);
+ color:#fff;
+}
+.wa .icon-box{
+ background:linear-gradient(135deg,#22c55e,#059669);
+ color:#fff;
+}
+.call .icon-box{
+ background:linear-gradient(135deg,#fbbf24,#d97706);
+ color:#0f172a;
+}
+.icon-box svg{width:24px;height:24px}
+
+.channel-name{
+ font-family:"Space Grotesk",sans-serif;
+ font-size:16px;font-weight:700;margin-bottom:4px;
+}
+.channel-handle{
+ font-size:11px;color:var(--muted);
+ word-break:break-word;margin-bottom:14px;
+}
+
+.channel-cta{
+ margin-top:auto;
+ width:100%;padding:9px 12px;border-radius:12px;
+ font-size:11.5px;font-weight:800;
+ background:rgba(255,255,255,.07);
+ border:1px solid rgba(255,255,255,.14);
+ transition:background .25s,color .25s,border-color .25s;
+}
+.ig:hover .channel-cta{background:rgba(236,72,153,.22);border-color:rgba(244,114,182,.5);color:#fbcfe8}
+.wa:hover .channel-cta{background:rgba(16,185,129,.22);border-color:rgba(52,211,153,.5);color:#a7f3d0}
+.call:hover .channel-cta{background:rgba(251,191,36,.24);border-color:rgba(251,191,36,.55);color:#fde68a}
+
+.copy-mini{
+ margin-top:8px;
+ padding:5px 10px;border-radius:9px;
+ border:1px solid rgba(255,255,255,.12);
+ background:rgba(15,23,42,.55);color:#cbd5e1;
+ font-size:10px;font-weight:700;transition:.2s;
+}
+.copy-mini:hover{border-color:#fbbf24;color:#fde68a}
+
+/* QUICK MESSAGE GLASS CARD */
+.msg-card{
+ position:relative;
+ width:100%;
+ padding:24px;
+ border-radius:26px;
+ background:linear-gradient(155deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
+ border:1px solid rgba(255,255,255,.15);
+ backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);
+ box-shadow:0 26px 65px rgba(0,0,0,.52),inset 0 1px 1px rgba(255,255,255,.22);
+}
+.msg-title{
+ font-family:"Space Grotesk",sans-serif;
+ font-size:19px;font-weight:700;margin-bottom:4px;
+}
+.msg-sub{font-size:11.5px;color:var(--muted);margin-bottom:16px}
+
+.msg-grid{
+ display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;
+}
+.field label{
+ display:block;font-size:10px;font-weight:700;
+ letter-spacing:1.1px;text-transform:uppercase;
+ color:#cbd5e1;margin-bottom:6px;
+}
+.field input,.field textarea{
+ width:100%;border-radius:12px;
+ border:1px solid rgba(255,255,255,.14);
+ background:rgba(15,23,42,.65);color:#f8fafc;
+ font-size:12.5px;outline:none;transition:border-color .2s,box-shadow .2s;
+}
+.field input{height:42px;padding:0 13px}
+.field textarea{min-height:84px;padding:11px 13px;resize:vertical;margin-bottom:14px}
+.field input:focus,.field textarea:focus{
+ border-color:#fbbf24;box-shadow:0 0 0 3px rgba(251,191,36,.15);
+}
+
+.msg-actions{
+ display:flex;gap:10px;flex-wrap:wrap;
+}
+.send-wa-btn{
+ flex:1;min-width:200px;height:46px;border:0;border-radius:13px;
+ background:linear-gradient(135deg,#22c55e,#15803d);
+ color:#fff;font-size:12.5px;font-weight:800;
+ box-shadow:0 10px 24px rgba(34,197,94,.25);
+ transition:transform .2s,box-shadow .2s;
+}
+.send-wa-btn:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(34,197,94,.35)}
+
+.sent-note{
+ margin-top:10px;font-size:11.5px;color:#6ee7b7;min-height:16px;font-weight:600;
+}
+
+/* LIGHT MODE */
+body.light{--bg:#f4f6fa;--text:#0f172a;--muted:#64748b}
+body.light .background{
+ background:
+ radial-gradient(circle at 50% 22%,rgba(245,158,11,.12),transparent 48%),
+ #f4f6fa;
+}
+body.light .back-btn,body.light .language-button{
+ color:#0f172a;background:rgba(255,255,255,.9);border-color:#cbd5e1;
+}
+body.light .language-menu{background:rgba(255,255,255,.98);border-color:#cbd5e1}
+body.light .language-option{color:#0f172a}
+body.light .channel-card,body.light .msg-card{
+ background:linear-gradient(155deg,rgba(255,255,255,.95),rgba(248,250,252,.85));
+ border-color:#cbd5e1;
+ box-shadow:0 20px 50px rgba(15,23,42,.1),inset 0 1px 1px #ffffff;
+}
+body.light .channel-cta{
+ background:rgba(15,23,42,.05);border-color:#cbd5e1;color:#0f172a;
+}
+body.light .copy-mini{
+ background:#f1f5f9;border-color:#cbd5e1;color:#334155;
+}
+body.light .field label{color:#334155}
+body.light .field input,.body.light .field textarea,body.light .field textarea{
+ background:#f8fafc;color:#0f172a;border-color:#cbd5e1;
+}
+body.light .badge{background:rgba(245,158,11,.15);color:#b45309;border-color:rgba(217,119,6,.3)}
+body.light .sent-note{color:#047857}
+
+@media(max-width:720px){
+ .channels{grid-template-columns:1fr}
+ .msg-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="background">
+ <div class="orb orb1"></div>
+ <div class="orb orb2"></div>
+ <div class="orb orb3"></div>
+</div>
+
+<div class="top-bar">
+ <a href="index.html" class="back-btn" data-i18n="backHome">← Home</a>
+
+ <div class="top-right">
+  <div class="language-area">
+   <button class="language-button" id="languageButton">
+    <span>🌐</span>
+    <span id="currentLanguage">English</span>
+    <span>▼</span>
+   </button>
+   <div class="language-menu" id="languageMenu">
+    <button class="language-option selected" data-lang="en">
+     <span>🇬🇧</span><span>English</span><span class="check">✓</span>
+    </button>
+    <button class="language-option" data-lang="si">
+     <span>🇱🇰</span><span>සිංහල</span><span class="check">✓</span>
+    </button>
+    <button class="language-option" data-lang="ta">
+     <span>🇮🇳</span><span>தமிழ்</span><span class="check">✓</span>
+    </button>
+   </div>
+  </div>
+
+  <button class="theme-switch" id="themeSwitch" aria-label="Toggle theme">
+   <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/>
+   </svg>
+   <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5 8.5 8.5 0 1 0 20.5 14.5Z"/>
+   </svg>
+   <span class="theme-thumb" id="themeThumb"></span>
+  </button>
+ </div>
+</div>
+
+<main class="wrap">
+ <div class="badge">
+  <span class="badge-dot"></span>
+  <span data-i18n="badge">GET IN TOUCH</span>
+ </div>
+
+ <h1 class="title">Contact <span>NextGen Play.</span></h1>
+ <p class="subtitle" data-i18n="subtitle">
+  Reach out directly via Instagram, WhatsApp, or phone call anytime.
+ </p>
+
+ <!-- DIRECT CHANNELS -->
+ <section class="channels">
+  <!-- INSTAGRAM -->
+  <a href="https://www.instagram.com/itz_pazzan?dmpr=MTJwbDJyb3FqNGdrdA==" target="_blank" rel="noopener noreferrer" class="channel-card ig">
+   <div class="icon-box">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+     <rect x="3" y="3" width="18" height="18" rx="5"/>
+     <circle cx="12" cy="12" r="4"/>
+     <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+    </svg>
+   </div>
+   <div class="channel-name">Instagram</div>
+   <div class="channel-handle">@itz_pazzan</div>
+   <div class="channel-cta" data-i18n="openIg">Open Instagram →</div>
+  </a>
+
+  <!-- WHATSAPP -->
+  <a href="https://wa.me/message/XOOAFQKPPUQNP1" target="_blank" rel="noopener noreferrer" class="channel-card wa">
+   <div class="icon-box">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+     <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+    </svg>
+   </div>
+   <div class="channel-name">WhatsApp</div>
+   <div class="channel-handle" data-i18n="waHandle">Direct Chat Link</div>
+   <div class="channel-cta" data-i18n="openWa">Chat on WhatsApp →</div>
+  </a>
+
+  <!-- CALL -->
+  <div class="channel-card call">
+   <a href="tel:+94726667863" style="display:flex;flex-direction:column;align-items:center;width:100%;flex:1">
+    <div class="icon-box">
+     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+     </svg>
+    </div>
+    <div class="channel-name" data-i18n="callTitle">Phone Call</div>
+    <div class="channel-handle">+94 72 666 7863</div>
+    <div class="channel-cta" data-i18n="callNow">Call Now →</div>
+   </a>
+   <button type="button" class="copy-mini" id="copyPhoneBtn" data-i18n="copyNum">Copy Number</button>
+  </div>
+ </section>
+
+ <!-- QUICK WHATSAPP MESSAGE FORM -->
+ <section class="msg-card">
+  <h2 class="msg-title" data-i18n="quickMsgTitle">Send a Quick Message</h2>
+  <p class="msg-sub" data-i18n="quickMsgSub">Write your message below to open a pre-filled WhatsApp chat.</p>
+
+  <form id="quickMsgForm">
+   <div class="msg-grid">
+    <div class="field">
+     <label for="senderName" data-i18n="yourName">YOUR NAME</label>
+     <input id="senderName" type="text" placeholder="Your name">
+    </div>
+    <div class="field">
+     <label for="topic" data-i18n="topicLabel">SUBJECT</label>
+     <input id="topic" type="text" placeholder="Support / Feedback">
+    </div>
+   </div>
+
+   <div class="field">
+    <label for="messageBox" data-i18n="msgLabel">MESSAGE</label>
+    <textarea id="messageBox" placeholder="Type your message here..." required></textarea>
+   </div>
+
+   <div class="msg-actions">
+    <button type="submit" class="send-wa-btn" data-i18n="sendWaBtn">💬 Send via WhatsApp</button>
+   </div>
+   <div class="sent-note" id="sentNote"></div>
+  </form>
+ </section>
+</main>
+
+<script>
+const i18n={
+ en:{
+  backHome:"← Home",badge:"GET IN TOUCH",
+  subtitle:"Reach out directly via Instagram, WhatsApp, or phone call anytime.",
+  openIg:"Open Instagram →",waHandle:"Direct Chat Link",openWa:"Chat on WhatsApp →",
+  callTitle:"Phone Call",callNow:"Call Now →",copyNum:"Copy Number",copiedNum:"Copied: +94726667863",
+  quickMsgTitle:"Send a Quick Message",
+  quickMsgSub:"Write your message below to open a pre-filled WhatsApp chat.",
+  yourName:"YOUR NAME",topicLabel:"SUBJECT",msgLabel:"MESSAGE",
+  sendWaBtn:"💬 Send via WhatsApp",
+  waOpened:"Opening WhatsApp with your message..."
+ },
+ si:{
+  backHome:"← මුල් පිටුව",badge:"සම්බන්ධ වන්න",
+  subtitle:"Instagram, WhatsApp හෝ දුරකථන ඇමතුමක් මඟින් ඕනෑම වේලාවක සම්බන්ධ වන්න.",
+  openIg:"Instagram විවෘත කරන්න →",waHandle:"සෘජු WhatsApp සබැඳිය",openWa:"WhatsApp මඟින් කතා කරන්න →",
+  callTitle:"දුරකථන ඇමතුම",callNow:"දැන් අමතන්න →",copyNum:"අංකය Copy කරන්න",copiedNum:"Copy කළා: +94726667863",
+  quickMsgTitle:"කෙටි පණිවිඩයක් යවන්න",
+  quickMsgSub:"පහළින් පණිවිඩය ලියා WhatsApp හරහා කෙලින්ම යවන්න.",
+  yourName:"ඔබේ නම",topicLabel:"මාතෘකාව",msgLabel:"පණිවිඩය",
+  sendWaBtn:"💬 WhatsApp මඟින් යවන්න",
+  waOpened:"ඔබේ පණිවිඩය සමඟ WhatsApp විවෘත වේ..."
+ },
+ ta:{
+  backHome:"← முகப்பு",badge:"தொடர்பு கொள்ள",
+  subtitle:"Instagram, WhatsApp அல்லது தொலைபேசி அழைப்பு மூலம் எப்போதும் தொடர்பு கொள்ளலாம்.",
+  openIg:"Instagram திறக்கவும் →",waHandle:"நேரடி WhatsApp இணைப்பு",openWa:"WhatsApp-இல் அரட்டையடிக்கவும் →",
+  callTitle:"தொலைபேசி அழைப்பு",callNow:"இப்போது அழைக்கவும் →",copyNum:"எண்ணை நகலெடுக்கவும்",copiedNum:"நகலெடுக்கப்பட்டது: +94726667863",
+  quickMsgTitle:"விரைவான செய்தி அனுப்பவும்",
+  quickMsgSub:"கீழே செய்தியை எழுதி WhatsApp மூலம் அனுப்பவும்.",
+  yourName:"உங்கள் பெயர்",topicLabel:"தலைப்பு",msgLabel:"செய்தி",
+  sendWaBtn:"💬 WhatsApp மூலம் அனுப்புக",
+  waOpened:"உங்கள் செய்தியுடன் WhatsApp திறக்கிறது..."
+ }
+};
+
+let lang=localStorage.getItem("nextgen_language")||"en";
+
+function applyLang(newLang){
+ if(!i18n[newLang])return;
+ lang=newLang;
+ const d=i18n[lang];
+ document.querySelectorAll("[data-i18n]").forEach(el=>{
+  const k=el.dataset.i18n;
+  if(d[k])el.innerHTML=d[k];
+ });
+ const names={en:"English",si:"සිංහල",ta:"தமிழ்"};
+ document.getElementById("currentLanguage").textContent=names[lang];
+ document.querySelectorAll(".language-option").forEach(o=>{
+  o.classList.toggle("selected",o.dataset.lang===lang);
+ });
+ localStorage.setItem("nextgen_language",lang);
+}
+
+const copyBtn=document.getElementById("copyPhoneBtn");
+const sentNote=document.getElementById("sentNote");
+copyBtn.addEventListener("click",()=>{
+ const d=i18n[lang]||i18n.en;
+ navigator.clipboard?.writeText("+94726667863").catch(()=>{});
+ sentNote.textContent=d.copiedNum;
+});
+
+document.getElementById("quickMsgForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const d=i18n[lang]||i18n.en;
+ const name=document.getElementById("senderName").value.trim();
+ const topic=document.getElementById("topic").value.trim();
+ const msg=document.getElementById("messageBox").value.trim();
+ const text=[
+  name ? `Name: ${name}` : "",
+  topic ? `Subject: ${topic}` : "",
+  `Message: ${msg}`
+ ].filter(Boolean).join("\n");
+
+ sentNote.textContent=d.waOpened;
+ window.open(`https://wa.me/94726667863?text=${encodeURIComponent(text)}`,"_blank","noopener,noreferrer");
+});
+
+const langBtn=document.getElementById("languageButton");
+const langMenu=document.getElementById("languageMenu");
+langBtn.addEventListener("click",()=>langMenu.classList.toggle("open"));
+document.querySelectorAll(".language-option").forEach(opt=>{
+ opt.addEventListener("click",()=>{applyLang(opt.dataset.lang);langMenu.classList.remove("open");});
+});
+document.addEventListener("click",e=>{if(!e.target.closest(".language-area"))langMenu.classList.remove("open");});
+
+const themeSwitch=document.getElementById("themeSwitch");
+function setTheme(t){
+ const light=t==="light";
+ document.body.classList.toggle("light",light);
+ themeSwitch.setAttribute("aria-pressed",String(light));
+ localStorage.setItem("nextgen_theme",t);
+}
+themeSwitch.addEventListener("click",()=>setTheme(document.body.classList.contains("light")?"dark":"light"));
+setTheme(localStorage.getItem("nextgen_theme")||"dark");
+applyLang(lang);
+</script>
+</body>
+</html>
