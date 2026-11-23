@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0b1120">
+<meta name="theme-color" content="#090e1a">
 <title>Guest Access | NextGen Play</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,8 +15,8 @@
  -webkit-tap-highlight-color:transparent;
 }
 :root{
- --bg:#0b1120;--text:#f8fafc;--muted:#94a3b8;
- --gold:#fbbf24;--amber:#f59e0b;--teal:#14b8a6;--blue:#3b82f6;
+ --bg:#090e1a;--text:#f8fafc;--muted:#94a3b8;
+ --gold:#fbbf24;--amber:#f59e0b;--teal:#14b8a6;--emerald:#10b981;
 }
 html,body{
  width:100%;min-height:100%;
@@ -35,29 +35,27 @@ a{color:inherit;text-decoration:none}
 .background{
  position:fixed;inset:0;z-index:-2;overflow:hidden;
  background:
- radial-gradient(circle at 50% 38%,rgba(245,158,11,.08),transparent 48%),
- radial-gradient(ellipse at 14% 18%,rgba(59,130,246,.14),transparent 42%),
- radial-gradient(ellipse at 86% 82%,rgba(20,184,166,.12),transparent 42%),
- #0b1120;
+ radial-gradient(circle at 50% 48%,rgba(56,189,248,.07),transparent 52%),
+ radial-gradient(ellipse at 15% 18%,rgba(99,102,241,.13),transparent 45%),
+ radial-gradient(ellipse at 85% 82%,rgba(20,184,166,.1),transparent 45%),
+ #090e1a;
  transition:background .5s;
 }
 body.connected .background{
  background:
- radial-gradient(circle at 50% 42%,rgba(20,184,166,.16),transparent 52%),
- radial-gradient(circle at 50% 24%,rgba(251,191,36,.12),transparent 46%),
- radial-gradient(ellipse at 14% 18%,rgba(59,130,246,.14),transparent 42%),
- #0b1120;
+ radial-gradient(circle at 50% 50%,rgba(16,185,129,.18),transparent 54%),
+ radial-gradient(circle at 50% 24%,rgba(251,191,36,.12),transparent 48%),
+ #090e1a;
 }
 .orb{
  position:absolute;width:360px;height:360px;
  border-radius:50%;filter:blur(135px);opacity:.14;
  animation:floatOrb 12s ease-in-out infinite alternate;
 }
-.orb1{background:#3b82f6;top:10%;left:-160px}
-.orb2{background:#f59e0b;right:-170px;top:16%;animation-delay:-4s}
-.orb3{background:#14b8a6;bottom:-210px;left:34%;animation-delay:-7s}
+.orb1{background:#6366f1;top:10%;left:-160px}
+.orb2{background:#14b8a6;right:-170px;bottom:10%;animation-delay:-5s}
 @keyframes floatOrb{
- to{transform:translate(85px,55px) scale(1.16)}
+ to{transform:translate(80px,50px) scale(1.15)}
 }
 
 /* TOP BAR */
@@ -72,25 +70,25 @@ body.connected .background{
 .back-btn{
  display:inline-flex;align-items:center;gap:8px;
  padding:10px 15px;border-radius:14px;
- border:1px solid rgba(255,255,255,.15);
- background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.03));
+ border:1px solid rgba(255,255,255,.14);
+ background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
  backdrop-filter:blur(20px);color:#f8fafc;
  font-size:12px;font-weight:700;transition:.25s;
 }
-.back-btn:hover{transform:translateY(-2px);border-color:rgba(251,191,36,.45)}
+.back-btn:hover{transform:translateY(-2px);border-color:rgba(56,189,248,.45)}
 
 .language-area{position:relative}
 .language-button{
  display:flex;align-items:center;gap:8px;
  padding:10px 14px;border-radius:14px;
- border:1px solid rgba(255,255,255,.15);color:#f8fafc;
- background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.03));
+ border:1px solid rgba(255,255,255,.14);color:#f8fafc;
+ background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
  backdrop-filter:blur(20px);font-size:12px;font-weight:700;transition:.25s;
 }
-.language-button:hover{transform:translateY(-2px);border-color:rgba(251,191,36,.45)}
+.language-button:hover{transform:translateY(-2px);border-color:rgba(56,189,248,.45)}
 .language-menu{
  position:absolute;top:52px;right:0;width:185px;padding:8px;
- border-radius:16px;border:1px solid rgba(255,255,255,.15);
+ border-radius:16px;border:1px solid rgba(255,255,255,.14);
  background:rgba(15,23,42,.97);backdrop-filter:blur(24px);
  box-shadow:0 20px 45px rgba(0,0,0,.6);
  opacity:0;visibility:hidden;transform:translateY(-8px) scale(.97);
@@ -103,14 +101,14 @@ body.connected .background{
  color:#f8fafc;background:transparent;text-align:left;
  font-size:12px;font-weight:600;
 }
-.language-option:hover,.language-option.selected{background:rgba(251,191,36,.15)}
-.check{margin-left:auto;color:#fbbf24;opacity:0}
+.language-option:hover,.language-option.selected{background:rgba(56,189,248,.14)}
+.check{margin-left:auto;color:#38bdf8;opacity:0}
 .language-option.selected .check{opacity:1}
 
 .theme-switch{
  width:88px;height:42px;position:relative;
  border-radius:50px;border:1px solid rgba(255,255,255,.2);
- background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.04));
+ background:linear-gradient(145deg,rgba(255,255,255,.11),rgba(255,255,255,.03));
  backdrop-filter:blur(20px);overflow:hidden;
 }
 .theme-thumb{
@@ -131,31 +129,35 @@ body:not(.light) .theme-thumb{
 /* MAIN WRAPPER */
 .wrap{
  min-height:100vh;min-height:100dvh;
- width:100%;max-width:720px;
- margin:0 auto;padding:86px 18px 40px;
+ width:100%;max-width:680px;
+ margin:0 auto;padding:86px 18px 36px;
  display:flex;flex-direction:column;align-items:center;justify-content:center;
 }
 
 .badge{
  display:inline-flex;align-items:center;gap:8px;
  padding:7px 14px;border-radius:999px;
- background:rgba(251,191,36,.1);
- border:1px solid rgba(251,191,36,.3);
- color:#fde68a;font-size:10px;font-weight:800;letter-spacing:1.4px;
+ background:rgba(56,189,248,.1);
+ border:1px solid rgba(56,189,248,.28);
+ color:#7dd3fc;font-size:10px;font-weight:800;letter-spacing:1.4px;
  margin-bottom:14px;
+ transition:background .35s,border-color .35s,color .35s;
 }
 .badge-dot{
  width:7px;height:7px;border-radius:50%;
- background:#fbbf24;box-shadow:0 0 10px #fbbf24;
- transition:background .35s,box-shadow .35s;
+ background:#38bdf8;box-shadow:0 0 10px #38bdf8;
+ animation:pulseDot 2s ease-in-out infinite;
+}
+@keyframes pulseDot{
+ 50%{transform:scale(1.28);opacity:.75}
 }
 body.connected .badge{
- background:rgba(20,184,166,.12);
- border-color:rgba(45,212,191,.38);
- color:#5eead4;
+ background:rgba(16,185,129,.14);
+ border-color:rgba(52,211,153,.45);
+ color:#6ee7b7;
 }
 body.connected .badge-dot{
- background:#2dd4bf;box-shadow:0 0 12px #2dd4bf;
+ background:#34d399;box-shadow:0 0 14px #34d399;
 }
 
 .title{
@@ -165,12 +167,12 @@ body.connected .badge-dot{
  text-align:center;margin-bottom:8px;
 }
 .title span{
- background:linear-gradient(90deg,#fde68a,#f59e0b 52%,#2dd4bf);
+ background:linear-gradient(90deg,#7dd3fc,#38bdf8 50%,#34d399);
  -webkit-background-clip:text;background-clip:text;color:transparent;
 }
 .subtitle{
  font-size:12.5px;color:var(--muted);text-align:center;
- max-width:470px;line-height:1.7;margin-bottom:24px;
+ max-width:460px;line-height:1.7;margin-bottom:24px;
 }
 
 /* 3D GLASS CARD */
@@ -178,14 +180,14 @@ body.connected .badge-dot{
  position:relative;
  width:100%;
  border-radius:28px;
- padding:28px 24px 26px;
- background:linear-gradient(155deg,rgba(255,255,255,.09),rgba(255,255,255,.025));
- border:1px solid rgba(255,255,255,.16);
+ padding:26px;
+ background:linear-gradient(155deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
+ border:1px solid rgba(255,255,255,.15);
  backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
  box-shadow:
-  0 28px 70px rgba(0,0,0,.55),
-  inset 0 1px 1px rgba(255,255,255,.24),
-  inset 0 -1px 1px rgba(0,0,0,.3);
+  0 30px 75px rgba(0,0,0,.6),
+  inset 0 1px 1px rgba(255,255,255,.22),
+  inset 0 -1px 1px rgba(0,0,0,.35);
  transform-style:preserve-3d;
  transition:transform .25s ease,box-shadow .4s ease,border-color .4s ease;
  overflow:hidden;
@@ -195,100 +197,154 @@ body.connected .badge-dot{
  background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);
 }
 body.connected .glass-card{
- border-color:rgba(45,212,191,.42);
+ border-color:rgba(52,211,153,.48);
  box-shadow:
-  0 30px 75px rgba(0,0,0,.55),
-  0 0 42px rgba(20,184,166,.16),
+  0 32px 80px rgba(0,0,0,.6),
+  0 0 46px rgba(16,185,129,.2),
   inset 0 1px 1px rgba(255,255,255,.28);
 }
 
-/* 3D CABLE & PORT STAGE */
+/* DRAG-TO-PLUG STAGE */
 .cable-stage{
  position:relative;
- height:196px;
- border-radius:20px;
- background:linear-gradient(180deg,rgba(15,23,42,.62),rgba(15,23,42,.38));
+ height:230px;
+ border-radius:22px;
+ background:linear-gradient(180deg,rgba(15,23,42,.72),rgba(10,16,30,.52));
  border:1px solid rgba(255,255,255,.1);
- box-shadow:inset 0 6px 24px rgba(0,0,0,.45);
+ box-shadow:inset 0 8px 26px rgba(0,0,0,.55);
  display:flex;align-items:center;justify-content:space-between;
  padding:0 28px;
  overflow:hidden;
+ touch-action:none;
+ user-select:none;
 }
 
-/* Subtle energy wave across the cable when connected */
-.energy-pulse{
- position:absolute;top:50%;left:96px;right:96px;height:4px;
+/* Guide track line */
+.guide-track{
+ position:absolute;
+ top:50%;left:140px;right:112px;height:2px;
+ transform:translateY(-50%);
+ background:repeating-linear-gradient(
+  90deg,
+  rgba(148,163,184,.32) 0 8px,
+  transparent 8px 16px
+ );
+ pointer-events:none;
+ transition:opacity .35s;
+}
+body.connected .guide-track{opacity:0}
+
+/* Power energy stream when connected */
+.energy-stream{
+ position:absolute;
+ top:50%;left:90px;right:96px;height:4px;
  transform:translateY(-50%);
  border-radius:999px;
- background:linear-gradient(90deg,transparent,#fbbf24,#2dd4bf,transparent);
+ background:linear-gradient(90deg,transparent,#38bdf8,#34d399,#fbbf24,transparent);
  opacity:0;filter:blur(2px);
  pointer-events:none;
- transition:opacity .4s ease;
+ transition:opacity .4s;
 }
-body.connected .energy-pulse{
+body.connected .energy-stream{
  opacity:1;
- animation:pulseFlow 1.6s linear infinite;
+ animation:streamPulse 1.4s ease-in-out infinite;
 }
-@keyframes pulseFlow{
- 0%{transform:translateY(-50%) scaleX(.85);opacity:.5}
- 50%{transform:translateY(-50%) scaleX(1.04);opacity:1}
- 100%{transform:translateY(-50%) scaleX(.85);opacity:.5}
+@keyframes streamPulse{
+ 0%,100%{transform:translateY(-50%) scaleX(.9);opacity:.55}
+ 50%{transform:translateY(-50%) scaleX(1.03);opacity:1}
 }
 
-/* Left 3D Plug (Interactive) */
+/* Draggable 3D Plug */
 .plug-unit{
- position:relative;z-index:4;
+ position:relative;z-index:5;
  display:flex;align-items:center;
- transform:translateX(0);
- transition:transform .55s cubic-bezier(.22,1.25,.36,1);
- cursor:pointer;
+ transform:translate3d(var(--drag-x, 0px), var(--drag-y, 0px), 0);
+ transition:transform .42s cubic-bezier(.22,1.25,.36,1);
+ cursor:grab;
 }
-body.connected .plug-unit{
- transform:translateX(calc(100% + 14px));
+.plug-unit.dragging{
+ transition:none;
+ cursor:grabbing;
 }
 .cable-tail{
- width:92px;height:10px;
+ width:96px;height:11px;
  border-radius:999px 0 0 999px;
- background:linear-gradient(180deg,#475569,#1e293b 65%,#0f172a);
- border:1px solid rgba(255,255,255,.18);
- box-shadow:0 6px 14px rgba(0,0,0,.5);
+ background:linear-gradient(180deg,#64748b,#1e293b 65%,#0f172a);
+ border:1px solid rgba(255,255,255,.2);
+ box-shadow:0 8px 16px rgba(0,0,0,.55);
  transition:background .4s,box-shadow .4s;
 }
 body.connected .cable-tail{
- background:linear-gradient(180deg,#fde68a,#d97706 60%,#92400e);
- box-shadow:0 0 18px rgba(251,191,36,.45);
+ background:linear-gradient(180deg,#6ee7b7,#10b981 62%,#065f46);
+ box-shadow:0 0 20px rgba(16,185,129,.5);
 }
 .plug-head{
  position:relative;
- width:44px;height:36px;
+ width:46px;height:38px;
  border-radius:8px 12px 12px 8px;
- background:linear-gradient(160deg,rgba(255,255,255,.22),rgba(30,41,59,.9));
- border:1px solid rgba(255,255,255,.28);
- box-shadow:0 10px 22px rgba(0,0,0,.55),inset 0 1px 1px rgba(255,255,255,.4);
+ background:linear-gradient(160deg,rgba(255,255,255,.24),rgba(30,41,59,.92));
+ border:1px solid rgba(255,255,255,.3);
+ box-shadow:0 12px 24px rgba(0,0,0,.6),inset 0 1px 1px rgba(255,255,255,.45);
  display:flex;flex-direction:column;justify-content:center;align-items:flex-end;
  gap:8px;padding-right:3px;
 }
+.plug-grip{
+ position:absolute;left:9px;top:7px;bottom:7px;width:14px;
+ display:flex;flex-direction:column;justify-content:space-between;
+ pointer-events:none;
+}
+.plug-grip span{
+ height:2px;border-radius:2px;background:rgba(255,255,255,.25);
+}
 .prong{
  width:13px;height:4px;border-radius:0 3px 3px 0;
- background:linear-gradient(90deg,#cbd5e1,#f8fafc);
+ background:linear-gradient(90deg,#cbd5e1,#ffffff);
  transform:translateX(12px);
- box-shadow:0 0 8px rgba(255,255,255,.35);
+ box-shadow:0 0 8px rgba(255,255,255,.4);
 }
 
-/* Right 3D Glass Socket */
-.socket-unit{
+/* 3D Glass Socket with animated magnetic ring */
+.socket-wrapper{
  position:relative;z-index:3;
+ display:flex;align-items:center;justify-content:center;
+}
+.socket-ring{
+ position:absolute;
+ width:96px;height:96px;
+ border-radius:28px;
+ border:1.5px dashed rgba(56,189,248,.42);
+ animation:ringSpin 10s linear infinite;
+ pointer-events:none;
+ transition:border-color .35s,transform .35s;
+}
+.socket-wrapper.target-hover .socket-ring{
+ transform:scale(1.1);
+ border-style:solid;
+ border-color:rgba(52,211,153,.85);
+}
+body.connected .socket-ring{
+ animation:none;
+ border-style:solid;
+ border-color:rgba(52,211,153,.75);
+ box-shadow:0 0 24px rgba(16,185,129,.35);
+}
+@keyframes ringSpin{
+ to{transform:rotate(360deg)}
+}
+
+.socket-unit{
+ position:relative;
  width:78px;height:78px;
  border-radius:22px;
- background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(15,23,42,.75));
- border:1px solid rgba(255,255,255,.2);
- box-shadow:0 14px 28px rgba(0,0,0,.5),inset 0 1px 1px rgba(255,255,255,.28);
+ background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(15,23,42,.82));
+ border:1px solid rgba(255,255,255,.22);
+ box-shadow:0 14px 28px rgba(0,0,0,.55),inset 0 1px 1px rgba(255,255,255,.28);
  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
- transition:border-color .4s,box-shadow .4s;
+ transition:border-color .35s,box-shadow .35s;
 }
 body.connected .socket-unit{
- border-color:rgba(45,212,191,.65);
- box-shadow:0 0 26px rgba(20,184,166,.35),inset 0 1px 1px rgba(255,255,255,.4);
+ border-color:rgba(52,211,153,.7);
+ box-shadow:0 0 28px rgba(16,185,129,.38),inset 0 1px 1px rgba(255,255,255,.4);
 }
 .socket-slot{
  width:14px;height:6px;border-radius:4px;
@@ -298,103 +354,51 @@ body.connected .socket-unit{
 .socket-led{
  position:absolute;top:8px;right:8px;
  width:7px;height:7px;border-radius:50%;
- background:#f59e0b;box-shadow:0 0 8px rgba(245,158,11,.7);
+ background:#38bdf8;box-shadow:0 0 9px rgba(56,189,248,.8);
  transition:background .35s,box-shadow .35s;
 }
 body.connected .socket-led{
- background:#2dd4bf;box-shadow:0 0 12px #2dd4bf;
+ background:#34d399;box-shadow:0 0 14px #34d399;
 }
 
 .cable-caption{
- position:absolute;bottom:12px;left:0;right:0;
- text-align:center;font-size:11px;font-weight:600;
- color:#fde68a;letter-spacing:.3px;
+ position:absolute;bottom:14px;left:12px;right:12px;
+ text-align:center;font-size:11.5px;font-weight:600;
+ color:#7dd3fc;letter-spacing:.3px;
+ transition:color .35s;
 }
-body.connected .cable-caption{color:#5eead4}
-
-/* GUEST PERKS */
-.perks{
- display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
- margin-top:20px;
-}
-.perk{
- padding:13px 12px;border-radius:16px;
- background:rgba(255,255,255,.035);
- border:1px solid rgba(255,255,255,.09);
- text-align:center;
- transition:transform .25s,border-color .25s,background .25s;
-}
-.perk:hover{
- transform:translateY(-3px);
- border-color:rgba(251,191,36,.32);
- background:rgba(255,255,255,.06);
-}
-.perk-icon{font-size:18px;margin-bottom:5px}
-.perk-title{font-size:11.5px;font-weight:700;margin-bottom:3px}
-.perk-desc{font-size:10px;color:var(--muted);line-height:1.45}
-
-/* ACTIONS */
-.actions{
- display:flex;gap:12px;margin-top:22px;
-}
-.btn-connect{
- flex:1;height:48px;border:0;border-radius:14px;
- background:linear-gradient(135deg,#fbbf24,#d97706);
- color:#0f172a;font-size:13px;font-weight:800;
- box-shadow:0 10px 24px rgba(245,158,11,.28);
- transition:transform .2s,box-shadow .2s,background .35s,color .35s;
-}
-.btn-connect:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(245,158,11,.38)}
-body.connected .btn-connect{
- background:linear-gradient(135deg,#2dd4bf,#0d9488);
- color:#042f2e;
- box-shadow:0 10px 26px rgba(20,184,166,.34);
-}
-.btn-secondary{
- height:48px;padding:0 18px;border-radius:14px;
- border:1px solid rgba(255,255,255,.16);
- background:rgba(255,255,255,.05);color:#f8fafc;
- font-size:12px;font-weight:700;
- display:inline-flex;align-items:center;justify-content:center;
- transition:transform .2s,border-color .2s;
-}
-.btn-secondary:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.32)}
+body.connected .cable-caption{color:#6ee7b7}
 
 /* LIGHT MODE */
 body.light{--bg:#f4f6fa;--text:#0f172a;--muted:#64748b}
 body.light .background{
  background:
- radial-gradient(circle at 50% 40%,rgba(245,158,11,.12),transparent 50%),
+ radial-gradient(circle at 50% 48%,rgba(56,189,248,.12),transparent 52%),
  #f4f6fa;
 }
-body.light .back-btn,body.light .language-button,body.light .btn-secondary{
+body.light .back-btn,body.light .language-button{
  color:#0f172a;background:rgba(255,255,255,.9);border-color:#cbd5e1;
 }
 body.light .language-menu{background:rgba(255,255,255,.98);border-color:#cbd5e1}
 body.light .language-option{color:#0f172a}
 body.light .glass-card{
- background:linear-gradient(155deg,rgba(255,255,255,.94),rgba(255,255,255,.78));
+ background:linear-gradient(155deg,rgba(255,255,255,.95),rgba(248,250,252,.85));
  border-color:#cbd5e1;
  box-shadow:0 24px 60px rgba(15,23,42,.12),inset 0 1px 1px #ffffff;
 }
 body.light .cable-stage{
- background:linear-gradient(180deg,rgba(241,245,249,.85),rgba(226,232,240,.65));
+ background:linear-gradient(180deg,rgba(241,245,249,.9),rgba(226,232,240,.7));
  border-color:#cbd5e1;
- box-shadow:inset 0 4px 14px rgba(15,23,42,.08);
+ box-shadow:inset 0 4px 16px rgba(15,23,42,.08);
 }
-body.light .perk{
- background:rgba(255,255,255,.75);border-color:#e2e8f0;
-}
-body.light .badge{background:rgba(245,158,11,.14);color:#b45309;border-color:rgba(217,119,6,.3)}
-body.light .cable-caption{color:#b45309}
-body.light.connected .cable-caption{color:#0f766e}
+body.light .badge{background:rgba(2,132,199,.1);color:#0369a1;border-color:rgba(2,132,199,.25)}
+body.light .cable-caption{color:#0369a1}
+body.light.connected .cable-caption{color:#047857}
 
 @media(max-width:600px){
- .perks{grid-template-columns:1fr}
- .actions{flex-direction:column}
- .cable-stage{padding:0 16px;height:184px}
- .cable-tail{width:56px}
- body.connected .plug-unit{transform:translateX(calc(100% + 6px))}
+ .cable-stage{padding:0 16px;height:215px}
+ .cable-tail{width:54px}
+ .guide-track{left:92px;right:88px}
 }
 </style>
 </head>
@@ -403,7 +407,6 @@ body.light.connected .cable-caption{color:#0f766e}
 <div class="background">
  <div class="orb orb1"></div>
  <div class="orb orb2"></div>
- <div class="orb orb3"></div>
 </div>
 
 <div class="top-bar">
@@ -444,60 +447,40 @@ body.light.connected .cable-caption{color:#0f766e}
 <main class="wrap">
  <div class="badge">
   <span class="badge-dot"></span>
-  <span data-i18n="badge">INSTANT GUEST PASS</span>
+  <span data-i18n="badge">GUEST SESSION</span>
  </div>
 
  <h1 class="title">Guest <span>Access.</span></h1>
  <p class="subtitle" data-i18n="subtitle">
-  Plug in to explore videos, topics, and learning sessions right away—no sign-up required.
+  Drag the plug into the socket to enter the home page as a guest.
  </p>
 
  <section class="glass-card" id="glassCard">
-  <div class="cable-stage">
-   <div class="energy-pulse"></div>
+  <div class="cable-stage" id="cableStage">
+   <div class="guide-track"></div>
+   <div class="energy-stream"></div>
 
-   <div class="plug-unit" id="plugUnit" role="button" tabindex="0" aria-label="Plug in guest session">
+   <div class="plug-unit" id="plugUnit" role="button" tabindex="0" aria-label="Drag plug to socket">
     <div class="cable-tail"></div>
     <div class="plug-head">
+     <div class="plug-grip"><span></span><span></span><span></span></div>
      <span class="prong"></span>
      <span class="prong"></span>
     </div>
    </div>
 
-   <div class="socket-unit" id="socketUnit">
-    <span class="socket-led"></span>
-    <span class="socket-slot"></span>
-    <span class="socket-slot"></span>
+   <div class="socket-wrapper" id="socketWrapper">
+    <div class="socket-ring"></div>
+    <div class="socket-unit" id="socketUnit">
+     <span class="socket-led"></span>
+     <span class="socket-slot"></span>
+     <span class="socket-slot"></span>
+    </div>
    </div>
 
-   <div class="cable-caption" id="cableCaption" data-i18n="unpluggedHint">
-    Click the plug or button below to connect Guest Mode
+   <div class="cable-caption" id="cableCaption" data-i18n="dragHint">
+    Drag the plug to the socket (or tap plug) to connect
    </div>
-  </div>
-
-  <div class="perks">
-   <div class="perk">
-    <div class="perk-icon">▶</div>
-    <div class="perk-title" data-i18n="perk1Title">Instant Watch</div>
-    <div class="perk-desc" data-i18n="perk1Desc">Stream available videos immediately.</div>
-   </div>
-   <div class="perk">
-    <div class="perk-icon">✦</div>
-    <div class="perk-title" data-i18n="perk2Title">No Password</div>
-    <div class="perk-desc" data-i18n="perk2Desc">Jump straight in without registration.</div>
-   </div>
-   <div class="perk">
-    <div class="perk-icon">↻</div>
-    <div class="perk-title" data-i18n="perk3Title">Upgrade Anytime</div>
-    <div class="perk-desc" data-i18n="perk3Desc">Create an account whenever you're ready.</div>
-   </div>
-  </div>
-
-  <div class="actions">
-   <button type="button" class="btn-connect" id="connectBtn" data-i18n="connectBtn">
-    ⚡ Plug In & Enter Guest Mode
-   </button>
-   <a href="register.html" class="btn-secondary" data-i18n="signUpLink">Sign Up</a>
   </div>
  </section>
 </main>
@@ -505,58 +488,40 @@ body.light.connected .cable-caption{color:#0f766e}
 <script>
 const i18n={
  en:{
-  backHome:"← Home",badge:"INSTANT GUEST PASS",
-  subtitle:"Plug in to explore videos, topics, and learning sessions right away—no sign-up required.",
-  unpluggedHint:"Click the plug or button below to connect Guest Mode",
-  pluggedHint:"Connected! Launching NextGen Play as Guest...",
-  perk1Title:"Instant Watch",perk1Desc:"Stream available videos immediately.",
-  perk2Title:"No Password",perk2Desc:"Jump straight in without registration.",
-  perk3Title:"Upgrade Anytime",perk3Desc:"Create an account whenever you're ready.",
-  connectBtn:"⚡ Plug In & Enter Guest Mode",
-  enterNowBtn:"→ Open NextGen Play Now",
-  signUpLink:"Sign Up"
+  backHome:"← Home",badge:"GUEST SESSION",
+  subtitle:"Drag the plug into the socket to enter the home page as a guest.",
+  dragHint:"Drag the plug to the socket (or tap plug) to connect",
+  connectedHint:"Connected! Opening Home page..."
  },
  si:{
-  backHome:"← මුල් පිටුව",badge:"ක්ෂණික GUEST ප්‍රවේශය",
-  subtitle:"ලියාපදිංචි නොවී වහාම වීඩියෝ සහ මාතෘකා ගවේෂණය කිරීමට සම්බන්ධ වන්න.",
-  unpluggedHint:"Guest Mode සම්බන්ධ කිරීමට Plug එක හෝ පහළ Button එක ඔබන්න",
-  pluggedHint:"සම්බන්ධ වුණා! Guest ලෙස NextGen Play විවෘත වේ...",
-  perk1Title:"වහාම නරඹන්න",perk1Desc:"ලබා ගත හැකි වීඩියෝ එසැණින් නරඹන්න.",
-  perk2Title:"මුරපද අවශ්‍ය නැත",perk2Desc:"ගිණුමක් නොමැතිව පහසුවෙන් පිවිසෙන්න.",
-  perk3Title:"ඕනෑම වේලාවක ගිණුමක්",perk3Desc:"අවශ්‍ය විටෙක අලුත් ගිණුමක් සාදාගන්න.",
-  connectBtn:"⚡ සම්බන්ධ වී Guest ලෙස පිවිසෙන්න",
-  enterNowBtn:"→ දැන් NextGen Play වෙත යන්න",
-  signUpLink:"ලියාපදිංචි වන්න"
+  backHome:"← මුල් පිටුව",badge:"GUEST ප්‍රවේශය",
+  subtitle:"Guest ලෙස Home Page එකට පිවිසීමට Plug එක ඇද Socket එකට සම්බන්ධ කරන්න.",
+  dragHint:"සම්බන්ධ වීමට Plug එක ඇද Socket එකට ගෙන යන්න",
+  connectedHint:"සම්බන්ධ වුණා! Home Page එක විවෘත වේ..."
  },
  ta:{
-  backHome:"← முகப்பு",badge:"உடனடி விருந்தினர் அனுமதி",
-  subtitle:"பதிவு செய்யாமலேயே காணொளிகள் மற்றும் பாடங்களை உடனே பார்க்க இணைக்கவும்.",
-  unpluggedHint:"விருந்தினர் பயன்முறையில் இணைய பிளக் அல்லது பொத்தானைக் கிளிக் செய்யவும்",
-  pluggedHint:"இணைக்கப்பட்டது! NextGen Play விருந்தினராகத் திறக்கிறது...",
-  perk1Title:"உடனடிப் பார்வை",perk1Desc:"கிடைக்கும் காணொளிகளை உடனே பாருங்கள்.",
-  perk2Title:"கடவுச்சொல் தேவையில்லை",perk2Desc:"பதிவு இன்றியே உள்ளே நுழையுங்கள்.",
-  perk3Title:"எப்போதும் கணக்கு",perk3Desc:"விரும்பும்போது புதிய கணக்கை உருவாக்கலாம்.",
-  connectBtn:"⚡ இணைத்து விருந்தினராக நுழைக",
-  enterNowBtn:"→ இப்போது NextGen Play திறக்கவும்",
-  signUpLink:"பதிவு செய்ய"
+  backHome:"← முகப்பு",badge:"விருந்தினர் அமர்வு",
+  subtitle:"விருந்தினராக முகப்புப் பக்கத்திற்குச் செல்ல பிளக்கை சாக்கெட்டில் இழுத்து இணைக்கவும்.",
+  dragHint:"இணைய பிளக்கை இழுத்து சாக்கெட்டில் பொருத்தவும்",
+  connectedHint:"இணைக்கப்பட்டது! முகப்புப் பக்கம் திறக்கிறது..."
  }
 };
 
 let lang=localStorage.getItem("nextgen_language")||"en";
 let isConnected=false;
 
-function playPlugSound(){
+function playConnectSound(){
  try{
   const ctx=new(window.AudioContext||window.webkitAudioContext)();
   const osc=ctx.createOscillator();
   const gain=ctx.createGain();
   osc.type="sine";
-  osc.frequency.setValueAtTime(440,ctx.currentTime);
-  osc.frequency.exponentialRampToValueAtTime(660,ctx.currentTime+0.12);
+  osc.frequency.setValueAtTime(520,ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(880,ctx.currentTime+0.13);
   gain.gain.setValueAtTime(0.08,ctx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.14);
+  gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.15);
   osc.connect(gain);gain.connect(ctx.destination);
-  osc.start();osc.stop(ctx.currentTime+0.14);
+  osc.start();osc.stop(ctx.currentTime+0.15);
  }catch(e){}
 }
 
@@ -566,10 +531,9 @@ function applyLang(newLang){
  const d=i18n[lang];
  document.querySelectorAll("[data-i18n]").forEach(el=>{
   const k=el.dataset.i18n;
-  if(d[k] && k!=="unpluggedHint" && k!=="connectBtn")el.innerHTML=d[k];
+  if(d[k] && k!=="dragHint")el.innerHTML=d[k];
  });
- document.getElementById("cableCaption").textContent=isConnected?d.pluggedHint:d.unpluggedHint;
- document.getElementById("connectBtn").textContent=isConnected?d.enterNowBtn:d.connectBtn;
+ document.getElementById("cableCaption").textContent=isConnected?d.connectedHint:d.dragHint;
  const names={en:"English",si:"සිංහල",ta:"தமிழ்"};
  document.getElementById("currentLanguage").textContent=names[lang];
  document.querySelectorAll(".language-option").forEach(o=>{
@@ -578,32 +542,108 @@ function applyLang(newLang){
  localStorage.setItem("nextgen_language",lang);
 }
 
+/* DRAG-TO-PLUG LOGIC */
 const plugUnit=document.getElementById("plugUnit");
-const connectBtn=document.getElementById("connectBtn");
+const socketWrapper=document.getElementById("socketWrapper");
+const cableCaption=document.getElementById("cableCaption");
 
-function triggerConnect(){
+let dragging=false;
+let movedDistance=0;
+let startX=0,startY=0;
+let currentX=0,currentY=0;
+
+function getSnapOffset(){
+ const pRect=plugUnit.getBoundingClientRect();
+ const sRect=socketWrapper.getBoundingClientRect();
+ const targetX=(sRect.left - sRect.width*0.42) - pRect.right + currentX;
+ const targetY=(sRect.top + sRect.height/2) - (pRect.top + pRect.height/2) + currentY;
+ return {x:targetX,y:targetY};
+}
+
+function setPlugPos(x,y){
+ currentX=x;
+ currentY=y;
+ plugUnit.style.setProperty("--drag-x",`${x}px`);
+ plugUnit.style.setProperty("--drag-y",`${y}px`);
+}
+
+function completeConnection(){
+ if(isConnected)return;
+ isConnected=true;
+ dragging=false;
+ plugUnit.classList.remove("dragging");
+ socketWrapper.classList.remove("target-hover");
+
+ const snap=getSnapOffset();
+ setPlugPos(snap.x,snap.y);
+
+ document.body.classList.add("connected");
  const d=i18n[lang]||i18n.en;
- if(!isConnected){
-  isConnected=true;
-  document.body.classList.add("connected");
-  document.getElementById("cableCaption").textContent=d.pluggedHint;
-  connectBtn.textContent=d.enterNowBtn;
-  localStorage.setItem("nextgen_guest_mode","true");
-  playPlugSound();
-  setTimeout(()=>{
-   window.location.href="index.html";
-  },850);
- }else{
+ cableCaption.textContent=d.connectedHint;
+ localStorage.setItem("nextgen_guest_mode","true");
+ playConnectSound();
+
+ setTimeout(()=>{
   window.location.href="index.html";
+ },750);
+}
+
+function checkProximityToSocket(){
+ const pRect=plugUnit.getBoundingClientRect();
+ const sRect=socketWrapper.getBoundingClientRect();
+ const dx=(pRect.right)-(sRect.left+sRect.width*0.35);
+ const dy=(pRect.top+pRect.height/2)-(sRect.top+sRect.height/2);
+ const dist=Math.hypot(dx,dy);
+
+ socketWrapper.classList.toggle("target-hover",dist<95);
+ if(dist<58){
+  completeConnection();
  }
 }
 
-plugUnit.addEventListener("click",triggerConnect);
-plugUnit.addEventListener("keydown",e=>{
- if(e.key==="Enter"||e.key===" "){e.preventDefault();triggerConnect();}
+plugUnit.addEventListener("pointerdown",e=>{
+ if(isConnected)return;
+ dragging=true;
+ movedDistance=0;
+ startX=e.clientX - currentX;
+ startY=e.clientY - currentY;
+ plugUnit.classList.add("dragging");
+ plugUnit.setPointerCapture(e.pointerId);
 });
-connectBtn.addEventListener("click",triggerConnect);
 
+plugUnit.addEventListener("pointermove",e=>{
+ if(!dragging||isConnected)return;
+ const nextX=e.clientX - startX;
+ const nextY=e.clientY - startY;
+ movedDistance+=Math.hypot(nextX-currentX,nextY-currentY);
+ const clampedX=Math.max(-24,nextX);
+ const clampedY=Math.max(-46,Math.min(46,nextY));
+ setPlugPos(clampedX,clampedY);
+ checkProximityToSocket();
+});
+
+plugUnit.addEventListener("pointerup",e=>{
+ if(!dragging||isConnected)return;
+ dragging=false;
+ plugUnit.classList.remove("dragging");
+ socketWrapper.classList.remove("target-hover");
+ plugUnit.releasePointerCapture(e.pointerId);
+
+ if(movedDistance<8){
+  completeConnection();
+  return;
+ }
+ setPlugPos(0,0);
+});
+
+plugUnit.addEventListener("keydown",e=>{
+ if(e.key==="Enter"||e.key===" "){
+  e.preventDefault();
+  completeConnection();
+ }
+});
+
+/* LANGUAGE & THEME */
 const langBtn=document.getElementById("languageButton");
 const langMenu=document.getElementById("languageMenu");
 langBtn.addEventListener("click",()=>langMenu.classList.toggle("open"));
@@ -623,13 +663,15 @@ themeSwitch.addEventListener("click",()=>setTheme(document.body.classList.contai
 setTheme(localStorage.getItem("nextgen_theme")||"dark");
 applyLang(lang);
 
+/* 3D CARD TILT */
 const card=document.getElementById("glassCard");
 if(window.matchMedia("(hover:hover) and (pointer:fine)").matches){
  card.addEventListener("mousemove",e=>{
+  if(dragging)return;
   const r=card.getBoundingClientRect();
   const x=(e.clientX-r.left)/r.width;
   const y=(e.clientY-r.top)/r.height;
-  card.style.transform=`perspective(1000px) rotateX(${(.5-y)*5}deg) rotateY(${(x-.5)*5}deg)`;
+  card.style.transform=`perspective(1000px) rotateX(${(.5-y)*4.5}deg) rotateY(${(x-.5)*4.5}deg)`;
  });
  card.addEventListener("mouseleave",()=>{
   card.style.transform="perspective(1000px) rotateX(0) rotateY(0)";
