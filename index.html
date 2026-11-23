@@ -161,7 +161,7 @@ body.light .theme-thumb{transform:translateX(0)}
 main{
  position:fixed;inset:0;width:100%;height:100vh;height:100dvh;
  display:flex;align-items:center;justify-content:center;
- padding:75px 16px 15px;overflow:hidden;
+ padding:72px 16px 20px;overflow:hidden;
 }
 .welcome{
  position:relative;width:100%;max-width:620px;
@@ -404,71 +404,6 @@ main{
  to{translate:0 -23px;rotate:15deg}
 }
 
-/* NAVIGATION - LOGIN ONLY */
-.top-wrap,.bottom-wrap{display:none}
-body.logged-in .top-wrap,
-body.logged-in .bottom-wrap{display:flex}
-.top-wrap{
- position:fixed;top:85px;left:0;right:0;
- padding:0 14px;z-index:100;justify-content:center;
-}
-.top-nav{
- width:min(900px,100%);min-height:58px;
- display:flex;align-items:center;justify-content:space-around;
- padding:7px 12px;border:1px solid rgba(255,255,255,.16);
- border-radius:50px;background:rgba(15,23,42,.72);
- backdrop-filter:blur(25px);
-}
-.top-link{
- flex:1;height:43px;display:flex;align-items:center;
- justify-content:center;gap:8px;border-radius:40px;
- color:#cbd5e1;font-size:11px;font-weight:650;
-}
-.top-link.active{
- color:white;background:linear-gradient(110deg,#2563eb,#1d4ed8);
-}
-.bottom-wrap{
- position:fixed;z-index:100;bottom:14px;left:0;right:0;
- padding:0 14px;justify-content:center;
-}
-.bottom-nav{
- width:min(680px,100%);min-height:76px;
- display:flex;align-items:center;justify-content:space-around;
- padding:6px 10px;border-radius:50px;
- background:rgba(15,23,42,.95);
- border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(28px);
- box-shadow:0 15px 40px rgba(0,0,0,.55);
-}
-.bottom-link{
- flex:1;height:62px;display:flex;flex-direction:column;
- align-items:center;justify-content:center;gap:5px;
- border:0;border-radius:40px;color:#94a3b8;
- background:transparent;font-size:10px;font-weight:700;
-}
-.bottom-link.active{color:#60a5fa}
-.bottom-icon{font-size:23px}
-.bottom-link.create .bottom-icon{
- width:38px;height:38px;border-radius:50%;
- display:grid;place-items:center;
- background:linear-gradient(135deg,#2563eb,#1d4ed8);
- color:white;font-size:27px;
-}
-
-/* SEARCH */
-.search-popup{
- display:none;position:fixed;z-index:200;
- bottom:105px;left:50%;transform:translateX(-50%);
- width:min(430px,calc(100% - 30px));padding:12px;
- border-radius:16px;border:1px solid rgba(255,255,255,.16);
- background:#0f172af5;backdrop-filter:blur(25px);
-}
-.search-popup.show{display:block}
-.search-popup input{
- width:100%;height:45px;padding:0 14px;
- outline:none;border:1px solid rgba(255,255,255,.18);
- border-radius:10px;background:rgba(255,255,255,.06);color:white;
-}
-
 /* LIGHT MODE */
 body.light{
  --bg:#f4f6fa;--text:#0f172a;--muted:#64748b;
@@ -532,17 +467,6 @@ body.light .language-heading{color:#64748b}
 body.light .language-option{color:#0f172a}
 body.light .language-option:hover,
 body.light .language-option.selected{background:rgba(245,158,11,.14)}
-body.light .top-nav{
- background:rgba(255,255,255,.9);border-color:#cbd5e1;
-}
-body.light .top-link{color:#475569}
-body.light .top-link.active{color:white}
-body.light .bottom-nav{
- background:rgba(255,255,255,.96);border-color:#e2e8f0;
- box-shadow:0 12px 35px rgba(15,23,42,.12);
-}
-body.light .bottom-link{color:#64748b}
-body.light .bottom-link.active{color:#2563eb}
 body.light .decor{background:rgba(255,255,255,.75);border-color:#ffffff}
 
 /* RESPONSIVE */
@@ -555,7 +479,7 @@ body.light .decor{background:rgba(255,255,255,.75);border-color:#ffffff}
  body.light .theme-thumb{transform:translateX(0)}
  .sun-icon{left:10px;top:10px}
  .moon-icon{right:10px;top:10px}
- main{padding:75px 14px 15px}
+ main{padding:72px 14px 20px}
  .logo{width:65px;height:65px}
  .logo svg{width:41px;height:41px}
  .brand{font-size:36px}
@@ -565,11 +489,6 @@ body.light .decor{background:rgba(255,255,255,.75);border-color:#ffffff}
  .spot-tab{font-size:11px}
  .decor1{left:-18px;width:38px;height:38px}
  .decor2{right:-16px;width:43px;height:43px}
- .bottom-wrap{bottom:8px;padding:0 9px}
- .bottom-nav{min-height:67px;padding:4px}
- .bottom-link{height:57px;font-size:9px}
- .bottom-icon{font-size:21px}
- .bottom-link.create .bottom-icon{width:35px;height:35px}
 }
 @media(max-height:700px){
  .logo{width:52px;height:52px;margin-bottom:8px}
@@ -655,17 +574,6 @@ body.light .decor{background:rgba(255,255,255,.75);border-color:#ffffff}
  </button>
 </div>
 
-<!-- TOP NAVIGATION -->
-
-<div class="top-wrap">
- <nav class="top-nav">
-  <a href="index.html" class="top-link active" data-i18n="home">⌂ Home</a>
-  <a href="videos.html" class="top-link" data-i18n="videos">▶ Videos</a>
-  <a href="notes.html" class="top-link" data-i18n="notes">▤ Notes</a>
-  <a href="about.html" class="top-link" data-i18n="about">♙ About</a>
- </nav>
-</div>
-
 <!-- WELCOME SCREEN -->
 
 <main>
@@ -739,47 +647,6 @@ body.light .decor{background:rgba(255,255,255,.75);border-color:#ffffff}
 </section>
 </main>
 
-<!-- SEARCH -->
-
-<div class="search-popup" id="searchPopup">
- <input type="search" id="searchInput"
- data-placeholder="searchPlaceholder"
- placeholder="Search videos, creators, topics...">
-</div>
-
-<!-- BOTTOM NAVIGATION -->
-
-<div class="bottom-wrap">
- <nav class="bottom-nav">
-
-  <a href="index.html" class="bottom-link active">
-   <span class="bottom-icon">⌂</span>
-   <span data-i18n="home">Home</span>
-  </a>
-
-  <button class="bottom-link" id="searchBtn">
-   <span class="bottom-icon">⌕</span>
-   <span data-i18n="search">Search</span>
-  </button>
-
-  <a href="upload.html" class="bottom-link create">
-   <span class="bottom-icon">＋</span>
-   <span data-i18n="create">Create</span>
-  </a>
-
-  <a href="inbox.html" class="bottom-link">
-   <span class="bottom-icon">▢</span>
-   <span data-i18n="inbox">Inbox</span>
-  </a>
-
-  <a href="profile.html" class="bottom-link">
-   <span class="bottom-icon">♙</span>
-   <span data-i18n="profile">Profile</span>
-  </a>
-
- </nav>
-</div>
-
 <script>
 
 /* LANGUAGE TRANSLATIONS */
@@ -788,7 +655,6 @@ const translations={
 
 en:{
 chooseLanguage:"SELECT LANGUAGE",
-home:"⌂ Home",videos:"▶ Videos",notes:"▤ Notes",about:"♙ About",
 tagline:"THE FUTURE OF VIDEO LEARNING",
 subtitle:"Watch. Learn. Explore. Create.<br>Discover amazing videos and explore a world of ideas.",
 login:"Log In",signup:"Sign Up",
@@ -797,14 +663,11 @@ tapOnceHint:"Tap a tab once to focus spotlight, tap again to open.",
 tapAgainPrefix:"Spotlight focused on ",
 tapAgainSuffix:" — tap again to continue.",
 copyright:"© 2026 NextGen Play · Watch Beyond Limits",
-privacy:"Privacy",terms:"Terms",contact:"Contact",
-search:"Search",create:"Create",inbox:"Inbox",profile:"Profile",
-searchPlaceholder:"Search videos, creators, topics..."
+privacy:"Privacy",terms:"Terms",contact:"Contact"
 },
 
 si:{
 chooseLanguage:"භාෂාව තෝරන්න",
-home:"⌂ මුල් පිටුව",videos:"▶ වීඩියෝ",notes:"▤ සටහන්",about:"♙ අපි ගැන",
 tagline:"වීඩියෝ අධ්‍යාපනයේ අනාගතය",
 subtitle:"නරඹන්න. ඉගෙනගන්න. ගවේෂණය කරන්න.<br>අලුත් අදහස් සහ විශිෂ්ට වීඩියෝ සොයාගන්න.",
 login:"පිවිසෙන්න",signup:"ලියාපදිංචි වන්න",
@@ -813,14 +676,11 @@ tapOnceHint:"ආලෝකය වැටීමට වරක් ඔබන්න, �
 tapAgainPrefix:"ආලෝකය යොමු කළේ: ",
 tapAgainSuffix:" — පිටුවට යාමට නැවත ඔබන්න.",
 copyright:"© 2026 NextGen Play · දැනුමට නව මානයක්",
-privacy:"පෞද්ගලිකත්වය",terms:"නීති රීති",contact:"අප අමතන්න",
-search:"සොයන්න",create:"නිර්මාණය",inbox:"පණිවිඩ",profile:"පැතිකඩ",
-searchPlaceholder:"වීඩියෝ සහ මාතෘකා සොයන්න..."
+privacy:"පෞද්ගලිකත්වය",terms:"නීති රීති",contact:"අප අමතන්න"
 },
 
 ta:{
 chooseLanguage:"மொழியைத் தேர்ந்தெடுக்கவும்",
-home:"⌂ முகப்பு",videos:"▶ காணொளிகள்",notes:"▤ குறிப்புகள்",about:"♙ எங்களைப் பற்றி",
 tagline:"காணொளிக் கல்வியின் எதிர்காலம்",
 subtitle:"பாருங்கள். கற்றுக்கொள்ளுங்கள். ஆராயுங்கள்.<br>புதிய யோசனைகளையும் சிறந்த காணொளிகளையும் கண்டறியுங்கள்.",
 login:"உள்நுழைய",signup:"பதிவு செய்ய",
@@ -829,9 +689,7 @@ tapOnceHint:"ஒளியை இயக்க ஒருமுறை தட்ட�
 tapAgainPrefix:"ஒளி கவனம்: ",
 tapAgainSuffix:" — திறக்க மீண்டும் தட்டவும்.",
 copyright:"© 2026 NextGen Play · எல்லைகளுக்கு அப்பால் பாருங்கள்",
-privacy:"தனியுரிமை",terms:"விதிமுறைகள்",contact:"தொடர்பு",
-search:"தேடல்",create:"உருவாக்கு",inbox:"செய்திகள்",profile:"சுயவிவரம்",
-searchPlaceholder:"காணொளிகள் மற்றும் தலைப்புகளைத் தேடுங்கள்..."
+privacy:"தனியுரிமை",terms:"விதிமுறைகள்",contact:"தொடர்பு"
 }
 
 };
@@ -873,11 +731,6 @@ function setLanguage(lang){
   if(dictionary[key] && key!=="tapOnceHint"){
    element.innerHTML=dictionary[key];
   }
- });
-
- document.querySelectorAll("[data-placeholder]").forEach(element=>{
-  const key=element.dataset.placeholder;
-  if(dictionary[key])element.placeholder=dictionary[key];
  });
 
  currentLanguage.textContent=languageNames[lang];
@@ -946,43 +799,6 @@ themeSwitch.addEventListener("click",()=>{
 setTheme(localStorage.getItem("nextgen_theme")||"dark");
 
 
-/* LOGIN INTERFACE */
-
-function updateLoginInterface(){
-
- const isLoggedIn=
- localStorage.getItem("nextgen_user_logged_in")==="true";
-
- document.body.classList.toggle("logged-in",isLoggedIn);
-}
-
-updateLoginInterface();
-
-
-/* SEARCH */
-
-const searchBtn=document.getElementById("searchBtn");
-const searchPopup=document.getElementById("searchPopup");
-const searchInput=document.getElementById("searchInput");
-
-searchBtn.addEventListener("click",()=>{
- searchPopup.classList.toggle("show");
-
- if(searchPopup.classList.contains("show")){
-  searchInput.focus();
- }
-});
-
-document.addEventListener("click",event=>{
- if(
-  !searchPopup.contains(event.target)&&
-  !searchBtn.contains(event.target)
- ){
-  searchPopup.classList.remove("show");
- }
-});
-
-
 /* TWO-STEP SPOTLIGHT INTERACTION (1ST CLICK LIGHTS UP, 2ND CLICK NAVIGATES) */
 
 const spotlightPill=document.getElementById("spotlightPill");
@@ -1014,7 +830,6 @@ spotTabs.forEach(tab=>{
  tab.addEventListener("click",event=>{
   event.preventDefault();
 
-  // Second click on the already-lit tab navigates to its page
   if(armedTab===tab){
    const destination=tab.getAttribute("href");
    if(destination){
@@ -1023,7 +838,6 @@ spotTabs.forEach(tab=>{
    return;
   }
 
-  // First click aims the spotlight & lights up this tab only
   armedTab=tab;
   spotTabs.forEach(t=>t.classList.toggle("lit",t===tab));
   aimSpotlightAt(tab);
