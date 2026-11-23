@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1120">
+<title>Sign Up | NextGen Play</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+ margin:0;padding:0;box-sizing:border-box;
+ -webkit-tap-highlight-color:transparent;
+}
+:root{
+ --bg:#0b1120;--text:#f8fafc;--muted:#94a3b8;
+ --gold:#fbbf24;--amber:#f59e0b;--blue:#3b82f6;
+}
+html,body{width:100%;min-height:100%;overflow-x:hidden}
+body{
+ background:var(--bg);color:var(--text);
+ font-family:Inter,sans-serif;
+ transition:background .45s,color .45s;
+}
+button,a,input{font:inherit}
+button,a{cursor:pointer}
+a{color:inherit;text-decoration:none}
+
+.background{
+ position:fixed;inset:0;z-index:-2;overflow:hidden;
+ background:
+ radial-gradient(circle at 28% 35%,rgba(245,158,11,.06),transparent 46%),
+ radial-gradient(ellipse at 85% 15%,rgba(59,130,246,.12),transparent 42%),
+ #0b1120;
+ transition:background .5s;
+}
+.background.lamp-on{
+ background:
+ radial-gradient(circle at 26% 36%,rgba(251,191,36,.16),transparent 52%),
+ radial-gradient(ellipse at 85% 15%,rgba(59,130,246,.1),transparent 42%),
+ #0c1222;
+}
+.orb{
+ position:absolute;width:360px;height:360px;
+ border-radius:50%;filter:blur(135px);opacity:.13;
+ animation:floatOrb 12s ease-in-out infinite alternate;
+}
+.orb1{background:#f59e0b;top:12%;left:-160px}
+.orb2{background:#3b82f6;right:-170px;top:15%;animation-delay:-5s}
+@keyframes floatOrb{to{transform:translate(80px,50px) scale(1.15)}}
+
+.top-bar{
+ position:fixed;top:16px;left:16px;right:16px;
+ display:flex;justify-content:space-between;align-items:center;
+ z-index:300;pointer-events:none;
+}
+.top-bar>*{pointer-events:auto}
+.top-right{display:flex;align-items:center;gap:10px}
+
+.back-btn{
+ display:inline-flex;align-items:center;gap:8px;
+ padding:10px 15px;border-radius:14px;
+ border:1px solid rgba(255,255,255,.15);
+ background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.03));
+ backdrop-filter:blur(20px);color:#f8fafc;
+ font-size:12px;font-weight:700;transition:.25s;
+}
+.back-btn:hover{transform:translateY(-2px);border-color:rgba(251,191,36,.45)}
+
+.language-area{position:relative}
+.language-button{
+ display:flex;align-items:center;gap:8px;
+ padding:10px 14px;border-radius:14px;
+ border:1px solid rgba(255,255,255,.15);color:#f8fafc;
+ background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.03));
+ backdrop-filter:blur(20px);font-size:12px;font-weight:700;transition:.25s;
+}
+.language-button:hover{transform:translateY(-2px);border-color:rgba(251,191,36,.45)}
+.language-menu{
+ position:absolute;top:52px;right:0;width:185px;padding:8px;
+ border-radius:16px;border:1px solid rgba(255,255,255,.15);
+ background:rgba(15,23,42,.97);backdrop-filter:blur(24px);
+ box-shadow:0 20px 45px rgba(0,0,0,.6);
+ opacity:0;visibility:hidden;transform:translateY(-8px) scale(.97);
+ transform-origin:top right;transition:.2s;
+}
+.language-menu.open{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+.language-option{
+ width:100%;display:flex;align-items:center;gap:10px;
+ padding:10px;border:0;border-radius:10px;
+ color:#f8fafc;background:transparent;text-align:left;
+ font-size:12px;font-weight:600;
+}
+.language-option:hover,.language-option.selected{background:rgba(251,191,36,.15)}
+.check{margin-left:auto;color:#fbbf24;opacity:0}
+.language-option.selected .check{opacity:1}
+
+.theme-switch{
+ width:88px;height:42px;position:relative;
+ border-radius:50px;border:1px solid rgba(255,255,255,.2);
+ background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.04));
+ backdrop-filter:blur(20px);overflow:hidden;
+}
+.theme-thumb{
+ position:absolute;top:2px;left:2px;width:36px;height:36px;
+ border-radius:50%;display:grid;place-items:center;
+ background:linear-gradient(145deg,#fde68a,#f59e0b);
+ transition:transform .45s cubic-bezier(.2,.9,.25,1.3),background .35s;
+ z-index:2;
+}
+body:not(.light) .theme-thumb{
+ transform:translateX(46px);
+ background:linear-gradient(145deg,#475569,#1e293b);
+}
+.sun-icon,.moon-icon{position:absolute;top:10px;width:20px;height:20px}
+.sun-icon{left:10px;color:#fff}
+.moon-icon{right:10px;color:#cbd5e1}
+
+.stage{
+ min-height:100vh;min-height:100dvh;
+ width:100%;max-width:1040px;
+ margin:0 auto;padding:86px 20px 36px;
+ display:grid;
+ grid-template-columns:340px minmax(0,450px);
+ align-items:center;justify-content:center;
+ gap:44px;
+ transition:grid-template-columns .45s ease;
+}
+body.lamp-lit .stage{grid-template-columns:320px minmax(0,470px)}
+
+.lamp-column{
+ display:flex;flex-direction:column;align-items:center;
+ position:relative;user-select:none;
+}
+.eyebrow{
+ font-size:9px;font-weight:800;letter-spacing:2px;
+ text-transform:uppercase;color:#94a3b8;margin-bottom:8px;
+}
+.lamp-headline{
+ font-family:"Space Grotesk",sans-serif;
+ font-size:26px;font-weight:700;line-height:1.2;
+ text-align:center;margin-bottom:6px;
+}
+.lamp-sub{
+ font-size:12px;color:var(--muted);text-align:center;
+ max-width:270px;line-height:1.65;margin-bottom:18px;
+}
+
+.lamp-rig{
+ position:relative;width:220px;height:295px;
+ display:flex;flex-direction:column;align-items:center;
+}
+.lamp-shade{
+ position:relative;z-index:4;
+ width:146px;height:94px;
+ border-radius:72px 72px 20px 20px;
+ background:linear-gradient(180deg,#273244 0%,#18202c 70%,#0f151e 100%);
+ border:1px solid rgba(255,255,255,.16);
+ box-shadow:0 12px 28px rgba(0,0,0,.55),inset 0 2px 6px rgba(255,255,255,.12);
+ transition:background .45s,box-shadow .45s,border-color .45s;
+}
+body.lamp-lit .lamp-shade{
+ background:linear-gradient(180deg,#4b3a24 0%,#9a6b28 65%,#f59e0b 100%);
+ border-color:rgba(253,224,71,.55);
+ box-shadow:
+  0 0 38px rgba(251,191,36,.35),
+  0 14px 32px rgba(0,0,0,.45),
+  inset 0 -8px 18px rgba(254,243,199,.65);
+}
+.lamp-cone{
+ position:absolute;top:84px;left:50%;
+ transform:translateX(-50%);
+ width:340px;height:230px;
+ clip-path:polygon(32% 0%, 68% 0%, 100% 100%, 0% 100%);
+ background:radial-gradient(
+  ellipse at 50% 0%,
+  rgba(253,224,71,.34) 0%,
+  rgba(245,158,11,.13) 50%,
+  transparent 80%
+ );
+ filter:blur(10px);opacity:0;pointer-events:none;
+ transition:opacity .45s ease;z-index:2;
+}
+body.lamp-lit .lamp-cone{opacity:1}
+.lamp-neck{width:14px;height:14px;background:linear-gradient(90deg,#334155,#64748b,#1e293b);z-index:3}
+.lamp-stem{width:10px;height:122px;background:linear-gradient(90deg,#1e293b,#64748b 45%,#0f172a);border-radius:4px;z-index:3}
+.lamp-base{
+ width:96px;height:15px;border-radius:12px;
+ background:linear-gradient(180deg,#475569,#1e293b);
+ border:1px solid rgba(255,255,255,.15);
+ box-shadow:0 8px 20px rgba(0,0,0,.55);z-index:3;
+}
+
+.pull-cord-wrap{
+ position:absolute;top:86px;right:46px;z-index:6;
+ display:flex;flex-direction:column;align-items:center;cursor:pointer;
+}
+.cord-string{
+ width:2px;height:96px;
+ background:linear-gradient(180deg,#94a3b8,#e2e8f0);
+ transition:height .25s cubic-bezier(.22,1.4,.36,1);
+}
+.pull-cord-wrap.pulled .cord-string{height:126px}
+.cord-knob{
+ width:13px;height:13px;border-radius:50%;
+ background:radial-gradient(circle at 35% 35%,#fde68a,#d97706);
+ border:1px solid rgba(255,255,255,.45);
+ box-shadow:0 4px 10px rgba(0,0,0,.5);margin-top:-1px;
+ transition:transform .25s cubic-bezier(.22,1.4,.36,1);
+}
+.pull-cord-wrap:hover .cord-knob{transform:scale(1.18)}
+.cord-label{
+ margin-top:14px;font-size:10px;font-weight:700;
+ letter-spacing:1.2px;text-transform:uppercase;color:#fde68a;opacity:.85;
+}
+
+.auth-panel{
+ opacity:0;transform:translateY(24px) scale(.97);pointer-events:none;
+ transition:opacity .45s ease,transform .5s cubic-bezier(.22,1,.36,1);
+}
+body.lamp-lit .auth-panel{
+ opacity:1;transform:translateY(0) scale(1);pointer-events:auto;
+}
+
+.auth-card{
+ padding:28px 28px;border-radius:24px;
+ background:linear-gradient(160deg,rgba(255,255,255,.075),rgba(255,255,255,.025));
+ border:1px solid rgba(255,255,255,.15);
+ backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);
+ box-shadow:0 25px 60px rgba(0,0,0,.5),inset 0 1px rgba(255,255,255,.2);
+}
+.status-pill{
+ display:inline-flex;align-items:center;gap:6px;
+ padding:5px 10px;border-radius:999px;
+ font-size:9px;font-weight:800;letter-spacing:1.3px;
+ background:rgba(251,191,36,.14);border:1px solid rgba(251,191,36,.35);
+ color:#fde68a;margin-bottom:10px;
+}
+.auth-title{font-family:"Space Grotesk",sans-serif;font-size:27px;font-weight:700;margin-bottom:5px}
+.auth-desc{font-size:12px;color:var(--muted);margin-bottom:18px;line-height:1.6}
+
+.field{margin-bottom:13px}
+.field label{
+ display:block;font-size:10px;font-weight:700;
+ letter-spacing:1.1px;text-transform:uppercase;
+ color:#cbd5e1;margin-bottom:6px;
+}
+.input-wrap{position:relative;display:flex;align-items:center}
+.input-wrap input{
+ width:100%;height:44px;padding:0 64px 0 14px;
+ border-radius:12px;border:1px solid rgba(255,255,255,.14);
+ background:rgba(15,23,42,.65);color:#f8fafc;
+ font-size:13px;outline:none;transition:border-color .2s,box-shadow .2s;
+}
+.input-wrap input.no-btn{padding-right:14px}
+.input-wrap input:focus{
+ border-color:#fbbf24;box-shadow:0 0 0 3px rgba(251,191,36,.16);
+}
+.toggle-pass{
+ position:absolute;right:10px;padding:5px 8px;
+ border:0;border-radius:8px;background:transparent;
+ color:#94a3b8;font-size:10px;font-weight:800;letter-spacing:.8px;
+}
+.toggle-pass:hover{color:#fde68a}
+
+.submit-btn{
+ width:100%;height:48px;border:0;border-radius:13px;margin-top:6px;
+ background:linear-gradient(135deg,#fbbf24,#d97706);
+ color:#0f172a;font-size:13px;font-weight:800;
+ box-shadow:0 10px 24px rgba(245,158,11,.28);
+ transition:transform .2s,box-shadow .2s;
+}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(245,158,11,.38)}
+
+.switch-auth{margin-top:16px;text-align:center;font-size:12px;color:var(--muted)}
+.switch-auth a{color:#fde68a;font-weight:700}
+
+body.light{--bg:#f4f6fa;--text:#0f172a;--muted:#64748b}
+body.light .background{background:radial-gradient(circle at 28% 35%,rgba(245,158,11,.12),transparent 48%),#f4f6fa}
+body.light .back-btn,body.light .language-button{color:#0f172a;background:rgba(255,255,255,.9);border-color:#cbd5e1}
+body.light .language-menu{background:rgba(255,255,255,.98);border-color:#cbd5e1}
+body.light .language-option{color:#0f172a}
+body.light .auth-card{background:rgba(255,255,255,.92);border-color:#cbd5e1;box-shadow:0 20px 50px rgba(15,23,42,.12)}
+body.light .field label{color:#334155}
+body.light .input-wrap input{background:#f8fafc;color:#0f172a;border-color:#cbd5e1}
+body.light .status-pill{background:rgba(245,158,11,.15);color:#b45309;border-color:rgba(217,119,6,.3)}
+body.light .switch-auth a,body.light .cord-label{color:#b45309}
+
+@media(max-width:820px){
+ .stage{grid-template-columns:1fr;gap:24px;padding-top:82px}
+ body.lamp-lit .stage{grid-template-columns:1fr}
+ .lamp-rig{height:245px}
+ .lamp-stem{height:82px}
+ .cord-string{height:76px}
+ .pull-cord-wrap.pulled .cord-string{height:102px}
+}
+</style>
+</head>
+<body>
+
+<div class="background" id="bgLayer">
+ <div class="orb orb1"></div>
+ <div class="orb orb2"></div>
+</div>
+
+<div class="top-bar">
+ <a href="index.html" class="back-btn" data-i18n="backHome">← Home</a>
+
+ <div class="top-right">
+  <div class="language-area">
+   <button class="language-button" id="languageButton">
+    <span>🌐</span>
+    <span id="currentLanguage">English</span>
+    <span>▼</span>
+   </button>
+   <div class="language-menu" id="languageMenu">
+    <button class="language-option selected" data-lang="en">
+     <span>🇬🇧</span><span>English</span><span class="check">✓</span>
+    </button>
+    <button class="language-option" data-lang="si">
+     <span>🇱🇰</span><span>සිංහල</span><span class="check">✓</span>
+    </button>
+    <button class="language-option" data-lang="ta">
+     <span>🇮🇳</span><span>தமிழ்</span><span class="check">✓</span>
+    </button>
+   </div>
+  </div>
+
+  <button class="theme-switch" id="themeSwitch" aria-label="Toggle theme">
+   <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/>
+   </svg>
+   <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5 8.5 8.5 0 1 0 20.5 14.5Z"/>
+   </svg>
+   <span class="theme-thumb" id="themeThumb"></span>
+  </button>
+ </div>
+</div>
+
+<main class="stage">
+ <section class="lamp-column">
+  <div class="eyebrow" data-i18n="eyebrow">A LITTLE INTERACTION</div>
+  <h1 class="lamp-headline" data-i18n="lampTitle">Pull the cord.<br>Reveal the light.</h1>
+  <p class="lamp-sub" data-i18n="lampSub">Pull the cord to light up the lamp and reveal the sign-up form.</p>
+
+  <div class="lamp-rig">
+   <div class="lamp-shade"></div>
+   <div class="lamp-cone"></div>
+   <div class="lamp-neck"></div>
+   <div class="lamp-stem"></div>
+   <div class="lamp-base"></div>
+
+   <div class="pull-cord-wrap" id="pullCord" role="button" tabindex="0" aria-label="Pull lamp cord">
+    <div class="cord-string"></div>
+    <div class="cord-knob"></div>
+    <div class="cord-label" id="cordLabel" data-i18n="pullCord">PULL CORD ↓</div>
+   </div>
+  </div>
+ </section>
+
+ <section class="auth-panel">
+  <div class="auth-card">
+   <div class="status-pill" data-i18n="lightOn">● THE LIGHT IS ON</div>
+   <h2 class="auth-title" data-i18n="createTitle">Create account.</h2>
+   <p class="auth-desc" data-i18n="signupDesc">Join NextGen Play to watch, create, and save your progress.</p>
+
+   <form id="signupForm">
+    <div class="field">
+     <label for="fullName" data-i18n="nameLabel">FULL NAME</label>
+     <div class="input-wrap">
+      <input id="fullName" class="no-btn" type="text" placeholder="Your name" required>
+     </div>
+    </div>
+
+    <div class="field">
+     <label for="email" data-i18n="emailLabel">EMAIL ADDRESS</label>
+     <div class="input-wrap">
+      <input id="email" class="no-btn" type="email" placeholder="you@example.com" required>
+     </div>
+    </div>
+
+    <div class="field">
+     <label for="password" data-i18n="passLabel">PASSWORD</label>
+     <div class="input-wrap">
+      <input id="password" type="password" placeholder="Create a password" required>
+      <button type="button" class="toggle-pass" id="togglePass">SHOW</button>
+     </div>
+    </div>
+
+    <button type="submit" class="submit-btn" data-i18n="signUpBtn">CREATE ACCOUNT →</button>
+   </form>
+
+   <div class="switch-auth">
+    <span data-i18n="haveAccount">Already have an account?</span>
+    <a href="login.html" data-i18n="goLogin">Log in</a>
+   </div>
+  </div>
+ </section>
+</main>
+
+<script>
+const i18n={
+ en:{
+  backHome:"← Home",eyebrow:"A LITTLE INTERACTION",
+  lampTitle:"Pull the cord.<br>Reveal the light.",
+  lampSub:"Pull the cord to light up the lamp and reveal the sign-up form.",
+  pullCord:"PULL CORD ↓",turnOffCord:"PULL AGAIN TO OFF ↓",
+  lightOn:"● THE LIGHT IS ON",createTitle:"Create account.",
+  signupDesc:"Join NextGen Play to watch, create, and save your progress.",
+  nameLabel:"FULL NAME",emailLabel:"EMAIL ADDRESS",passLabel:"PASSWORD",
+  signUpBtn:"CREATE ACCOUNT →",haveAccount:"Already have an account?",goLogin:"Log in"
+ },
+ si:{
+  backHome:"← මුල් පිටුව",eyebrow:"සුවිශේෂී අත්දැකීමක්",
+  lampTitle:"නූල අදින්න.<br>ආලෝකය දකින්න.",
+  lampSub:"Sign Up form එක දැකීමට Lamp එකේ නූල අදින්න.",
+  pullCord:"නූල අදින්න ↓",turnOffCord:"නිවීමට නැවත අදින්න ↓",
+  lightOn:"● ආලෝකය දැල්වී ඇත",createTitle:"ගිණුමක් සාදන්න.",
+  signupDesc:"NextGen Play සමඟ එක්වී වීඩියෝ නරඹා ඔබේ දේ නිර්මාණය කරන්න.",
+  nameLabel:"සම්පූර්ණ නම",emailLabel:"ඊමේල් ලිපිනය",passLabel:"මුරපදය",
+  signUpBtn:"ගිණුම සාදන්න →",haveAccount:"දැනටමත් ගිණුමක් තිබේද?",goLogin:"පිවිසෙන්න"
+ },
+ ta:{
+  backHome:"← முகப்பு",eyebrow:"சிறப்பான அனுபவம்",
+  lampTitle:"கயிற்றை இழுக்கவும்.<br>ஒளியைக் காண்க.",
+  lampSub:"பதிவுப் படிவத்தைக் காண விளக்கின் கயிற்றை இழுக்கவும்.",
+  pullCord:"இழுக்கவும் ↓",turnOffCord:"அணைக்க மீண்டும் இழுக்கவும் ↓",
+  lightOn:"● விளக்கு எரிகிறது",createTitle:"கணக்கை உருவாக்கவும்.",
+  signupDesc:"NextGen Play சமூகத்தில் இணைந்து காணொளிகளைப் பாருங்கள்.",
+  nameLabel:"முழுப் பெயர்",emailLabel:"மின்னஞ்சல் முகவரி",passLabel:"கடவுச்சொல்",
+  signUpBtn:"கணக்கை உருவாக்கு →",haveAccount:"ஏற்கனவே கணக்கு உள்ளதா?",goLogin:"உள்நுழைக"
+ }
+};
+
+let lang=localStorage.getItem("nextgen_language")||"en";
+let isLampOn=false;
+
+function playClickSound(){
+ try{
+  const ctx=new(window.AudioContext||window.webkitAudioContext)();
+  const osc=ctx.createOscillator();
+  const gain=ctx.createGain();
+  osc.type="triangle";
+  osc.frequency.setValueAtTime(isLampOn?780:520,ctx.currentTime);
+  gain.gain.setValueAtTime(0.08,ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.07);
+  osc.connect(gain);gain.connect(ctx.destination);
+  osc.start();osc.stop(ctx.currentTime+0.07);
+ }catch(e){}
+}
+
+function applyLang(newLang){
+ if(!i18n[newLang])return;
+ lang=newLang;
+ const d=i18n[lang];
+ document.querySelectorAll("[data-i18n]").forEach(el=>{
+  const k=el.dataset.i18n;
+  if(d[k])el.innerHTML=d[k];
+ });
+ document.getElementById("cordLabel").textContent=isLampOn?d.turnOffCord:d.pullCord;
+ const names={en:"English",si:"සිංහල",ta:"தமிழ்"};
+ document.getElementById("currentLanguage").textContent=names[lang];
+ document.querySelectorAll(".language-option").forEach(o=>{
+  o.classList.toggle("selected",o.dataset.lang===lang);
+ });
+ localStorage.setItem("nextgen_language",lang);
+}
+
+const pullCord=document.getElementById("pullCord");
+const bgLayer=document.getElementById("bgLayer");
+
+function toggleLamp(){
+ pullCord.classList.add("pulled");
+ setTimeout(()=>pullCord.classList.remove("pulled"),240);
+ isLampOn=!isLampOn;
+ document.body.classList.toggle("lamp-lit",isLampOn);
+ bgLayer.classList.toggle("lamp-on",isLampOn);
+ const d=i18n[lang]||i18n.en;
+ document.getElementById("cordLabel").textContent=isLampOn?d.turnOffCord:d.pullCord;
+ playClickSound();
+}
+
+pullCord.addEventListener("click",toggleLamp);
+pullCord.addEventListener("keydown",e=>{
+ if(e.key==="Enter"||e.key===" "){e.preventDefault();toggleLamp();}
+});
+
+const langBtn=document.getElementById("languageButton");
+const langMenu=document.getElementById("languageMenu");
+langBtn.addEventListener("click",()=>langMenu.classList.toggle("open"));
+document.querySelectorAll(".language-option").forEach(opt=>{
+ opt.addEventListener("click",()=>{applyLang(opt.dataset.lang);langMenu.classList.remove("open");});
+});
+document.addEventListener("click",e=>{if(!e.target.closest(".language-area"))langMenu.classList.remove("open");});
+
+const themeSwitch=document.getElementById("themeSwitch");
+function setTheme(t){
+ const light=t==="light";
+ document.body.classList.toggle("light",light);
+ themeSwitch.setAttribute("aria-pressed",String(light));
+ localStorage.setItem("nextgen_theme",t);
+}
+themeSwitch.addEventListener("click",()=>setTheme(document.body.classList.contains("light")?"dark":"light"));
+setTheme(localStorage.getItem("nextgen_theme")||"dark");
+applyLang(lang);
+
+const passInput=document.getElementById("password");
+const togglePass=document.getElementById("togglePass");
+togglePass.addEventListener("click",()=>{
+ const hidden=passInput.type==="password";
+ passInput.type=hidden?"text":"password";
+ togglePass.textContent=hidden?"HIDE":"SHOW";
+});
+
+document.getElementById("signupForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ localStorage.setItem("nextgen_user_logged_in","true");
+ window.location.href="index.html";
+});
+</script>
+</body>
+</html>
