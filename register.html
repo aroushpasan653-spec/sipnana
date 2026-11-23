@@ -517,8 +517,12 @@ togglePass.addEventListener("click",()=>{
 
 document.getElementById("signupForm").addEventListener("submit",e=>{
  e.preventDefault();
+ const userName=document.getElementById("fullName").value.trim();
+ const userEmail=document.getElementById("email").value.trim();
  localStorage.setItem("nextgen_user_logged_in","true");
- window.location.href="index.html";
+ localStorage.setItem("nextgen_user_name",userName);
+ localStorage.setItem("nextgen_user_email",userEmail);
+ window.location.href="web.html";
 });
 </script>
 </body>
